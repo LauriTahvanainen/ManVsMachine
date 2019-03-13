@@ -19,5 +19,8 @@ Lopussa myös pieni lista
 [gitlog.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 [komentorivi.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
+#### Koodin upottaminen
+`System.out.println("Hello world!");`
       
 
