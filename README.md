@@ -14,3 +14,10 @@ Lopussa myös pieni lista
 * Kolme
 	* Vähän yli kolme
 * Neljä
+
+### Alla linkkejä
+[gitlog.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+
+[komentorivi.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+      
+
