@@ -1,0 +1,113 @@
+commit 419f35088d35842801d32c10326a6975aaf2970c
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 16:18:45 2019 +0200
+
+    Poista tiedosto file1 ja uudelleennimeä tiedosto file2 > file22
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 64532b11f1855925bd75b74cdbdb759654cf4a10
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 16:15:09 2019 +0200
+
+    Lisää kansio tiedostoja ja sen sisään file1, file2, file3
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit ed3985cf19a98b47685e1254d36b62d001ce45c9
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 16:07:34 2019 +0200
+
+    Muuta tiedostoja eka.txt ja kolmas.txt
+
+ eka.txt    | 12 ++++--------
+ kolmas.txt |  4 +++-
+ 2 files changed, 7 insertions(+), 9 deletions(-)
+
+commit 5f10b4c70ffbcf9560120323e1af5c92cda186d5
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:57:54 2019 +0200
+
+    Muutetaan tiedosto.txt nimi eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a60652a754058b31119e0c2abedea5e1d91a0a57
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:56:45 2019 +0200
+
+    poista toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 021978c1a6c808275f0d165e8ba5f982a2ef1d4b
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:52:54 2019 +0200
+
+    Muokkaa tiedosto.txt tekstiä
+
+ tiedosto.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+commit 118c04f4f60d62f4509fb5f9935f8badd1368980
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:49:20 2019 +0200
+
+    Lisää tekstiä tiedosto.txt
+
+ tiedosto.txt | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit 047146d05c53531497a7074316b84458e807d66d
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:36:27 2019 +0200
+
+    Luo kansio stuff ja sen siälle tiedosto
+
+ stuff/stuff.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 163fcea82bcf916a988d64589b5a28448fa0cf31
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:33:48 2019 +0200
+
+    Muutoksia kolmas.txt ja toinen.txt sisältöön
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 9e7ca3ab11613005b737351f2ef083ba11a96098
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:29:58 2019 +0200
+
+    Kolmas commit
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 7f49efad707c0939502514fadbf1ee992e47e930
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:25:29 2019 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 73543865fa5f7b443c0dbd8a7bd6851b688cac50
+Author: Lauri Tahvanainen <48516187+LauriTahvanainen@users.noreply.github.com>
+Date:   Wed Mar 13 15:22:01 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
