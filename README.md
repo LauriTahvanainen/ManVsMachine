@@ -1,26 +1,12 @@
-# Esimerkki jonkinlaisesta otsikosta
-## Ja pienemmästä otsikosta
-**Paksua tekstiä**
-Mutta myös normaalia tekstiä
-*Vinoa tekstiä*
-Ja bonuksena
-_Vinon **lihavaa tekstiä**_
+# Ohjelmistotekniikka, harjoitustyö
 
 
 
-Lopussa myös pieni lista
-* Yksi
-* Kaksi
-* Kolme
-	* Vähän yli kolme
-* Neljä
-
-### Alla linkkejä
+## Tehtävät 
+### Viikko 1
 [gitlog.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
 [komentorivi.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
-#### Koodin upottaminen
-`System.out.println("Hello world!");`
-      
-##### Alaotsikonalaotsikonalaotsikonalaotsikko
+### Viikko 2
+[testikattavuus.png](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
