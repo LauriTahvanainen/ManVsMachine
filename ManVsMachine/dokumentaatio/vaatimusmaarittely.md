@@ -28,11 +28,12 @@ Pelinäkymä on labyrintti, jonka lähtö on vasemmassa yläkulmassa, ja maali o
 	* Huipputulosten tarkastelun
 	* Asetukset
 * Uuden pelin valitessaan käyttäjä voi valita algoritmeista vastustajan itselleen, minkä jälkeen peli alkaa satunnaisessa, valmiiksi generoidussa (EI TARKOITA SATUNNAISGENEROINTIA, VAAN KARTTA ON PIIRRETTY PELIN MUISTIIN VALMIIKSI) kartassa
+* Itse pelissä on kaksi hahmoa, algoritmin hahmo, ja käyttäjän hahmo. Molemmat lähtevät samasta paikasta, tavoitteenaan päästä ensimmäisenä maaliin
 * Käyttäjä ohjaa hahmonsa labyrintin läpi nuolinäppäimillä
-* Tavoitteena on toteuttaa myös selviytymispelimuoto, jossa pelaaja aloittaa helppoa algoritmia vastaan, ja peli jatkuu aina uudessa kartassa, vaikeammalla algoritmilla, niin kauan kun pelaaja voittaa algoritmin
+* Pisteitä käyttäjä saa kartan voittaessa tasoon kulutetun ajan mukaan
 * Pelin jälkeen käyttäjän on mahdollista joko, tallentaa tuloksensa, tai palata päävalikkoon
 * Huipputuloksissa käyttäjä voi tarkastella kaikkien pelaajien huipputuloksia erikseen jokaisesta kartasta, jokaista algoritmia vastaan. Myös selviytymispelimuodolla on erilliset tarkasteltavat huipputulokset.
-* Asetuksissa pelaajan on mahdollista mm. vaihtaa käyttäjänimensä (ja ehkä myöhemmin salasanansa), sekä kustomoida pelihahmoaan.
+* Asetuksissa pelaajan on mahdollista mm. vaihtaa käyttäjänimensä, sekä kustomoida pelihahmoaan.
 
 ## Jatkokehitysideoita
 
@@ -48,3 +49,5 @@ Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seura
 * Huipputuloksissa voi valita näytetäänkö pelaajan omat, vai kaikkien tulokset
 * Erilaiset graafiset paketit, joista käyttäjä voi valita mieluisensa
 * Kontrolline kustomointi
+* Selviytymispelimuoto, jossa pelaaja aloittaa helppoa algoritmia vastaan, ja peli jatkuu aina uudessa kartassa, vaikeammalla algoritmilla, niin kauan kun pelaaja voittaa algoritmin
+
