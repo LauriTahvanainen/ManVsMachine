@@ -18,8 +18,8 @@ Pelinäkymä on labyrintti, jonka lähtö on vasemmassa yläkulmassa, ja maali o
 ### Ennen kirjautumista
 * Käyttäjän on mahdollista joko kirjautua vanhalla käyttäjänimellä, tai kirjautua uudella käyttäjänimellä.
 * Käyttäjä voi syöttää käyttäjänimensä lisäyslomakkeeseen uutta käyttäjänimeä luodessa. Nimen on oltava:
-        * Vähintään 4 merkkiä, maksimissaan 16 merkkiä pitkä
-        * Uniikki
+	* Vähintään 4 merkkiä, maksimissaan 16 merkkiä pitkä
+	* Uniikki
 * Kirjautuessa vanhalla nimellä, järjestelmä ilmoittaa jos nimeä ei ole järjestelmässä.
 
 ### Kirjautumisen jälkeen
