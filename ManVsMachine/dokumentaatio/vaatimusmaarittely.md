@@ -27,7 +27,7 @@ Pelinäkymä on labyrintti, jonka lähtö on vasemmassa yläkulmassa, ja maali o
 	* Uuden pelin
 	* Huipputulosten tarkastelun
 	* Asetukset
-* Uuden pelin valitessaan käyttäjä voi valita algoritmeista vastustajan itselleen, minkä jälkeen peli alkaa satunnaisessa, valmiiksi generoidussa (EI TARKOITA SATUNNAISGENEROINTIA, VAAN KARTTA ON PIIRRETTY PELIN MUISTIIN VALMIIKSI) kartassa
+* Uuden pelin valitessaan käyttäjä voi valita algoritmeista vastustajan itselleen, minkä jälkeen peli alkaa satunnaisessa, valmiiksi generoidussa kartassa (Ei satunnaisgeneroitu, vaan kartta valmiiksi piirrettynä pelin muistissa)
 * Itse pelissä on kaksi hahmoa, algoritmin hahmo, ja käyttäjän hahmo. Molemmat lähtevät samasta paikasta, tavoitteenaan päästä ensimmäisenä maaliin
 * Käyttäjä ohjaa hahmonsa labyrintin läpi nuolinäppäimillä
 * Pisteitä käyttäjä saa kartan voittaessa tasoon kulutetun ajan mukaan
