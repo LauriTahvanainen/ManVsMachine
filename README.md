@@ -3,6 +3,7 @@
 Pelin tarkoituksena on ohjata oma hahmo labyrintin läpi ennen vastustajaa, algoritmia. Algoritmi-vastustaja on valittavissa eri algoritmeista. Peli mahdollistaa pelaajille huipputulosten ylöskirjaamisen, ja tarkastelun.
 ### Dokumentaatio
 [Vaatimusmäärittely](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/vaatimusmaarittely.md)
+[Tyoaikakirjanpito](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/tyoaikakirjanpito.md)
 ## Tehtävät 
 ### Viikko 1
 [gitlog.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
