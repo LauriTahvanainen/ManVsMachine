@@ -1,5 +1,5 @@
 # Ohjelmistotekniikka, harjoitustyö
-## [ManVsMachine-peli] (https://github.com/LauriTahvanainen/ot-harjoitustyo/tree/master/ManVsMachine) 
+## [ManVsMachine-peli](https://github.com/LauriTahvanainen/ot-harjoitustyo/tree/master/ManVsMachine) 
 
 
 ## Tehtävät 
