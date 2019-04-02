@@ -11,7 +11,7 @@ Sovellus aukeaa kirjautumisnäkymään, jossa käyttäjä voi joko luoda uuden k
 * Uuteen peliin
 * Huipputulosten tarkasteluun
 * Asetuksiin
-Pelinäkymä on labyrintti, jonka lähtö on vasemmassa yläkulmassa, ja maali oikeassa alakulmassa. Pelin päätyttyä pelaaja voi siirtyä päävalikkoon, tai tulosten tallentamiseen.
+Pelinäkymä on y-akselin mukaan symmetrinen labyrintti, jossa pelaajan lähtö on oikeassa yläkulmassa ja maali vasemmassa alakulmassa, kun taas algoritmin lähtö on vasemmassa yläkulmassa, ja maali oikeassa alakulmassa. Pelin päätyttyä pelaaja voi siirtyä päävalikkoon, tai tulosten tallentamiseen.
 
 ## Perusversion tarjoama toiminnallisuus
 
