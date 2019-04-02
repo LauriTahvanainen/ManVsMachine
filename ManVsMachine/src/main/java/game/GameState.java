@@ -1,5 +1,5 @@
 
-package manvsmachine.game;
+package game;
 
 import javafx.event.ActionEvent;
 import javafx.scene.layout.Pane;

@@ -1,5 +1,5 @@
 
-package Sprites;
+package sprite;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;

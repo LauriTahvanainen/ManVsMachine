@@ -1,4 +1,4 @@
-package manvsmachine.game;
+package game;
 
 import com.sun.glass.ui.Application;
 import javafx.application.Platform;
@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import manvsmachine.ui.MvsMUi;
 
 public class MenuState extends GameState {
 

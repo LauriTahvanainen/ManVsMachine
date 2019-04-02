@@ -1,8 +1,8 @@
 
-package manvsmachine.game;
+package game;
 
 import javafx.animation.AnimationTimer;
-import manvsmachine.game.GameStateManager;
+import game.GameStateManager;
 
 
 public class GameLoop extends AnimationTimer {

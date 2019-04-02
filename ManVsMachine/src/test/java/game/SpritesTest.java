@@ -1,7 +1,7 @@
 
 package game;
 
-import Sprites.Sprite;
+import sprite.Sprite;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

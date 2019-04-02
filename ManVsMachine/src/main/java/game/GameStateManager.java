@@ -1,5 +1,5 @@
 
-package manvsmachine.game;
+package game;
 
 import java.util.ArrayList;
 import javafx.scene.Scene;

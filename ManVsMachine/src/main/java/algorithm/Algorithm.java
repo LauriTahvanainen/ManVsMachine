@@ -1,7 +1,7 @@
 
-package Sprites.algorithm;
+package algorithm;
 
-import Sprites.Sprite;
+import sprite.Sprite;
 import java.util.ArrayDeque;
 
 

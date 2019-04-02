@@ -1,13 +1,12 @@
-package manvsmachine.game;
+package game;
 
-import Sprites.Sprite;
-import Sprites.algorithm.Algorithm;
-import Sprites.algorithm.BFS;
+import sprite.Sprite;
+import algorithm.Algorithm;
+import algorithm.BFS;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.NodeOrientation;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;

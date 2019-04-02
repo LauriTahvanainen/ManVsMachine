@@ -1,20 +1,20 @@
 
-package manvsmachine.ui;
+package ui;
 
-import manvsmachine.game.GameLoop;
-import manvsmachine.game.LoginState;
+import game.GameLoop;
+import game.LoginState;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import manvsmachine.game.ActionEventHandler;
-import manvsmachine.game.GameState;
-import manvsmachine.game.GameStateManager;
-import manvsmachine.game.KeyEventHandler;
-import manvsmachine.game.MenuState;
-import manvsmachine.game.PlayingState;
+import game.ActionEventHandler;
+import game.GameState;
+import game.GameStateManager;
+import game.KeyEventHandler;
+import game.MenuState;
+import game.PlayingState;
 
 
 
