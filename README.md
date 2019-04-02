@@ -5,11 +5,32 @@ Pelin tarkoituksena on ohjata oma hahmo labyrintin läpi ennen vastustajaa, algo
 [Vaatimusmäärittely](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/vaatimusmaarittely.md)
 
 [Tyoaikakirjanpito](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/tyoaikakirjanpito.md)
-## Laskarit 
-### [Viikko 1](https://github.com/LauriTahvanainen/ot-harjoitustyo/tree/master/laskarit/viikko1)
-[gitlog.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-[komentorivi.txt](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+## Komentorivitoiminnot
 
-### [Viikko 2](https://github.com/LauriTahvanainen/ot-harjoitustyo/tree/master/laskarit/viikko2)
-[testikattavuus.png](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/laskarit/viikko2/testikattavuus.png)
+### Testaus
+
+Testit suoritetaan komennolla
+
+```
+mvn test
+```
+
+Testikattavuusraportti luodaan komennolla
+
+```
+mvn jacoco:report
+```
+
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
+
+### Suoritettavan jarin generointi
+
+Komento
+
+```
+mvn package
+```
+
+generoi hakemistoon _target_ suoritettavan jar-tiedoston _ManVsMachine-1.0-SNAPSHOT.jar_
+
