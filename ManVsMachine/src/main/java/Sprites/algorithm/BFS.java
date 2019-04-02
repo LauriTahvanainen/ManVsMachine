@@ -1,4 +1,4 @@
-package Sprites.algorithmlogic;
+package Sprites.algorithm;
 
 import Sprites.Sprite;
 import java.util.ArrayDeque;

@@ -1,5 +1,5 @@
 
-package Sprites.algorithmlogic;
+package Sprites.algorithm;
 
 
 public class Vertex {

@@ -1,8 +1,8 @@
 
-package manvsmachine.uilogic;
+package manvsmachine.game;
 
 import javafx.animation.AnimationTimer;
-import manvsmachine.uilogic.GameStateManager;
+import manvsmachine.game.GameStateManager;
 
 
 public class GameLoop extends AnimationTimer {

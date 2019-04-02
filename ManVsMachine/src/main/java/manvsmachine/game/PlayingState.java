@@ -1,8 +1,8 @@
-package manvsmachine.uilogic;
+package manvsmachine.game;
 
 import Sprites.Sprite;
-import Sprites.algorithmlogic.Algorithm;
-import Sprites.algorithmlogic.BFS;
+import Sprites.algorithm.Algorithm;
+import Sprites.algorithm.BFS;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;

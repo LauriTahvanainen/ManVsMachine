@@ -1,5 +1,5 @@
 
-package manvsmachine.uilogic;
+package manvsmachine.game;
 
 import java.util.ArrayList;
 import javafx.event.EventHandler;

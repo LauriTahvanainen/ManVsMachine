@@ -1,4 +1,4 @@
-package manvsmachine.uilogic;
+package manvsmachine.game;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import manvsmachine.uilogic.GameState;
+import manvsmachine.game.GameState;
 
 public final class LoginState extends GameState {
 

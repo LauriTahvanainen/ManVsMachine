@@ -1,4 +1,4 @@
-package manvsmachine.uilogic;
+package manvsmachine.game;
 
 import com.sun.glass.ui.Application;
 import javafx.application.Platform;
