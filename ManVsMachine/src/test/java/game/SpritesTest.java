@@ -1,9 +1,11 @@
 
 package game;
 
+import javafx.collections.ObservableList;
 import sprite.Sprite;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 import org.junit.After;
@@ -16,6 +18,7 @@ import static org.junit.Assert.*;
 
 public class SpritesTest {
     private Sprite testSprite;
+    private Pane pane;
     
     public SpritesTest() {
     }
@@ -31,6 +34,8 @@ public class SpritesTest {
     @Before
     public void setUp() {
         this.testSprite = new Sprite(Color.BLACK, 10, 10);
+        this.pane = new Pane();
+        this.pane.getChildren().add(this.testSprite.getForm());
     }
     
     @After
@@ -61,5 +66,52 @@ public class SpritesTest {
     @Test
     public void checkCollisionDoesntCollideWithItself() {
         assertFalse(this.testSprite.checkCollision(this.testSprite.getForm()));
+    }
+    
+    @Test
+    public void checkCollisionWorksWhenColliding() {
+        Rectangle rec = new Rectangle(10,10);
+        this.pane.getChildren().add(rec);
+        assertTrue(this.testSprite.checkCollision(rec));
+    }
+    
+    @Test
+    public void checkCollisionWorksWhenNotColliding() {
+        Rectangle rec = new Rectangle(10,10);
+        this.pane.getChildren().add(rec);
+        for (int i = 0; i < 100;i++) {
+            this.testSprite.moveRight();
+            rec.setTranslateY(rec.getTranslateY() + 0.5);
+        }
+        assertFalse(this.testSprite.checkCollision(rec));
+    }
+    
+    @Test
+    public void getFormTest() {
+        Sprite sprite = new Sprite(Color.AQUA,10,15);
+        ObservableList<Double> points = sprite.getForm().getPoints();
+        double[] targetPoints = {0, 0, 0, 10, 15, 10, 15, 0}; 
+        boolean pointsOk = true;
+        for (int i = 0; i < points.size();i++) {
+            if (points.get(i) != targetPoints[i]) {
+                pointsOk = false;
+            }
+        }
+        if (pointsOk) {
+            return;
+        }
+        fail();
+    }
+    
+    @Test
+    public void clearTranslateTest() {
+        this.testSprite.moveDown();
+        this.testSprite.moveDown();
+        this.testSprite.moveDown();
+        this.testSprite.moveRight();
+        this.testSprite.moveUp();
+        this.testSprite.moveDown();
+        this.testSprite.clearTranslate();
+        assertTrue(this.testSprite.getForm().getTranslateX() == 0 && this.testSprite.getForm().getTranslateY() == 0);
     }
 }
