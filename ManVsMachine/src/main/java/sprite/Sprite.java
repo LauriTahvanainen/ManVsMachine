@@ -62,26 +62,13 @@ public class Sprite {
         double nodeCenterX = b.getMinX() + b.getWidth() / 2;
         double nodeCenterY = b.getMinY() + b.getHeight() / 2;
         
-        moveAlong(new Point2D((nodeCenterX - playerCenterX), (nodeCenterY - playerCenterY)));
+        moveAlong(new Point2D((playerCenterX - nodeCenterX), (playerCenterY - nodeCenterY)));
     }
     
-    public void moveTowards(double y, double x) {
-        double movementY = y - this.form.getTranslateY();
-        double movementX = x - this.form.getTranslateX();
-        if (movementY != 0) {
-            movementY = (movementY / Math.abs(movementY) / 2.0);
-        }
-        if (movementX != 0) {
-            movementX = (movementX / Math.abs(movementX) / 2.0);
-        }
-        this.form.setTranslateX(this.form.getTranslateX() + movementX);
-        this.form.setTranslateY(this.form.getTranslateY() + movementY);
-    }
-    
-    public void moveAlong(Point2D v) {
-        v = v.normalize();
-        this.form.setTranslateX(this.form.getTranslateX() - v.getX() * 0.5);
-        this.form.setTranslateY(this.form.getTranslateY() - v.getY() * 0.5);
+    public void moveAlong(Point2D movementVector) {
+        movementVector = movementVector.normalize();
+        this.form.setTranslateX(this.form.getTranslateX() + movementVector.getX() * 0.5);
+        this.form.setTranslateY(this.form.getTranslateY() + movementVector.getY() * 0.5);
     }
     
     public boolean checkCollision(Node node) {

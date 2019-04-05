@@ -3,6 +3,7 @@ package algorithm;
 import sprite.Sprite;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import javafx.geometry.Point2D;
 
 public class BFS extends Algorithm {
 
@@ -78,7 +79,7 @@ public class BFS extends Algorithm {
         if (this.machine.getForm().getTranslateY() == v.getRow() && this.machine.getForm().getTranslateX() == v.getColumn()) {
             this.queue.pop();
         }
-        this.machine.moveTowards(v.getRow(), v.getColumn());
+        this.machine.moveAlong(new Point2D(v.getColumn() - this.machine.getForm().getTranslateX(), v.getRow() - this.machine.getForm().getTranslateY()));
     }
 
     

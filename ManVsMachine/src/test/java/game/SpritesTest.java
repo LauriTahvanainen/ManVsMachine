@@ -2,6 +2,7 @@
 package game;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Point2D;
 import sprite.Sprite;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -114,4 +115,25 @@ public class SpritesTest {
         this.testSprite.clearTranslate();
         assertTrue(this.testSprite.getForm().getTranslateX() == 0 && this.testSprite.getForm().getTranslateY() == 0);
     }
+    
+    @Test 
+    public void moveAlongTest() {
+        boolean rightCoordinates = true;
+        this.testSprite.moveAlong(new Point2D(1,0));
+        if (this.testSprite.getForm().getTranslateX() != 0.5 || this.testSprite.getForm().getTranslateY() != 0) {
+            rightCoordinates = false;
+        }
+        this.testSprite.moveAlong(new Point2D(0.6,-0.8));
+        if (this.testSprite.getForm().getTranslateX() != 0.8 || this.testSprite.getForm().getTranslateY() != -0.4) {
+            rightCoordinates = false;
+        }
+        this.testSprite.getForm().setTranslateX(0);
+        this.testSprite.getForm().setTranslateY(0);
+        this.testSprite.moveAlong(new Point2D(-8,6));
+        if (this.testSprite.getForm().getTranslateX() != -0.4 || this.testSprite.getForm().getTranslateY() != 0.3) {
+            rightCoordinates = false;
+        }
+        assertTrue(rightCoordinates);
+    }
+ 
 }
