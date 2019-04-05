@@ -2,6 +2,7 @@
 package game;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import sprite.Sprite;
 import javafx.scene.layout.Pane;
@@ -134,6 +135,28 @@ public class SpriteTest {
             rightCoordinates = false;
         }
         assertTrue(rightCoordinates);
+    }
+    
+    @Test
+    public void getOutCollisionTest() {
+        boolean t = true;
+        Rectangle rectangle = new Rectangle(10,10);
+        this.pane.getChildren().add(rectangle);
+        rectangle.setTranslateY(5);
+        Bounds recBounds = rectangle.getBoundsInParent();
+        while (this.testSprite.checkCollision(rectangle)) {
+            this.testSprite.getOutCollision(recBounds);
+        }
+        if (!(this.testSprite.getForm().getTranslateX() == 0 && this.testSprite.getForm().getTranslateY() == -5.5)) {
+            t = false;
+        }
+        this.testSprite.getForm().setTranslateX(5);
+        this.testSprite.getForm().setTranslateY(5);
+        this.testSprite.getOutCollision(recBounds);
+        if (!(this.testSprite.getForm().getTranslateX() == 5.5 && this.testSprite.getForm().getTranslateY() == 5)) {
+            t = false;
+        }
+        assertTrue(t);
     }
  
 }

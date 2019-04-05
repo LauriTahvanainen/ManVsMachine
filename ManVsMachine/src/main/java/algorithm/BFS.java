@@ -26,17 +26,6 @@ public class BFS extends Algorithm {
     }
 
     @Override
-    public void setMachine(Sprite machine) {
-        this.machine = machine;
-    }
-
-    @Override
-    public void setMap(int[][] map) {
-        this.map = map;
-        this.visited = new boolean[map.length][map[0].length];
-    }
-
-    @Override
     public void calculateRoute() {
         while (!this.queue.isEmpty() && !this.visited[16][28]) {
             Vertex v = this.queue.poll();
@@ -44,33 +33,30 @@ public class BFS extends Algorithm {
                 this.visited[v.getRow() + 1][v.getColumn()] = true;
                 this.queue.add(new Vertex(v.getRow() + 1, v.getColumn()));
                 this.routeMapScan.add(v.scaleOffset(40, 1, 0));
+                //v to become successor of this vertex v
                 this.routeMap[v.getRow() + 1][v.getColumn()] = v;
             }
             if (this.map[v.getRow() - 1][v.getColumn()] != 1 && !this.visited[v.getRow() - 1][v.getColumn()]) {
                 this.visited[v.getRow() - 1][v.getColumn()] = true;
-                
                 this.queue.add(new Vertex(v.getRow() - 1, v.getColumn()));
                 this.routeMapScan.add(v.scaleOffset(40, -1, 0));
-                this.routeMap[v.getRow() - 1][v.getColumn()] = v;
-                
+                this.routeMap[v.getRow() - 1][v.getColumn()] = v;           
             }
             if (this.map[v.getRow()][v.getColumn() + 1] != 1 && !this.visited[v.getRow()][v.getColumn() + 1]) {
                 this.visited[v.getRow()][v.getColumn() + 1] = true;
-                
                 this.queue.add(new Vertex(v.getRow(), v.getColumn() + 1));
                 this.routeMapScan.add(v.scaleOffset(40, 0, 1));
                 this.routeMap[v.getRow()][v.getColumn() + 1] = v;
-                
             }
             if (this.map[v.getRow()][v.getColumn() - 1] != 1 && !this.visited[v.getRow()][v.getColumn() - 1]) {
                 this.visited[v.getRow()][v.getColumn() - 1] = true;
-                
                 this.queue.add(new Vertex(v.getRow(), v.getColumn() - 1));
                 this.routeMapScan.add(v.scaleOffset(40, 0, -1));
                 this.routeMap[v.getRow()][v.getColumn() - 1] = v;
                 
             }
         }
+        buildRoute();
     }
 
     @Override
@@ -85,6 +71,9 @@ public class BFS extends Algorithm {
     
     @Override
     public void buildRoute() {
+        //build the route backwards from the goal
+        //because the movement is done with the translate of the sprite, there is a -1 x and y offset in the route, so the
+        //last coordinate in the route is not the coordinate map[map.length - 2][map[0].length - 2], but -3
         this.queue.clear();
         Vertex v = this.routeMap[16][28];
         this.queue.add(new Vertex(40 * 15, 40 * 27));

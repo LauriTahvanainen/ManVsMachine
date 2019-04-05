@@ -119,7 +119,6 @@ public class PlayingState extends GameState {
 
         setAlgorithm(new BFS(this.map, this.machine));
         this.algorithm.calculateRoute();
-        this.algorithm.buildRoute();
         setKeyhandlerOn();
 
         this.gsm.startLoop();
