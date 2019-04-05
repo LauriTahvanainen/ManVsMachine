@@ -1,5 +1,7 @@
-package game;
+package stateManagement.game;
 
+import stateManagement.StateManager;
+import eventhandling.KeyEventHandler;
 import sprite.Sprite;
 import algorithm.Algorithm;
 import algorithm.BFS;
@@ -13,45 +15,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import sprite.Machine;
+import stateManagement.State;
 
-public class PlayingState extends GameState {
+public class PlayingState extends State {
 
-    private int[][] map = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1},
-        {1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
-        {1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1},
-        {1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1},
-        {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1},
-        {1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1},
-        {1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
-        {1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1},
-        {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    };
     private Sprite player;
-    private Sprite machine;
+    private Machine machine;
     private GridPane background;
     private boolean start;
     private KeyEventHandler keyHandler;
-    private Algorithm algorithm;
     private Rectangle playerGoal;
     private Rectangle machineGoal;
-    private GameStateManager gsm;
+    private StateManager gsm;
+    private int[][] map;
 
-    public PlayingState(KeyEventHandler handler, GameStateManager gsm) {
+    public PlayingState(KeyEventHandler handler, StateManager gsm) {
         this.player = new Sprite(Color.RED, 20, 20);
-        this.machine = new Sprite(Color.BLUE, 20, 20);
         this.playerGoal = new Rectangle(40, 40, Color.RED);
         this.machineGoal = new Rectangle(40, 40, Color.BLUE);
-        this.machine.getForm().setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         this.background = new GridPane();
         this.start = true;
         this.keyHandler = handler;
@@ -74,8 +56,8 @@ public class PlayingState extends GameState {
         if (wallCollisionCheck()) {
             updatePlayerPosition();
         }
-        if (!this.algorithm.getRoute().isEmpty()) {
-            this.algorithm.takeStep();
+        if (!this.machine.getRoute().isEmpty()) {
+            this.machine.takeStep();
         }
         goalCollisionCheck();
     }
@@ -99,10 +81,11 @@ public class PlayingState extends GameState {
     }
 
     @Override
-    public void restore() {
+    public void restore(Algorithm a, int[][] m) {
         this.background.getChildren().clear();
-        this.machine.clearTranslate();
+        this.machine = new Machine(Color.BLUE,20,20,a);
         this.player.clearTranslate();
+        this.map = m;
         for (int i = 0; i < this.map.length; i++) {
             for (int j = 0; j < this.map[0].length; j++) {
                 if (this.map[i][j] == 1) {
@@ -116,13 +99,8 @@ public class PlayingState extends GameState {
         this.background.add(this.playerGoal, 1, 16);
         GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
-
-        setAlgorithm(new BFS(this.map, this.machine));
-        this.algorithm.calculateRoute();
         setKeyhandlerOn();
-
         this.gsm.startLoop();
-
     }
 
     public void setKeyhandlerOn() {
@@ -158,10 +136,6 @@ public class PlayingState extends GameState {
         return true;
     }
 
-    public void setAlgorithm(Algorithm a) {
-        this.algorithm = a;
-    }
-
     private void goalCollisionCheck() {
         //The first check is done because the seems to be a bug where a nodes bounds in it's parent wont update immediately after adding the node to a parent
         if (this.playerGoal.getBoundsInParent().getMaxY() != this.playerGoal.getBoundsInLocal().getMaxY() && this.machineGoal.getBoundsInParent().getMaxY() != this.machineGoal.getBoundsInLocal().getMaxY()) {
@@ -176,6 +150,11 @@ public class PlayingState extends GameState {
                 gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
             }
         }
+    }
+
+    @Override
+    public void restore() {
+        
     }
 
 }

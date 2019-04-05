@@ -1,5 +1,5 @@
 
-package game;
+package eventhandling;
 
 import java.util.ArrayList;
 import javafx.event.EventHandler;

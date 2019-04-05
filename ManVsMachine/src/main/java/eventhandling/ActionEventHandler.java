@@ -1,14 +1,15 @@
 
-package game;
+package eventhandling;
 
+import stateManagement.StateManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
 public class ActionEventHandler implements EventHandler<ActionEvent> {
-    private GameStateManager gameStateManager;
+    private StateManager gameStateManager;
 
-    public ActionEventHandler(GameStateManager gameStateManager) {
+    public ActionEventHandler(StateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
     }
 

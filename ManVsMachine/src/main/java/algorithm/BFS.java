@@ -8,20 +8,18 @@ import javafx.geometry.Point2D;
 public class BFS extends Algorithm {
 
     private int[][] map;
-    private Sprite machine;
     private ArrayDeque<Vertex> queue;
     private boolean[][] visited;
-    private ArrayDeque<Vertex> routeMapScan;
+    private ArrayDeque<Vertex> mapScan;
     private Vertex[][] routeMap;
     
-    public BFS(int[][] map, Sprite machine) {
+    public BFS(int[][] map) {
         this.map = map;
-        this.machine = machine;
         this.queue = new ArrayDeque<>();
         this.visited = new boolean[map.length][map[0].length];
         this.visited[1][1] = true;
         this.queue.add(new Vertex(1, 1));
-        this.routeMapScan = new ArrayDeque<>();
+        this.mapScan = new ArrayDeque<>();
         this.routeMap = new Vertex[this.map.length][this.map[0].length];
     }
 
@@ -32,45 +30,35 @@ public class BFS extends Algorithm {
             if (this.map[v.getRow() + 1][v.getColumn()] != 1 && !this.visited[v.getRow() + 1][v.getColumn()]) {
                 this.visited[v.getRow() + 1][v.getColumn()] = true;
                 this.queue.add(new Vertex(v.getRow() + 1, v.getColumn()));
-                this.routeMapScan.add(v.scaleOffset(40, 1, 0));
+                this.mapScan.add(v.scaleOffset(40, 1, 0));
                 //v to become successor of this vertex v
                 this.routeMap[v.getRow() + 1][v.getColumn()] = v;
             }
             if (this.map[v.getRow() - 1][v.getColumn()] != 1 && !this.visited[v.getRow() - 1][v.getColumn()]) {
                 this.visited[v.getRow() - 1][v.getColumn()] = true;
                 this.queue.add(new Vertex(v.getRow() - 1, v.getColumn()));
-                this.routeMapScan.add(v.scaleOffset(40, -1, 0));
+                this.mapScan.add(v.scaleOffset(40, -1, 0));
                 this.routeMap[v.getRow() - 1][v.getColumn()] = v;           
             }
             if (this.map[v.getRow()][v.getColumn() + 1] != 1 && !this.visited[v.getRow()][v.getColumn() + 1]) {
                 this.visited[v.getRow()][v.getColumn() + 1] = true;
                 this.queue.add(new Vertex(v.getRow(), v.getColumn() + 1));
-                this.routeMapScan.add(v.scaleOffset(40, 0, 1));
+                this.mapScan.add(v.scaleOffset(40, 0, 1));
                 this.routeMap[v.getRow()][v.getColumn() + 1] = v;
             }
             if (this.map[v.getRow()][v.getColumn() - 1] != 1 && !this.visited[v.getRow()][v.getColumn() - 1]) {
                 this.visited[v.getRow()][v.getColumn() - 1] = true;
                 this.queue.add(new Vertex(v.getRow(), v.getColumn() - 1));
-                this.routeMapScan.add(v.scaleOffset(40, 0, -1));
+                this.mapScan.add(v.scaleOffset(40, 0, -1));
                 this.routeMap[v.getRow()][v.getColumn() - 1] = v;
                 
             }
         }
         buildRoute();
     }
-
-    @Override
-    public void takeStep() {
-        Vertex v = this.queue.peekFirst();
-        if (this.machine.getForm().getTranslateY() == v.getRow() && this.machine.getForm().getTranslateX() == v.getColumn()) {
-            this.queue.pop();
-        }
-        this.machine.moveAlong(new Point2D(v.getColumn() - this.machine.getForm().getTranslateX(), v.getRow() - this.machine.getForm().getTranslateY()));
-    }
-
     
     @Override
-    public void buildRoute() {
+    protected void buildRoute() {
         //build the route backwards from the goal
         //because the movement is done with the translate of the sprite, there is a -1 x and y offset in the route, so the
         //last coordinate in the route is not the coordinate map[map.length - 2][map[0].length - 2], but -3
@@ -88,11 +76,9 @@ public class BFS extends Algorithm {
         return this.queue;
     }
 
-    //TODO
     @Override
-    public void scanTile() {
-        
-        
+    public ArrayDeque<Vertex> getMapScan() {
+        return this.mapScan;
     }
 
 }

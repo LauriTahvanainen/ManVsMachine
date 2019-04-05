@@ -1,17 +1,18 @@
 
-package game;
+package stateManagement;
 
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import stateManagement.game.GameLoop;
 
-public class GameStateManager {
-    private ArrayList<GameState> gameStates;
+public class StateManager {
+    private ArrayList<State> gameStates;
     private int currentState;
     private Scene scene;
     private GameLoop gl;
 
-    public GameStateManager() {
+    public StateManager() {
         this.gameStates = new ArrayList<>();
         this.currentState = 0;
     }
@@ -24,11 +25,11 @@ public class GameStateManager {
         this.gameStates.get(currentState).update();
     }
     
-    public void addState(GameState state) {
+    public void addState(State state) {
         this.gameStates.add(state);
     }
     
-    public GameState getCurrentState() {
+    public State getCurrentState() {
         return this.gameStates.get(currentState);
     }
     

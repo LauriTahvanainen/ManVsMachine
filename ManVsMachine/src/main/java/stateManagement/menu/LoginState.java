@@ -1,25 +1,25 @@
-package game;
+package stateManagement.menu;
 
+import algorithm.Algorithm;
 import javafx.event.ActionEvent;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import game.GameState;
+import stateManagement.State;
+import stateManagement.StateManager;
 
-public final class LoginState extends GameState {
+public final class LoginState extends State {
 
     private final int stateId;
     private Pane currentPane;
     private final Pane root;
     private final Pane signInPane;
     private final Pane createAccountPane;
-    private GameStateManager gsm;
+    private final StateManager gsm;
 
-    public LoginState(GameStateManager gsm) {
+    public LoginState(StateManager gsm) {
         this.gsm = gsm;
         this.root = new HBox();
         this.root.setPrefSize(this.gsm.getScene().getWidth(), this.gsm.getScene().getHeight());
@@ -113,7 +113,11 @@ public final class LoginState extends GameState {
 
     @Override
     public void restore() {
-        
     }
+
+    @Override
+    public void restore(Algorithm a, int[][] map) {
+    }
+
 
 }

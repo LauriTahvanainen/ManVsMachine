@@ -52,7 +52,7 @@ public class BFSTest {
     
     @Before
     public void setUp() {
-        this.search = new BFS(this.map,this.machine);
+        this.search = new BFS(this.map);
         this.search.calculateRoute();
     }
     

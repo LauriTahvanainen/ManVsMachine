@@ -1,14 +1,14 @@
 
-package game;
+package stateManagement.game;
 
 import javafx.animation.AnimationTimer;
-import game.GameStateManager;
+import stateManagement.StateManager;
 
 
 public class GameLoop extends AnimationTimer {
-    private GameStateManager gameStatemanager;
+    private StateManager gameStatemanager;
 
-    public GameLoop(GameStateManager gameStatemanager) {
+    public GameLoop(StateManager gameStatemanager) {
         this.gameStatemanager = gameStatemanager;
     }
     
