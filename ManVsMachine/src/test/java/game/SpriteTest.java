@@ -17,11 +17,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-public class SpritesTest {
+public class SpriteTest {
     private Sprite testSprite;
     private Pane pane;
     
-    public SpritesTest() {
+    public SpriteTest() {
     }
     
     @BeforeClass
