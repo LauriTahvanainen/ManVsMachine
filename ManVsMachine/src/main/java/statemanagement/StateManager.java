@@ -1,10 +1,10 @@
 
-package stateManagement;
+package statemanagement;
 
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import stateManagement.game.GameLoop;
+import statemanagement.game.GameLoop;
 
 public class StateManager {
     private ArrayList<State> gameStates;

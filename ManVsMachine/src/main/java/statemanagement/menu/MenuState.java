@@ -1,9 +1,9 @@
-package stateManagement.menu;
+package statemanagement.menu;
 
 import algorithm.Algorithm;
 import algorithm.BFS;
 import dao.UserDao;
-import stateManagement.StateManager;
+import statemanagement.StateManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import stateManagement.State;
+import statemanagement.State;
 
 public final class MenuState extends State {
 

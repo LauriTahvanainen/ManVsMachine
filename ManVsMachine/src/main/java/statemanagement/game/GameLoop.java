@@ -1,8 +1,8 @@
 
-package stateManagement.game;
+package statemanagement.game;
 
 import javafx.animation.AnimationTimer;
-import stateManagement.StateManager;
+import statemanagement.StateManager;
 
 
 public class GameLoop extends AnimationTimer {

@@ -1,6 +1,6 @@
-package stateManagement.game;
+package statemanagement.game;
 
-import stateManagement.StateManager;
+import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
 import sprite.Sprite;
 import algorithm.Algorithm;
@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import sprite.Machine;
-import stateManagement.State;
+import statemanagement.State;
 
 public class PlayingState extends State {
 
@@ -24,8 +24,8 @@ public class PlayingState extends State {
     private GridPane background;
     private boolean start;
     private final KeyEventHandler keyHandler;
-    private static final Rectangle playerGoal = new Rectangle(40, 40, Color.RED);;
-    private static final Rectangle machineGoal = new Rectangle(40, 40, Color.BLUE);;
+    private static final Rectangle PLAYERGOAL = new Rectangle(40, 40, Color.RED);
+    private static final Rectangle MACHINEGOAL = new Rectangle(40, 40, Color.BLUE);
     private final StateManager gsm;
     private int[][] map;
     private final UserDao userdao;
@@ -82,7 +82,7 @@ public class PlayingState extends State {
     @Override
     public void restore(Algorithm a, int[][] m) {
         this.background.getChildren().clear();
-        this.machine = new Machine(Color.BLUE,20,20,a);
+        this.machine = new Machine(Color.BLUE, 20, 20, a);
         this.player.clearTranslate();
         this.map = m;
         for (int i = 0; i < this.map.length; i++) {
@@ -94,8 +94,8 @@ public class PlayingState extends State {
         }
         this.background.add(this.player.getForm(), 28, 1);
         this.background.add(this.machine.getForm(), 1, 1);
-        this.background.add(PlayingState.machineGoal, 28, 16);
-        this.background.add(PlayingState.playerGoal, 1, 16);
+        this.background.add(PlayingState.MACHINEGOAL, 28, 16);
+        this.background.add(PlayingState.PLAYERGOAL, 1, 16);
         GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
         setKeyhandlerOn();
@@ -124,7 +124,7 @@ public class PlayingState extends State {
 
     private boolean wallCollisionCheck() {
         for (Node node : this.background.getChildren()) {
-            if (node.equals(this.machine.getForm()) || node.equals(PlayingState.machineGoal) || node.equals(this.playerGoal)) {
+            if (node.equals(this.machine.getForm()) || node.equals(PlayingState.MACHINEGOAL) || node.equals(this.PLAYERGOAL)) {
                 continue;
             }
             if (this.player.checkCollision(node)) {
@@ -137,13 +137,13 @@ public class PlayingState extends State {
 
     private void goalCollisionCheck() {
         //The first check is done because the seems to be a bug where a nodes bounds in it's parent wont update immediately after adding the node to a parent
-        if (PlayingState.playerGoal.getBoundsInParent().getMaxY() != PlayingState.playerGoal.getBoundsInLocal().getMaxY() && PlayingState.machineGoal.getBoundsInParent().getMaxY() != PlayingState.machineGoal.getBoundsInLocal().getMaxY()) {
-            if (this.player.checkCollision(PlayingState.playerGoal)) {
+        if (PlayingState.PLAYERGOAL.getBoundsInParent().getMaxY() != PlayingState.PLAYERGOAL.getBoundsInLocal().getMaxY() && PlayingState.MACHINEGOAL.getBoundsInParent().getMaxY() != PlayingState.MACHINEGOAL.getBoundsInLocal().getMaxY()) {
+            if (this.player.checkCollision(PlayingState.PLAYERGOAL)) {
                 gsm.stopLoop();
                 gsm.setCurrentState(1);
                 gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
             }
-            if (this.machine.checkCollision(PlayingState.machineGoal)) {
+            if (this.machine.checkCollision(PlayingState.MACHINEGOAL)) {
                 gsm.stopLoop();
                 gsm.setCurrentState(1);
                 gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
@@ -153,7 +153,7 @@ public class PlayingState extends State {
 
     @Override
     public void restore() {
-        
+
     }
 
 }

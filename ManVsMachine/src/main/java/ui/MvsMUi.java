@@ -2,8 +2,8 @@
 package ui;
 
 import dao.DatabaseUserDao;
-import stateManagement.game.GameLoop;
-import stateManagement.menu.LoginState;
+import statemanagement.game.GameLoop;
+import statemanagement.menu.LoginState;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -11,11 +11,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import eventhandling.ActionEventHandler;
-import stateManagement.StateManager;
+import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
-import stateManagement.State;
-import stateManagement.menu.MenuState;
-import stateManagement.game.PlayingState;
+import statemanagement.State;
+import statemanagement.menu.MenuState;
+import statemanagement.game.PlayingState;
 
 
 

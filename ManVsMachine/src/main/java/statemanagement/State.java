@@ -1,4 +1,4 @@
-package stateManagement;
+package statemanagement;
 
 import algorithm.Algorithm;
 import javafx.event.ActionEvent;

@@ -1,6 +1,6 @@
 package eventhandling;
 
-import stateManagement.StateManager;
+import statemanagement.StateManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;

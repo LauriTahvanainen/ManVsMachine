@@ -1,4 +1,3 @@
-
 package eventhandling;
 
 import java.util.ArrayList;
@@ -7,15 +6,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javax.swing.event.HyperlinkEvent;
 
+public class KeyEventHandler implements EventHandler<KeyEvent> {
 
-public class KeyEventHandler implements EventHandler<KeyEvent>{
     private ArrayList<KeyCode> keyCodes;
-    
 
     public KeyEventHandler() {
         this.keyCodes = new ArrayList<>();
     }
-    
+
     @Override
     public void handle(KeyEvent t) {
         if (t.getEventType() == KeyEvent.KEY_PRESSED) {
@@ -31,6 +29,5 @@ public class KeyEventHandler implements EventHandler<KeyEvent>{
     public ArrayList<KeyCode> getKeyCodes() {
         return keyCodes;
     }
-    
-    
+
 }

@@ -1,4 +1,4 @@
-package stateManagement.menu;
+package statemanagement.menu;
 
 import algorithm.Algorithm;
 import dao.UserDao;
@@ -15,8 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import stateManagement.State;
-import stateManagement.StateManager;
+import statemanagement.State;
+import statemanagement.StateManager;
 
 public final class LoginState extends State {
 

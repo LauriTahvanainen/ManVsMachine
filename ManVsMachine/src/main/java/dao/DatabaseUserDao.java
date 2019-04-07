@@ -11,8 +11,8 @@ import java.util.Properties;
 
 public class DatabaseUserDao implements UserDao {
 
-    private static final String userTableInit = "CREATE TABLE IF NOT EXISTS Username(username varchar(16) PRIMARY KEY, password varchar(64));";
-    private static final String map1Init = "CREATE TABLE IF NOT EXISTS BFS(map1 varchar(16), user varchar(64) PRIMARY KEY);";
+    private static final String USERTABLEINIT = "CREATE TABLE IF NOT EXISTS Username(username varchar(16) PRIMARY KEY, password varchar(64));";
+    private static final String MAP1INIT = "CREATE TABLE IF NOT EXISTS BFS(map1 varchar(16), user varchar(64) PRIMARY KEY);";
     private String databasepath;
 
     public DatabaseUserDao() throws Exception {
@@ -49,8 +49,8 @@ public class DatabaseUserDao implements UserDao {
     private void initDatabase(String path) throws SQLException {
         Connection conn = this.openConnection();
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute(userTableInit);
-            stmt.execute(map1Init);
+            stmt.execute(USERTABLEINIT);
+            stmt.execute(MAP1INIT);
         }
     }
 
