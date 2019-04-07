@@ -11,7 +11,7 @@
 |  1.4. |  9   | Koodausta |
 |  2.4. |  3   | Koodausta, ensimmäinen commit ja pieni muutos vaatimusmäärittelyyn |
 |  5.4  |  5   | Testausta ja pieniä muutoksia |
-|  7.4  |      | Testausta ja kirjautumistoiminnon toteututtamista |
+|  7.4  |  8   | Kirjautumistoiminnon toteuttaminen |
 |       |      |  |
 |       |      |  |
 |       |      |  |
