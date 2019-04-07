@@ -11,10 +11,12 @@ public class StateManager {
     private int currentState;
     private Scene scene;
     private GameLoop gl;
+    private String currentUser;
 
     public StateManager() {
         this.gameStates = new ArrayList<>();
         this.currentState = 0;
+        this.currentUser = "";
     }
     
     public void setGameLoop(GameLoop gl) {
@@ -56,5 +58,14 @@ public class StateManager {
     public void stopLoop() {
         this.gl.stop();
     }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+    
     
 }

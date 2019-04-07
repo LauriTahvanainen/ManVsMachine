@@ -1,6 +1,7 @@
 
 package ui;
 
+import dao.DatabaseUserDao;
 import stateManagement.game.GameLoop;
 import stateManagement.menu.LoginState;
 import javafx.application.Application;
@@ -45,11 +46,11 @@ public class MvsMUi extends Application {
         this.gameLoop = new GameLoop(this.gameStateManager);
         this.gameStateManager.setGameLoop(gameLoop);
         this.gameStateManager.setScene(this.scene);
-        
+        DatabaseUserDao userDao = new DatabaseUserDao();
         KeyEventHandler KeyListener = new KeyEventHandler();
-        State loginState = new LoginState(this.gameStateManager);
-        State menuState = new MenuState(this.gameStateManager);
-        State playingState = new PlayingState(KeyListener, this.gameStateManager);
+        State loginState = new LoginState(this.gameStateManager, userDao);
+        State menuState = new MenuState(this.gameStateManager, userDao);
+        State playingState = new PlayingState(KeyListener, this.gameStateManager, userDao);
         
         this.gameStateManager.addState(loginState);
         this.gameStateManager.addState(menuState);
@@ -59,10 +60,7 @@ public class MvsMUi extends Application {
         this.scene.addEventHandler(ActionEvent.ACTION, actionEventHandler);
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
-
-    
 }

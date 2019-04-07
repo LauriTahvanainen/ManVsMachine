@@ -4,6 +4,7 @@ import stateManagement.StateManager;
 import eventhandling.KeyEventHandler;
 import sprite.Sprite;
 import algorithm.Algorithm;
+import dao.UserDao;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
@@ -22,20 +23,20 @@ public class PlayingState extends State {
     private Machine machine;
     private GridPane background;
     private boolean start;
-    private KeyEventHandler keyHandler;
-    private Rectangle playerGoal;
-    private Rectangle machineGoal;
-    private StateManager gsm;
+    private final KeyEventHandler keyHandler;
+    private static final Rectangle playerGoal = new Rectangle(40, 40, Color.RED);;
+    private static final Rectangle machineGoal = new Rectangle(40, 40, Color.BLUE);;
+    private final StateManager gsm;
     private int[][] map;
+    private final UserDao userdao;
 
-    public PlayingState(KeyEventHandler handler, StateManager gsm) {
+    public PlayingState(KeyEventHandler handler, StateManager gsm, UserDao userdao) {
         this.player = new Sprite(Color.RED, 20, 20);
-        this.playerGoal = new Rectangle(40, 40, Color.RED);
-        this.machineGoal = new Rectangle(40, 40, Color.BLUE);
         this.background = new GridPane();
         this.start = true;
         this.keyHandler = handler;
         this.gsm = gsm;
+        this.userdao = userdao;
     }
 
     @Override
@@ -93,8 +94,8 @@ public class PlayingState extends State {
         }
         this.background.add(this.player.getForm(), 28, 1);
         this.background.add(this.machine.getForm(), 1, 1);
-        this.background.add(this.machineGoal, 28, 16);
-        this.background.add(this.playerGoal, 1, 16);
+        this.background.add(PlayingState.machineGoal, 28, 16);
+        this.background.add(PlayingState.playerGoal, 1, 16);
         GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
         setKeyhandlerOn();
@@ -123,7 +124,7 @@ public class PlayingState extends State {
 
     private boolean wallCollisionCheck() {
         for (Node node : this.background.getChildren()) {
-            if (node.equals(this.machine.getForm()) || node.equals(this.machineGoal) || node.equals(this.playerGoal)) {
+            if (node.equals(this.machine.getForm()) || node.equals(PlayingState.machineGoal) || node.equals(this.playerGoal)) {
                 continue;
             }
             if (this.player.checkCollision(node)) {
@@ -136,13 +137,13 @@ public class PlayingState extends State {
 
     private void goalCollisionCheck() {
         //The first check is done because the seems to be a bug where a nodes bounds in it's parent wont update immediately after adding the node to a parent
-        if (this.playerGoal.getBoundsInParent().getMaxY() != this.playerGoal.getBoundsInLocal().getMaxY() && this.machineGoal.getBoundsInParent().getMaxY() != this.machineGoal.getBoundsInLocal().getMaxY()) {
-            if (this.player.checkCollision(this.playerGoal)) {
+        if (PlayingState.playerGoal.getBoundsInParent().getMaxY() != PlayingState.playerGoal.getBoundsInLocal().getMaxY() && PlayingState.machineGoal.getBoundsInParent().getMaxY() != PlayingState.machineGoal.getBoundsInLocal().getMaxY()) {
+            if (this.player.checkCollision(PlayingState.playerGoal)) {
                 gsm.stopLoop();
                 gsm.setCurrentState(1);
                 gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
             }
-            if (this.machine.checkCollision(this.machineGoal)) {
+            if (this.machine.checkCollision(PlayingState.machineGoal)) {
                 gsm.stopLoop();
                 gsm.setCurrentState(1);
                 gsm.setSceneRoot(gsm.getCurrentState().getCurrent());

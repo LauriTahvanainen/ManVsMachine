@@ -2,13 +2,17 @@ package stateManagement.menu;
 
 import algorithm.Algorithm;
 import algorithm.BFS;
+import dao.UserDao;
 import stateManagement.StateManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import stateManagement.State;
 
 public final class MenuState extends State {
@@ -36,11 +40,13 @@ public final class MenuState extends State {
     private final int stateId;
     private final BorderPane menu;
     private final StateManager gsm;
+    private final UserDao userdao;
+    private Text currentUserText;
 
-    public MenuState(StateManager gsm) {
+    public MenuState(StateManager gsm, UserDao userdao) {
         this.gsm = gsm;
         this.stateId = 1;
-
+        this.userdao = userdao;
         this.menu = new BorderPane();
         this.menu.setPrefSize(this.gsm.getScene().getWidth(), this.gsm.getScene().getHeight());
         initPane();
@@ -58,18 +64,23 @@ public final class MenuState extends State {
 
     @Override
     public void update() {
-
+        this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser());
     }
 
     @Override
     public void initPane() {
         VBox menuNodePane = new VBox();
+        menuNodePane.setAlignment(Pos.CENTER);
         this.menu.setCenter(menuNodePane);
         Button play = new Button("Play");
         Button settings = new Button("Settings");
         Button highScores = new Button("Highscores");
+        Button signOut = new Button("Sign Out");
         Button quit = new Button("Quit");
-        menuNodePane.getChildren().addAll(play, highScores, settings, quit);
+        this.currentUserText = new Text();
+        this.currentUserText.setTranslateY(200);
+        this.currentUserText.setFont(Font.font("verdana", 20));
+        menuNodePane.getChildren().addAll(play, highScores, settings, signOut, quit, currentUserText);
     }
 
     @Override
@@ -87,6 +98,10 @@ public final class MenuState extends State {
             //TODO
 //            gsm.setCurrentState(4);
 //            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
+        } else if (button.getText().equals("Sign Out")) {
+            gsm.setCurrentState(0);
+            gsm.setCurrentUser("");
+            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else {
             Platform.exit();
         }
@@ -99,7 +114,7 @@ public final class MenuState extends State {
 
     @Override
     public void restore(Algorithm a, int[][] map) {
-        
+
     }
 
 }

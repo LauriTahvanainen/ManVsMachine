@@ -1,12 +1,12 @@
-
 package eventhandling;
 
 import stateManagement.StateManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
+import javafx.scene.control.TextField;
 
 public class ActionEventHandler implements EventHandler<ActionEvent> {
+
     private StateManager gameStateManager;
 
     public ActionEventHandler(StateManager gameStateManager) {
@@ -15,7 +15,9 @@ public class ActionEventHandler implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent t) {
-        this.gameStateManager.getCurrentState().handleAction(t);
+        if (!t.getTarget().getClass().equals(TextField.class)) {
+            this.gameStateManager.getCurrentState().handleAction(t);
+        }
     }
 
 }
