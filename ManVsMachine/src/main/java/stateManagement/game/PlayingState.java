@@ -4,11 +4,9 @@ import stateManagement.StateManager;
 import eventhandling.KeyEventHandler;
 import sprite.Sprite;
 import algorithm.Algorithm;
-import algorithm.BFS;
 
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
-import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
@@ -56,7 +54,7 @@ public class PlayingState extends State {
         if (wallCollisionCheck()) {
             updatePlayerPosition();
         }
-        if (!this.machine.getRoute().isEmpty()) {
+        if (!this.machine.getScanRoute().isEmpty()) {
             this.machine.takeStep();
         }
         goalCollisionCheck();

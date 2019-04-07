@@ -29,9 +29,9 @@ public class Machine extends Sprite {
     }
     
     public void scanNext() {
-        Vertex v = this.scanRoute.peekFirst();
+        Vertex v = this.scanRoute.element();
         if (this.getForm().getTranslateY() == v.getRow() && this.getForm().getTranslateX() == v.getColumn()) {
-            this.scanRoute.pop();
+            this.scanRoute.removeFirstOccurrence(v);
         }
         this.moveAlong(new Point2D(v.getColumn() - this.getForm().getTranslateX(), v.getRow() - this.getForm().getTranslateY()));
     }

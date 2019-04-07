@@ -1,9 +1,7 @@
 package algorithm;
 
-import sprite.Sprite;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import javafx.geometry.Point2D;
 
 public class BFS extends Algorithm {
 
