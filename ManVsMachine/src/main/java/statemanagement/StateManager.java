@@ -2,25 +2,20 @@
 package statemanagement;
 
 import java.util.ArrayList;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import statemanagement.game.GameLoop;
 
-public class StateManager {
+public class StateManager extends AnimationTimer {
     private final ArrayList<State> gameStates;
     private int currentState;
     private Scene scene;
-    private GameLoop gl;
     private String currentUser;
 
     public StateManager() {
         this.gameStates = new ArrayList<>();
         this.currentState = 0;
         this.currentUser = "";
-    }
-    
-    public void setGameLoop(GameLoop gl) {
-        this.gl = gl;
     }
     
     public void stateUpdate() {
@@ -52,11 +47,11 @@ public class StateManager {
     }
             
     public void startLoop() {
-        this.gl.start();
+        this.start();
     }
     
     public void stopLoop() {
-        this.gl.stop();
+        this.stop();
     }
 
     public void setCurrentUser(String currentUser) {
@@ -65,6 +60,11 @@ public class StateManager {
 
     public String getCurrentUser() {
         return currentUser;
+    }
+
+    @Override
+    public void handle(long l) {
+        stateUpdate();
     }
     
     

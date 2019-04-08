@@ -17,11 +17,10 @@ import statemanagement.game.PlayingState;
 
 
 
-public class MvsMUi extends Application {
+public class Main extends Application {
     public final int WIDTH = 1200;
     public final int HEIGHT = 720;
     private StateManager gameStateManager;
-    private GameLoop gameLoop;
     private ActionEventHandler actionEventHandler;
     private Scene scene;
     
@@ -41,8 +40,6 @@ public class MvsMUi extends Application {
     public void init() throws Exception {
         this.scene = new Scene(new Pane(), WIDTH, HEIGHT);
         this.gameStateManager = new StateManager();
-        this.gameLoop = new GameLoop(this.gameStateManager);
-        this.gameStateManager.setGameLoop(gameLoop);
         this.gameStateManager.setScene(this.scene);
         DatabaseUserDao userDao = new DatabaseUserDao();
         KeyEventHandler KeyListener = new KeyEventHandler();

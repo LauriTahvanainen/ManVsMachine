@@ -15,7 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import sprite.Machine;
 import statemanagement.State;
-
+//TODO
+//Refactor the whole state, so that gamelogic and drawing will be separated
 public class PlayingState extends State {
 
     private Sprite player;
@@ -53,7 +54,7 @@ public class PlayingState extends State {
         if (wallCollisionCheck()) {
             updatePlayerPosition();
         }
-        if (!this.machine.getScanRoute().isEmpty()) {
+        if (!this.machine.getRoute().isEmpty()) {
             this.machine.takeStep();
         }
         goalCollisionCheck();
