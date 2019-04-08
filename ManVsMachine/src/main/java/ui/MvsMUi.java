@@ -3,7 +3,6 @@ package ui;
 
 import dao.DatabaseUserDao;
 import statemanagement.game.GameLoop;
-import statemanagement.menu.LoginState;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import eventhandling.ActionEventHandler;
 import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
 import statemanagement.State;
-import statemanagement.menu.MenuState;
 import statemanagement.game.PlayingState;
 
 

@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import statemanagement.game.GameLoop;
 
 public class StateManager {
-    private ArrayList<State> gameStates;
+    private final ArrayList<State> gameStates;
     private int currentState;
     private Scene scene;
     private GameLoop gl;

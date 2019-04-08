@@ -1,7 +1,6 @@
 package algorithm;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 
 public class BFS extends Algorithm {
 

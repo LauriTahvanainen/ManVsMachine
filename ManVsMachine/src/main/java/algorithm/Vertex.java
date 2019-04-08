@@ -3,8 +3,8 @@ package algorithm;
 
 
 public class Vertex {
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
     public Vertex(int row, int column) {
         this.row = row;

@@ -1,7 +1,6 @@
 
 package algorithm;
 
-import sprite.Sprite;
 import java.util.ArrayDeque;
 
 

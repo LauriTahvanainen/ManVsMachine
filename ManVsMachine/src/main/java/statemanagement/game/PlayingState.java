@@ -5,7 +5,6 @@ import eventhandling.KeyEventHandler;
 import sprite.Sprite;
 import algorithm.Algorithm;
 import dao.UserDao;
-
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -22,7 +21,6 @@ public class PlayingState extends State {
     private Sprite player;
     private Machine machine;
     private GridPane background;
-    private boolean start;
     private final KeyEventHandler keyHandler;
     private static final Rectangle PLAYERGOAL = new Rectangle(40, 40, Color.RED);
     private static final Rectangle MACHINEGOAL = new Rectangle(40, 40, Color.BLUE);
@@ -33,10 +31,10 @@ public class PlayingState extends State {
     public PlayingState(KeyEventHandler handler, StateManager gsm, UserDao userdao) {
         this.player = new Sprite(Color.RED, 20, 20);
         this.background = new GridPane();
-        this.start = true;
         this.keyHandler = handler;
         this.gsm = gsm;
         this.userdao = userdao;
+        setKeyhandlerOn();
     }
 
     @Override
@@ -80,11 +78,11 @@ public class PlayingState extends State {
     }
 
     @Override
-    public void restore(Algorithm a, int[][] m) {
+    public void restore(Algorithm algo, int[][] map) {
         this.background.getChildren().clear();
-        this.machine = new Machine(Color.BLUE, 20, 20, a);
+        this.machine = new Machine(Color.BLUE, 20, 20, algo);
         this.player.clearTranslate();
-        this.map = m;
+        this.map = map;
         for (int i = 0; i < this.map.length; i++) {
             for (int j = 0; j < this.map[0].length; j++) {
                 if (this.map[i][j] == 1) {
@@ -98,13 +96,12 @@ public class PlayingState extends State {
         this.background.add(PlayingState.PLAYERGOAL, 1, 16);
         GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
-        setKeyhandlerOn();
         this.gsm.startLoop();
     }
 
-    public void setKeyhandlerOn() {
-        this.background.getScene().setOnKeyPressed(keyHandler);
-        this.background.getScene().setOnKeyReleased(keyHandler);
+    private void setKeyhandlerOn() {
+        this.gsm.getScene().setOnKeyPressed(keyHandler);
+        this.gsm.getScene().setOnKeyReleased(keyHandler);
     }
 
     private void updatePlayerPosition() {
@@ -136,7 +133,7 @@ public class PlayingState extends State {
     }
 
     private void goalCollisionCheck() {
-        //The first check is done because the seems to be a bug where a nodes bounds in it's parent wont update immediately after adding the node to a parent
+        //The first check is done because the seems to be a bug where a nodes bounds in it's parent will not update immediately after adding the node to the parent
         if (PlayingState.PLAYERGOAL.getBoundsInParent().getMaxY() != PlayingState.PLAYERGOAL.getBoundsInLocal().getMaxY() && PlayingState.MACHINEGOAL.getBoundsInParent().getMaxY() != PlayingState.MACHINEGOAL.getBoundsInLocal().getMaxY()) {
             if (this.player.checkCollision(PlayingState.PLAYERGOAL)) {
                 gsm.stopLoop();

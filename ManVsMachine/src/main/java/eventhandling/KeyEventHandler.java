@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javax.swing.event.HyperlinkEvent;
 
 public class KeyEventHandler implements EventHandler<KeyEvent> {
 

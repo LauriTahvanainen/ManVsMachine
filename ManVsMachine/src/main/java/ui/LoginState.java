@@ -1,14 +1,10 @@
-package statemanagement.menu;
+package ui;
 
 import algorithm.Algorithm;
 import dao.UserDao;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -26,7 +22,7 @@ public final class LoginState extends State {
     private final VBox signInPane;
     private final VBox createAccountPane;
     private final StateManager gsm;
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public LoginState(StateManager gsm, UserDao userDao) {
         this.gsm = gsm;

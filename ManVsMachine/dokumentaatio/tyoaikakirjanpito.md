@@ -12,6 +12,7 @@
 |  2.4. |  3   | Koodausta, ensimmäinen commit ja pieni muutos vaatimusmäärittelyyn |
 |  5.4  |  5   | Testausta ja pieniä muutoksia |
 |  7.4  |  8   | Kirjautumistoiminnon toteuttaminen |
+|  8.4  |  2   | Checkstyle korjauksia ja muita pieniä muutoksia viikon palautuksen valmistelemiseksi |
 |       |      |  |
 |       |      |  |
 |       |      |  |
@@ -20,5 +21,4 @@
 |       |      |  |
 |       |      |  |
 |       |      |  |
-|       |      |  |
-| yht   |  40  |  | 
+| yht   |  55  |  | 

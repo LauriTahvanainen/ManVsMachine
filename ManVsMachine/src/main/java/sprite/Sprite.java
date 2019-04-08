@@ -1,7 +1,6 @@
 package sprite;
 
 import javafx.geometry.Bounds;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;

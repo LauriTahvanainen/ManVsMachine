@@ -6,7 +6,7 @@ import statemanagement.StateManager;
 
 
 public class GameLoop extends AnimationTimer {
-    private StateManager gameStatemanager;
+    private final StateManager gameStatemanager;
 
     public GameLoop(StateManager gameStatemanager) {
         this.gameStatemanager = gameStatemanager;

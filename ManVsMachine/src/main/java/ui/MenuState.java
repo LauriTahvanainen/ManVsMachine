@@ -1,4 +1,4 @@
-package statemanagement.menu;
+package ui;
 
 import algorithm.Algorithm;
 import algorithm.BFS;
