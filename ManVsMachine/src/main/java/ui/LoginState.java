@@ -133,7 +133,7 @@ public final class LoginState extends State {
     private void handleCreateAccountView(ActionEvent t, Text errorText, TextField inputField) {
         Button button = (Button) t.getTarget();
         if (button.getText().equals("Create account")) {
-            int length = inputField.getText().length();
+            int length = inputField.getText().trim().length();
             if (length < 17 && length > 3) {
                 try {
                     if (this.userDao.create(inputField.getText())) {
