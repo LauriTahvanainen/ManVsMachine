@@ -10,9 +10,10 @@
 | 31.3. |  9   | Koodausta |
 |  1.4. |  9   | Koodausta |
 |  2.4. |  3   | Koodausta, ensimmäinen commit ja pieni muutos vaatimusmäärittelyyn |
-|  5.4  |  5   | Testausta ja pieniä muutoksia |
+|  5.4. |  5   | Testausta ja pieniä muutoksia |
 |  7.4  |  8   | Kirjautumistoiminnon toteuttaminen |
-|  8.4  |  2   | Checkstyle korjauksia ja muita pieniä muutoksia viikon palautuksen valmistelemiseksi |
+|  8.4. |  3   | Checkstyle korjauksia ja muita pieniä muutoksia viikon palautuksen valmistelemiseksi |
+|  9.4. |  2   | PlayingState refaktorointi, viikon 4 palautuksen viimeistely |
 |       |      |  |
 |       |      |  |
 |       |      |  |
@@ -20,5 +21,4 @@
 |       |      |  |
 |       |      |  |
 |       |      |  |
-|       |      |  |
-| yht   |  55  |  | 
+| yht   |  58  |  | 
