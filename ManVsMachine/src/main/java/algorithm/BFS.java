@@ -24,10 +24,10 @@ public class BFS extends Algorithm {
     public void calculateRoute() {
         while (!this.queue.isEmpty() && !this.visited[16][28]) {
             Vertex v = this.queue.poll();
-            checkTile(v,1,0);
-            checkTile(v,0,1);
-            checkTile(v,-1,0);
-            checkTile(v,0,-1);
+            checkTile(v, 1, 0);
+            checkTile(v, 0, 1);
+            checkTile(v, -1, 0);
+            checkTile(v, 0, -1);
         }
         buildRoute();
     }
