@@ -9,7 +9,7 @@ public class BFS extends Algorithm {
     private boolean[][] visited;
     private ArrayDeque<Vertex> mapScan;
     private Vertex[][] routeMap;
-    
+
     public BFS(int[][] map) {
         this.map = map;
         this.queue = new ArrayDeque<>();
@@ -24,36 +24,50 @@ public class BFS extends Algorithm {
     public void calculateRoute() {
         while (!this.queue.isEmpty() && !this.visited[16][28]) {
             Vertex v = this.queue.poll();
-            if (this.map[v.getRow() + 1][v.getColumn()] != 1 && !this.visited[v.getRow() + 1][v.getColumn()]) {
-                this.visited[v.getRow() + 1][v.getColumn()] = true;
-                this.queue.add(new Vertex(v.getRow() + 1, v.getColumn()));
-                this.mapScan.add(v.scaleOffset(40, 1, 0));
-                //v to become successor of this vertex v
-                this.routeMap[v.getRow() + 1][v.getColumn()] = v;
-            }
-            if (this.map[v.getRow() - 1][v.getColumn()] != 1 && !this.visited[v.getRow() - 1][v.getColumn()]) {
-                this.visited[v.getRow() - 1][v.getColumn()] = true;
-                this.queue.add(new Vertex(v.getRow() - 1, v.getColumn()));
-                this.mapScan.add(v.scaleOffset(40, -1, 0));
-                this.routeMap[v.getRow() - 1][v.getColumn()] = v;           
-            }
-            if (this.map[v.getRow()][v.getColumn() + 1] != 1 && !this.visited[v.getRow()][v.getColumn() + 1]) {
-                this.visited[v.getRow()][v.getColumn() + 1] = true;
-                this.queue.add(new Vertex(v.getRow(), v.getColumn() + 1));
-                this.mapScan.add(v.scaleOffset(40, 0, 1));
-                this.routeMap[v.getRow()][v.getColumn() + 1] = v;
-            }
-            if (this.map[v.getRow()][v.getColumn() - 1] != 1 && !this.visited[v.getRow()][v.getColumn() - 1]) {
-                this.visited[v.getRow()][v.getColumn() - 1] = true;
-                this.queue.add(new Vertex(v.getRow(), v.getColumn() - 1));
-                this.mapScan.add(v.scaleOffset(40, 0, -1));
-                this.routeMap[v.getRow()][v.getColumn() - 1] = v;
-                
-            }
+            checkTile(v,1,0);
+            checkTile(v,0,1);
+            checkTile(v,-1,0);
+            checkTile(v,0,-1);
+//            if (this.map[v.getRow() + 1][v.getColumn()] != 1 && !this.visited[v.getRow() + 1][v.getColumn()]) {
+//                this.visited[v.getRow() + 1][v.getColumn()] = true;
+//                this.queue.add(new Vertex(v.getRow() + 1, v.getColumn()));
+//                this.mapScan.add(v.scaleOffset(40, 1, 0));
+//                //v to become successor of this vertex v
+//                this.routeMap[v.getRow() + 1][v.getColumn()] = v;
+//            }
+//            if (this.map[v.getRow() - 1][v.getColumn()] != 1 && !this.visited[v.getRow() - 1][v.getColumn()]) {
+//                this.visited[v.getRow() - 1][v.getColumn()] = true;
+//                this.queue.add(new Vertex(v.getRow() - 1, v.getColumn()));
+//                this.mapScan.add(v.scaleOffset(40, -1, 0));
+//                this.routeMap[v.getRow() - 1][v.getColumn()] = v;
+//            }
+//            if (this.map[v.getRow()][v.getColumn() + 1] != 1 && !this.visited[v.getRow()][v.getColumn() + 1]) {
+//                this.visited[v.getRow()][v.getColumn() + 1] = true;
+//                this.queue.add(new Vertex(v.getRow(), v.getColumn() + 1));
+//                this.mapScan.add(v.scaleOffset(40, 0, 1));
+//                this.routeMap[v.getRow()][v.getColumn() + 1] = v;
+//            }
+//            if (this.map[v.getRow()][v.getColumn() - 1] != 1 && !this.visited[v.getRow()][v.getColumn() - 1]) {
+//                this.visited[v.getRow()][v.getColumn() - 1] = true;
+//                this.queue.add(new Vertex(v.getRow(), v.getColumn() - 1));
+//                this.mapScan.add(v.scaleOffset(40, 0, -1));
+//                this.routeMap[v.getRow()][v.getColumn() - 1] = v;
+//
+//            }
         }
         buildRoute();
     }
-    
+
+    private void checkTile(Vertex vertex, int xOffset, int yOffset) {
+        if (this.map[vertex.getRow() + yOffset][vertex.getColumn() + xOffset] != 1 && !this.visited[vertex.getRow() + yOffset][vertex.getColumn() + xOffset]) {
+            this.visited[vertex.getRow() + yOffset][vertex.getColumn() + xOffset] = true;
+            this.queue.add(new Vertex(vertex.getRow() + yOffset, vertex.getColumn() + xOffset));
+            this.mapScan.add(vertex.scaleOffset(40, yOffset, xOffset));
+            //v to become successor of this vertex v
+            this.routeMap[vertex.getRow() + yOffset][vertex.getColumn() + xOffset] = vertex;
+        }
+    }
+
     @Override
     protected void buildRoute() {
         //build the route backwards from the goal

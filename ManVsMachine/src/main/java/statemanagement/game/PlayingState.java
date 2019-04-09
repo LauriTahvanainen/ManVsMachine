@@ -54,8 +54,8 @@ public class PlayingState extends State {
         if (wallCollisionCheck()) {
             updatePlayerPosition();
         }
-        if (!this.machine.getRoute().isEmpty()) {
-            this.machine.takeStep();
+        if (!this.machine.getScanRoute().isEmpty()) {
+            this.machine.scanNext();
         }
         goalCollisionCheck();
     }

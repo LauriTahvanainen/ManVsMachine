@@ -19,7 +19,7 @@ public class Vertex {
         return row;
     }
     
-    public Vertex scaleOffset(int scale, int xOffSet, int yOffSet) {
-        return new Vertex((this.row - 1 + xOffSet) * 40, (this.column - 1 + yOffSet) * 40);
+    public Vertex scaleOffset(int scale, int yOffSet, int xOffSet) {
+        return new Vertex((this.row - 1 + yOffSet) * 40, (this.column - 1 + xOffSet) * 40);
     }
 }
