@@ -1,10 +1,12 @@
-package statemanagement.game;
+package ui;
 
 import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
 import sprite.Sprite;
 import algorithm.Algorithm;
 import dao.UserDao;
+import game.GamePhysics;
+import game.MapRenderer;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -17,6 +19,7 @@ import sprite.Machine;
 import statemanagement.State;
 //TODO
 //Refactor the whole state, so that gamelogic and drawing will be separated
+
 public class PlayingState extends State {
 
     private Sprite player;
@@ -28,6 +31,8 @@ public class PlayingState extends State {
     private final StateManager gsm;
     private int[][] map;
     private final UserDao userdao;
+    private final MapRenderer renderer;
+    private final GamePhysics physics;
 
     public PlayingState(KeyEventHandler handler, StateManager gsm, UserDao userdao) {
         this.player = new Sprite(Color.RED, 20, 20);
@@ -35,7 +40,8 @@ public class PlayingState extends State {
         this.keyHandler = handler;
         this.gsm = gsm;
         this.userdao = userdao;
-        setKeyhandlerOn();
+        this.renderer = new MapRenderer();
+        this.physics = new GamePhysics(this.keyHandler, PlayingState.PLAYERGOAL, PlayingState.MACHINEGOAL);
     }
 
     @Override
@@ -50,14 +56,13 @@ public class PlayingState extends State {
 
     @Override
     public void update() {
-
-        if (wallCollisionCheck()) {
-            updatePlayerPosition();
+        int ret = this.physics.updateGameWorld();
+        if (ret == 1) {
+            playerWin();
         }
-        if (!this.machine.getScanRoute().isEmpty()) {
-            this.machine.scanNext();
+        if (ret == 2) {
+            machineWin();
         }
-        goalCollisionCheck();
     }
 
     @Override
@@ -80,57 +85,19 @@ public class PlayingState extends State {
 
     @Override
     public void restore(Algorithm algo, int[][] map) {
-        this.background.getChildren().clear();
+        this.background = renderer.renderMap(map);
+        this.gsm.setSceneRoot(background);
         this.machine = new Machine(Color.BLUE, 20, 20, algo);
         this.player.clearTranslate();
         this.map = map;
-        for (int i = 0; i < this.map.length; i++) {
-            for (int j = 0; j < this.map[0].length; j++) {
-                if (this.map[i][j] == 1) {
-                    this.background.add(new Rectangle(40, 40, Color.BLACK), j, i);
-                }
-            }
-        }
         this.background.add(this.player.getForm(), 28, 1);
         this.background.add(this.machine.getForm(), 1, 1);
         this.background.add(PlayingState.MACHINEGOAL, 28, 16);
         this.background.add(PlayingState.PLAYERGOAL, 1, 16);
         GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
+        this.physics.setUpPhysicsWorld(background, player, machine);
         this.gsm.startLoop();
-    }
-
-    private void setKeyhandlerOn() {
-        this.gsm.getScene().setOnKeyPressed(keyHandler);
-        this.gsm.getScene().setOnKeyReleased(keyHandler);
-    }
-
-    private void updatePlayerPosition() {
-        if (this.keyHandler.getKeyCodes().contains(KeyCode.UP)) {
-            this.player.moveUp();
-        }
-        if (this.keyHandler.getKeyCodes().contains(KeyCode.DOWN)) {
-            this.player.moveDown();
-        }
-        if (this.keyHandler.getKeyCodes().contains(KeyCode.LEFT)) {
-            this.player.moveLeft();
-        }
-        if (this.keyHandler.getKeyCodes().contains(KeyCode.RIGHT)) {
-            this.player.moveRight();
-        }
-    }
-
-    private boolean wallCollisionCheck() {
-        for (Node node : this.background.getChildren()) {
-            if (node.equals(this.machine.getForm()) || node.equals(PlayingState.MACHINEGOAL) || node.equals(this.PLAYERGOAL)) {
-                continue;
-            }
-            if (this.player.checkCollision(node)) {
-                this.player.getOutCollision(node.getBoundsInParent());
-                return false;
-            }
-        }
-        return true;
     }
 
     private void goalCollisionCheck() {
@@ -147,6 +114,18 @@ public class PlayingState extends State {
                 gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
             }
         }
+    }
+
+    private void playerWin() {
+        gsm.stopLoop();
+        gsm.setCurrentState(1);
+        gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
+    }
+
+    private void machineWin() {
+        gsm.stopLoop();
+        gsm.setCurrentState(1);
+        gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
     }
 
     @Override

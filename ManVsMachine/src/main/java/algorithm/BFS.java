@@ -28,32 +28,6 @@ public class BFS extends Algorithm {
             checkTile(v,0,1);
             checkTile(v,-1,0);
             checkTile(v,0,-1);
-//            if (this.map[v.getRow() + 1][v.getColumn()] != 1 && !this.visited[v.getRow() + 1][v.getColumn()]) {
-//                this.visited[v.getRow() + 1][v.getColumn()] = true;
-//                this.queue.add(new Vertex(v.getRow() + 1, v.getColumn()));
-//                this.mapScan.add(v.scaleOffset(40, 1, 0));
-//                //v to become successor of this vertex v
-//                this.routeMap[v.getRow() + 1][v.getColumn()] = v;
-//            }
-//            if (this.map[v.getRow() - 1][v.getColumn()] != 1 && !this.visited[v.getRow() - 1][v.getColumn()]) {
-//                this.visited[v.getRow() - 1][v.getColumn()] = true;
-//                this.queue.add(new Vertex(v.getRow() - 1, v.getColumn()));
-//                this.mapScan.add(v.scaleOffset(40, -1, 0));
-//                this.routeMap[v.getRow() - 1][v.getColumn()] = v;
-//            }
-//            if (this.map[v.getRow()][v.getColumn() + 1] != 1 && !this.visited[v.getRow()][v.getColumn() + 1]) {
-//                this.visited[v.getRow()][v.getColumn() + 1] = true;
-//                this.queue.add(new Vertex(v.getRow(), v.getColumn() + 1));
-//                this.mapScan.add(v.scaleOffset(40, 0, 1));
-//                this.routeMap[v.getRow()][v.getColumn() + 1] = v;
-//            }
-//            if (this.map[v.getRow()][v.getColumn() - 1] != 1 && !this.visited[v.getRow()][v.getColumn() - 1]) {
-//                this.visited[v.getRow()][v.getColumn() - 1] = true;
-//                this.queue.add(new Vertex(v.getRow(), v.getColumn() - 1));
-//                this.mapScan.add(v.scaleOffset(40, 0, -1));
-//                this.routeMap[v.getRow()][v.getColumn() - 1] = v;
-//
-//            }
         }
         buildRoute();
     }

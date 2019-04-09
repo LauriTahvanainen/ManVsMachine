@@ -12,7 +12,6 @@ import eventhandling.ActionEventHandler;
 import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
 import statemanagement.State;
-import statemanagement.game.PlayingState;
 
 
 
@@ -42,6 +41,8 @@ public class Main extends Application {
         this.gameStateManager.setScene(this.scene);
         DatabaseUserDao userDao = new DatabaseUserDao();
         KeyEventHandler KeyListener = new KeyEventHandler();
+        this.scene.setOnKeyPressed(KeyListener);
+        this.scene.setOnKeyReleased(KeyListener);
         State loginState = new LoginState(this.gameStateManager, userDao);
         State menuState = new MenuState(this.gameStateManager, userDao);
         State playingState = new PlayingState(KeyListener, this.gameStateManager, userDao);
