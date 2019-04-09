@@ -9,23 +9,18 @@ import game.GamePhysics;
 import game.MapRenderer;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
-import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import sprite.Machine;
 import statemanagement.State;
-//TODO
-//Refactor the whole state, so that gamelogic and drawing will be separated
 
 public class PlayingState extends State {
 
     private Sprite player;
     private Machine machine;
     private GridPane background;
-    private final KeyEventHandler keyHandler;
     private static final Rectangle PLAYERGOAL = new Rectangle(40, 40, Color.RED);
     private static final Rectangle MACHINEGOAL = new Rectangle(40, 40, Color.BLUE);
     private final StateManager gsm;
@@ -34,14 +29,13 @@ public class PlayingState extends State {
     private final MapRenderer renderer;
     private final GamePhysics physics;
 
-    public PlayingState(KeyEventHandler handler, StateManager gsm, UserDao userdao) {
+    public PlayingState(StateManager gsm, UserDao userdao) {
         this.player = new Sprite(Color.RED, 20, 20);
         this.background = new GridPane();
-        this.keyHandler = handler;
         this.gsm = gsm;
         this.userdao = userdao;
         this.renderer = new MapRenderer();
-        this.physics = new GamePhysics(this.keyHandler, PlayingState.PLAYERGOAL, PlayingState.MACHINEGOAL);
+        this.physics = new GamePhysics((KeyEventHandler) this.gsm.getScene().getOnKeyPressed(), PlayingState.PLAYERGOAL, PlayingState.MACHINEGOAL);
     }
 
     @Override
@@ -98,22 +92,6 @@ public class PlayingState extends State {
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
         this.physics.setUpPhysicsWorld(background, player, machine);
         this.gsm.startLoop();
-    }
-
-    private void goalCollisionCheck() {
-        //The first check is done because the seems to be a bug where a nodes bounds in it's parent will not update immediately after adding the node to the parent
-        if (PlayingState.PLAYERGOAL.getBoundsInParent().getMaxY() != PlayingState.PLAYERGOAL.getBoundsInLocal().getMaxY() && PlayingState.MACHINEGOAL.getBoundsInParent().getMaxY() != PlayingState.MACHINEGOAL.getBoundsInLocal().getMaxY()) {
-            if (this.player.checkCollision(PlayingState.PLAYERGOAL)) {
-                gsm.stopLoop();
-                gsm.setCurrentState(1);
-                gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
-            }
-            if (this.machine.checkCollision(PlayingState.MACHINEGOAL)) {
-                gsm.stopLoop();
-                gsm.setCurrentState(1);
-                gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
-            }
-        }
     }
 
     private void playerWin() {

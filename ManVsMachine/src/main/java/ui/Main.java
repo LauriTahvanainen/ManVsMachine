@@ -45,7 +45,7 @@ public class Main extends Application {
         this.scene.setOnKeyReleased(KeyListener);
         State loginState = new LoginState(this.gameStateManager, userDao);
         State menuState = new MenuState(this.gameStateManager, userDao);
-        State playingState = new PlayingState(KeyListener, this.gameStateManager, userDao);
+        State playingState = new PlayingState(this.gameStateManager, userDao);
         
         this.gameStateManager.addState(loginState);
         this.gameStateManager.addState(menuState);
