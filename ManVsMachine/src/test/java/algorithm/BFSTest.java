@@ -38,10 +38,6 @@ public class BFSTest {
     private Machine machine;
     private BFS search;
 
-    public BFSTest() {
-
-    }
-
     @BeforeClass
     public static void setUpClass() {
     }
@@ -63,6 +59,12 @@ public class BFSTest {
     @Test
     public void getRouteNotNullTest() {
         ArrayDeque<Vertex> ret = this.search.getRoute();
+        assertTrue(ret != null);
+    }
+    
+    @Test
+    public void getScanRouteNotNullTest() {
+        ArrayDeque<Vertex> ret = this.search.getMapScan();
         assertTrue(ret != null);
     }
 
@@ -91,17 +93,17 @@ public class BFSTest {
         }
         fail("Your machine doesn't end up in its goal: (" + (this.lastX * 40) + ":" + (this.lastY * 40) + ") It ends at: (" + this.machine.getForm().getTranslateX() + ":" + this.machine.getForm().getTranslateY());
     }
-//    
-//    @Test
-//    public void scanFoundToGoal() {
-//        while (!this.search.getRoute().isEmpty()) {
-//            this.machine.scanNext();
-//        }
-//        if (this.machine.getForm().getTranslateX() == this.lastX * 40 && this.machine.getForm().getTranslateY() == this.lastY * 40) {
-//            return;
-//        }
-//        fail("Your machine doesn't end up in its goal: (" + (this.lastX * 40) + ":" + (this.lastY * 40) + ") It ends at: (" + this.machine.getForm().getTranslateX() + ":" + this.machine.getForm().getTranslateY());
-//    }
+    
+    @Test
+    public void scanFoundToGoal() {
+        while (!this.search.getMapScan().isEmpty()) {
+            this.machine.scanNext();
+        }
+        if (this.machine.getForm().getTranslateX() == this.lastX * 40 && this.machine.getForm().getTranslateY() == this.lastY * 40) {
+            return;
+        }
+        fail("Your machine doesn't end up in its goal: (" + (this.lastX * 40) + ":" + (this.lastY * 40) + ") It ends at: (" + this.machine.getForm().getTranslateX() + ":" + this.machine.getForm().getTranslateY());
+    }
 
     @Test
     public void scanLastOnScanIsGoal() {
@@ -112,5 +114,11 @@ public class BFSTest {
         }
         fail("The end to the scan does not point to the goal: " + this.lastX * 40 + ":" + this.lastY * 40 + ",but: " + v.getColumn() + ":" + v.getRow());
     }
+    
+    @Test
+    public void firstOnRouteNotStartingPosition() {
+        assertFalse(this.search.getRoute().contains(new Vertex(40,40)));
+    }
 
+    
 }

@@ -44,7 +44,7 @@ public class Machine extends Sprite {
         return this.scanRoute;
     }
 
-    private void moveTowards(Point2D point) {
+    public void moveTowards(Point2D point) {
         Point2D towards = new Point2D(point.getX() - this.getForm().getTranslateX(), point.getY() - this.getForm().getTranslateY());
         towards.normalize();
         this.getForm().setTranslateX(this.getForm().getTranslateX() + towards.getX());
