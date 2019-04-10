@@ -14,11 +14,11 @@
 |  7.4  |  8   | Kirjautumistoiminnon toteuttaminen |
 |  8.4. |  3   | Checkstyle korjauksia ja muita pieniä muutoksia viikon palautuksen valmistelemiseksi |
 |  9.4. |  2   | PlayingState refaktorointi, viikon 4 palautuksen viimeistely |
+|  10.4.|  5   | Testausta |
 |       |      |  |
 |       |      |  |
 |       |      |  |
 |       |      |  |
 |       |      |  |
 |       |      |  |
-|       |      |  |
-| yht   |  58  |  | 
+| yht   |  63  |  | 

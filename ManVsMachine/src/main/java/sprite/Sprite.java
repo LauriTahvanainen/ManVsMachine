@@ -12,8 +12,6 @@ public class Sprite {
     private Color color;
     private double height;
     private double width;
-    private double edellinenX;
-    private double edellinenY;
 
     public Sprite(Color color, double height, double width) {
         this.form = new Polygon(0, 0, 0, height, width, height, width, 0);
@@ -28,31 +26,31 @@ public class Sprite {
         return form;
     }
 
-    public void moveRight() {
+    public double getTranslateY() {
+        return this.form.getTranslateY();
+    }
 
-        this.edellinenX = this.form.getTranslateX();
-        this.edellinenY = this.form.getTranslateY();
+    public double getTranslateX() {
+        return this.form.getTranslateX();
+    }
+
+    public Point2D getTranslateCoordinates() {
+        return new Point2D(this.form.getTranslateX(), this.form.getTranslateY());
+    }
+
+    public void moveRight() {
         this.form.setTranslateX(this.form.getTranslateX() + 0.5);
     }
 
     public void moveUp() {
-
-        this.edellinenX = this.form.getTranslateX();
-        this.edellinenY = this.form.getTranslateY();
         this.form.setTranslateY(this.form.getTranslateY() - 0.5);
     }
 
     public void moveDown() {
-
-        this.edellinenX = this.form.getTranslateX();
-        this.edellinenY = this.form.getTranslateY();
         this.form.setTranslateY(this.form.getTranslateY() + 0.5);
     }
 
     public void moveLeft() {
-
-        this.edellinenX = this.form.getTranslateX();
-        this.edellinenY = this.form.getTranslateY();
         this.form.setTranslateX(this.form.getTranslateX() - 0.5);
     }
 

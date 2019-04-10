@@ -80,7 +80,6 @@ public class PlayingState extends State {
     @Override
     public void restore(Algorithm algo, int[][] map) {
         this.background = renderer.renderMap(map);
-        this.gsm.setSceneRoot(background);
         this.machine = new Machine(Color.BLUE, 20, 20, algo);
         this.player.clearTranslate();
         this.map = map;
@@ -91,6 +90,7 @@ public class PlayingState extends State {
         GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
         this.physics.setUpPhysicsWorld(background, player, machine);
+        this.gsm.setSceneRoot(background);
         this.gsm.startLoop();
     }
 
