@@ -1,6 +1,7 @@
 
 package statemanagement;
 
+import dao.User;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -10,12 +11,12 @@ public class StateManager extends AnimationTimer {
     private final ArrayList<State> gameStates;
     private int currentState;
     private Scene scene;
-    private String currentUser;
+    private User currentUser;
 
     public StateManager() {
         this.gameStates = new ArrayList<>();
         this.currentState = 0;
-        this.currentUser = "";
+        this.currentUser = null;
     }
     
     public void stateUpdate() {
@@ -54,11 +55,11 @@ public class StateManager extends AnimationTimer {
         this.stop();
     }
 
-    public void setCurrentUser(String currentUser) {
+    public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
-    public String getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 

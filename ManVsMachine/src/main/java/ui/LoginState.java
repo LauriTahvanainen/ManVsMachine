@@ -1,8 +1,10 @@
 package ui;
 
 import algorithm.Algorithm;
+import dao.User;
 import dao.UserDao;
 import java.sql.SQLException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,7 +18,6 @@ import statemanagement.StateManager;
 
 public final class LoginState extends State {
 
-    private final int stateId;
     private Pane currentPane;
     private final HBox root;
     private final VBox signInPane;
@@ -28,7 +29,6 @@ public final class LoginState extends State {
         this.gsm = gsm;
         this.root = new HBox();
         this.root.setPrefSize(this.gsm.getScene().getWidth(), this.gsm.getScene().getHeight());
-        this.stateId = 0;
         this.signInPane = new VBox();
         this.signInPane.setPrefSize(this.gsm.getScene().getWidth(), this.gsm.getScene().getHeight());
         this.createAccountPane = new VBox();
@@ -47,9 +47,10 @@ public final class LoginState extends State {
     public void initPane() {
         //first view
         root.setAlignment(Pos.CENTER);
+        Button quit = new Button("Quit");
         Button signIn = new Button("Sign in with an existing account");
         Button createNewAccount = new Button("Create a new account");
-        root.getChildren().addAll(signIn, createNewAccount);
+        root.getChildren().addAll(signIn, createNewAccount, quit);
 
         //sign in view
         signInPane.setAlignment(Pos.CENTER);
@@ -84,15 +85,17 @@ public final class LoginState extends State {
         if (button.getText().equals("Sign in with an existing account")) {
             this.currentPane = this.signInPane;
             this.gsm.setSceneRoot(this.signInPane);
-        } else {
+        } else if (button.getText().equals("Create a new account")) {
             this.currentPane = this.createAccountPane;
             this.gsm.setSceneRoot(this.createAccountPane);
+        } else {
+            Platform.exit();
         }
     }
 
     @Override
     public int getStateId() {
-        return this.stateId;
+        return 0;
     }
 
     @Override
@@ -103,13 +106,13 @@ public final class LoginState extends State {
     private void handleSignInView(ActionEvent t, Text errorText, TextField inputField) {
         Button button = (Button) t.getTarget();
         if (button.getText().equals("Sign in")) {
-            String username = null;
+            User user = null;
             try {
-                username = this.userDao.read(inputField.getText());
-                if (username != null) {
+                user = this.userDao.read(inputField.getText());
+                if (user != null) {
                     inputField.clear();
                     errorText.setText("");
-                    this.gsm.setCurrentUser(username);
+                    this.gsm.setCurrentUser(user);
                     this.gsm.setCurrentState(1);
                     this.gsm.setSceneRoot(this.gsm.getCurrentState().getCurrent());
                     this.gsm.stateUpdate();
@@ -133,27 +136,13 @@ public final class LoginState extends State {
     private void handleCreateAccountView(ActionEvent t, Text errorText, TextField inputField) {
         Button button = (Button) t.getTarget();
         if (button.getText().equals("Create account")) {
-            int length = inputField.getText().trim().length();
-            if (length < 17 && length > 3) {
-                try {
-                    if (this.userDao.create(inputField.getText())) {
-                        errorText.setText("Username: '" + inputField.getText() + "' added!");
-                        inputField.clear();
-                    } else {
-                        inputField.clear();
-                        errorText.setText("The username is already taken!");
-                    }
-                } catch (SQLException ex) {
-                    errorText.setText("Unexpected error!");
-                    inputField.clear();
-                }
-            } else {
+            try {
+                int ret = this.userDao.create(inputField.getText());
+                reactToUsernameCreation(ret, errorText, inputField.getText());
                 inputField.clear();
-                if (length < 4) {
-                    errorText.setText("Given username too short!");
-                } else {
-                    errorText.setText("Given username too long!");
-                }
+            } catch (SQLException ex) {
+                errorText.setText("Unexpected error!");
+                inputField.clear();
             }
         } else {
             errorText.setText("");
@@ -170,6 +159,20 @@ public final class LoginState extends State {
 
     @Override
     public void restore(Algorithm a, int[][] map) {
+    }
+
+    private void reactToUsernameCreation(int ret, Text errorText, String username) {
+        if (ret == 1) {
+            errorText.setText("Username: '" + username + "' added!");
+        } else if (ret == 0) {
+            errorText.setText("The username is already taken!");
+        } else if (ret == 3) {
+            errorText.setText("Given username contains a space!");
+        } else if (ret == 4) {
+            errorText.setText("Given username too short!");
+        } else {
+            errorText.setText("Given username too long!");
+        }
     }
 
 }

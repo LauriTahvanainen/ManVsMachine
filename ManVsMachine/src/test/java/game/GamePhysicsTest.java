@@ -53,7 +53,7 @@ public class GamePhysicsTest {
 
     public GamePhysicsTest() {
         this.testHandler = new KeyEventHandler();
-        this.testPhysics = new GamePhysics(testHandler, PLAYERGOAL, MACHINEGOAL);
+        this.testPhysics = new GamePhysics(testHandler);
         this.testPlayer = new Sprite(Color.ALICEBLUE, 20, 20);
         this.testPlayer.clearTranslate();
         this.testMachine = new Machine(Color.BLANCHEDALMOND, 20, 20, new BFS(this.map));
@@ -65,7 +65,7 @@ public class GamePhysicsTest {
         this.testBackground.add(PLAYERGOAL, 1, 16);
         GridPane.setHalignment(this.testPlayer.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.testMachine.getForm(), HPos.CENTER);
-        this.testPhysics.setUpPhysicsWorld(testBackground, testPlayer, testMachine);
+        this.testPhysics.setUpPhysicsWorld(testBackground, testPlayer, testMachine, PLAYERGOAL, MACHINEGOAL);
         this.scene = new Scene(this.testBackground, 1200, 720);
     }
 

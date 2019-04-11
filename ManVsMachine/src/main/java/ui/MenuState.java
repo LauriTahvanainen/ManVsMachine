@@ -64,7 +64,7 @@ public final class MenuState extends State {
 
     @Override
     public void update() {
-        this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser());
+        this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser().getUsername());
     }
 
     @Override
@@ -91,16 +91,16 @@ public final class MenuState extends State {
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
             gsm.getCurrentState().restore(new BFS(this.map), this.map);
         } else if (button.getText().equals("Settings")) {
-            //TODO
-//            gsm.setCurrentState(3);
-//            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
+            gsm.setCurrentState(3);
+            gsm.stateUpdate();
+            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Highscores")) {
             //TODO
 //            gsm.setCurrentState(4);
 //            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Sign Out")) {
             gsm.setCurrentState(0);
-            gsm.setCurrentUser("");
+            gsm.setCurrentUser(null);
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else {
             Platform.exit();

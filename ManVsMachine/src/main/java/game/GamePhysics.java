@@ -13,22 +13,22 @@ public class GamePhysics {
     private GridPane background;
     private Sprite player;
     private Machine machine;
-    private final Rectangle playerGoal;
-    private final Rectangle machineGoal;
+    private Rectangle playerGoal;
+    private Rectangle machineGoal;
     private final KeyEventHandler handler;
 
-    public GamePhysics(KeyEventHandler handler, Rectangle playerGoal, Rectangle machineGoal) {
-        this.playerGoal = playerGoal;
-        this.machineGoal = machineGoal;
+    public GamePhysics(KeyEventHandler handler) {
         this.handler = handler;
     }
     
     
 
-    public void setUpPhysicsWorld(GridPane background, Sprite player, Machine machine) {
+    public void setUpPhysicsWorld(GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal) {
         this.background = background;
         this.player = player;
         this.machine = machine;
+        this.playerGoal = playerGoal;
+        this.machineGoal = machineGoal;
     }
 
     public int updateGameWorld() {

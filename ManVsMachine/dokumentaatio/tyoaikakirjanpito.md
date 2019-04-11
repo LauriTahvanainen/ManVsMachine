@@ -15,10 +15,10 @@
 |  8.4. |  3   | Checkstyle korjauksia ja muita pieniä muutoksia viikon palautuksen valmistelemiseksi |
 |  9.4. |  2   | PlayingState refaktorointi, viikon 4 palautuksen viimeistely |
 |  10.4.|  5   | Testausta |
+|  11.4.|  9   | Käyttäjänimen vaihto-ominaisuuden ja pelaajan värin vaihtamisominaisuuden toteuttaminen. Samalla pieniä rakenteellisia muutoksia. |
 |       |      |  |
 |       |      |  |
 |       |      |  |
 |       |      |  |
 |       |      |  |
-|       |      |  |
-| yht   |  63  |  | 
+| yht   |  72  |  | 

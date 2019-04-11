@@ -21,8 +21,8 @@ public class PlayingState extends State {
     private Sprite player;
     private Machine machine;
     private GridPane background;
-    private static final Rectangle PLAYERGOAL = new Rectangle(40, 40, Color.RED);
-    private static final Rectangle MACHINEGOAL = new Rectangle(40, 40, Color.BLUE);
+    private Rectangle playerGoal;
+    private Rectangle machineGoal;
     private final StateManager gsm;
     private int[][] map;
     private final UserDao userdao;
@@ -30,17 +30,16 @@ public class PlayingState extends State {
     private final GamePhysics physics;
 
     public PlayingState(StateManager gsm, UserDao userdao) {
-        this.player = new Sprite(Color.RED, 20, 20);
         this.background = new GridPane();
         this.gsm = gsm;
         this.userdao = userdao;
         this.renderer = new MapRenderer();
-        this.physics = new GamePhysics((KeyEventHandler) this.gsm.getScene().getOnKeyPressed(), PlayingState.PLAYERGOAL, PlayingState.MACHINEGOAL);
+        this.physics = new GamePhysics((KeyEventHandler) this.gsm.getScene().getOnKeyPressed());
     }
 
     @Override
     public int getStateId() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -80,16 +79,18 @@ public class PlayingState extends State {
     @Override
     public void restore(Algorithm algo, int[][] map) {
         this.background = renderer.renderMap(map);
+        this.player = new Sprite(this.gsm.getCurrentUser().getColor(), 20, 20);
         this.machine = new Machine(Color.BLUE, 20, 20, algo);
-        this.player.clearTranslate();
+        this.machineGoal = new Rectangle(40, 40, Color.BLUE);
+        this.playerGoal = new Rectangle(40, 40, this.gsm.getCurrentUser().getColor());
         this.map = map;
         this.background.add(this.player.getForm(), 28, 1);
         this.background.add(this.machine.getForm(), 1, 1);
-        this.background.add(PlayingState.MACHINEGOAL, 28, 16);
-        this.background.add(PlayingState.PLAYERGOAL, 1, 16);
+        this.background.add(this.machineGoal, 28, 16);
+        this.background.add(this.playerGoal, 1, 16);
         GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
-        this.physics.setUpPhysicsWorld(background, player, machine);
+        this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal);
         this.gsm.setSceneRoot(background);
         this.gsm.startLoop();
     }

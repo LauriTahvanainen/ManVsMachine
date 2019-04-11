@@ -1,4 +1,3 @@
-
 package ui;
 
 import dao.DatabaseUserDao;
@@ -13,15 +12,14 @@ import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
 import statemanagement.State;
 
-
-
 public class Main extends Application {
+
     public final int WIDTH = 1200;
     public final int HEIGHT = 720;
-    private StateManager gameStateManager;
+    private StateManager stateManager;
     private ActionEventHandler actionEventHandler;
     private Scene scene;
-    
+
     @Override
     public void start(Stage stage) {
         stage.setTitle("Man Vs Machine");
@@ -33,25 +31,27 @@ public class Main extends Application {
         stage.setScene(this.scene);
         stage.show();
     }
-    
+
     @Override
     public void init() throws Exception {
         this.scene = new Scene(new Pane(), WIDTH, HEIGHT);
-        this.gameStateManager = new StateManager();
-        this.gameStateManager.setScene(this.scene);
+        this.stateManager = new StateManager();
+        this.stateManager.setScene(this.scene);
         DatabaseUserDao userDao = new DatabaseUserDao();
         KeyEventHandler KeyListener = new KeyEventHandler();
         this.scene.setOnKeyPressed(KeyListener);
         this.scene.setOnKeyReleased(KeyListener);
-        State loginState = new LoginState(this.gameStateManager, userDao);
-        State menuState = new MenuState(this.gameStateManager, userDao);
-        State playingState = new PlayingState(this.gameStateManager, userDao);
-        
-        this.gameStateManager.addState(loginState);
-        this.gameStateManager.addState(menuState);
-        this.gameStateManager.addState(playingState);
-        this.scene.setRoot(this.gameStateManager.getCurrentState().getCurrent());
-        this.actionEventHandler = new ActionEventHandler(gameStateManager);
+        State loginState = new LoginState(this.stateManager, userDao);
+        State menuState = new MenuState(this.stateManager, userDao);
+        State playingState = new PlayingState(this.stateManager, userDao);
+        State settingsState = new SettingsState(this.stateManager, userDao);
+
+        this.stateManager.addState(loginState);
+        this.stateManager.addState(menuState);
+        this.stateManager.addState(playingState);
+        this.stateManager.addState(settingsState);
+        this.scene.setRoot(this.stateManager.getCurrentState().getCurrent());
+        this.actionEventHandler = new ActionEventHandler(stateManager);
         this.scene.addEventHandler(ActionEvent.ACTION, actionEventHandler);
     }
 
