@@ -16,9 +16,9 @@
 |  9.4. |  2   | PlayingState refaktorointi, viikon 4 palautuksen viimeistely |
 |  10.4.|  5   | Testausta |
 |  11.4.|  9   | Käyttäjänimen vaihto-ominaisuuden ja pelaajan värin vaihtamisominaisuuden toteuttaminen. Samalla pieniä rakenteellisia muutoksia. |
+|  14.4.|  5   | Sekvenssikaavio sisäänkirjautumisesta. Testausta. |
 |       |      |  |
 |       |      |  |
 |       |      |  |
 |       |      |  |
-|       |      |  |
-| yht   |  72  |  | 
+| yht   |  77  |  | 

@@ -59,7 +59,6 @@ public class DatabaseUserDao implements UserDao {
                 stmt.setString(2, oldUsername);
                 stmt.executeUpdate();
             } catch (SQLException e) {
-                conn.close();
                 stmt.close();
                 return 0;
             }
