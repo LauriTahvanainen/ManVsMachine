@@ -18,6 +18,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import sprite.Machine;
 import sprite.Sprite;
+import statemanagement.StateManager;
+import ui.Main;
 
 public class GamePhysicsTest {
 
@@ -43,7 +45,6 @@ public class GamePhysicsTest {
     };
     private GamePhysics testPhysics;
     private Machine testMachine;
-    private MapRenderer testRenderer;
     private Sprite testPlayer;
     private GridPane testBackground;
     private static final Rectangle PLAYERGOAL = new Rectangle(40, 40, Color.RED);
@@ -55,14 +56,14 @@ public class GamePhysicsTest {
         this.testHandler = new KeyEventHandler();
         this.testPhysics = new GamePhysics(testHandler);
         this.testPlayer = new Sprite(Color.ALICEBLUE, 20, 20);
-        this.testPlayer.clearTranslate();
         this.testMachine = new Machine(Color.BLANCHEDALMOND, 20, 20, new BFS(this.map));
-        this.testRenderer = new MapRenderer();
-        this.testBackground = this.testRenderer.renderMap(map);
-        this.testBackground.add(this.testPlayer.getForm(), 28, 1);
-        this.testBackground.add(this.testMachine.getForm(), 1, 1);
-        this.testBackground.add(MACHINEGOAL, 28, 16);
-        this.testBackground.add(PLAYERGOAL, 1, 16);
+        this.testBackground = new GridPane();
+        this.testBackground.add(MACHINEGOAL, 4, 6);
+        this.testBackground.add(PLAYERGOAL, 1, 1);
+        this.testBackground.add(new Rectangle(40,40,Color.BLACK), 2, 3);  
+        this.testBackground.add(new Rectangle(40,40,Color.BLACK), 3, 2);  
+        this.testBackground.add(this.testPlayer.getForm(), 14, 14);
+        this.testBackground.add(this.testMachine.getForm(), 4, 4);
         GridPane.setHalignment(this.testPlayer.getForm(), HPos.CENTER);
         GridPane.setHalignment(this.testMachine.getForm(), HPos.CENTER);
         this.testPhysics.setUpPhysicsWorld(testBackground, testPlayer, testMachine, PLAYERGOAL, MACHINEGOAL);
@@ -79,6 +80,8 @@ public class GamePhysicsTest {
 
     @Before
     public void setUp() {
+        this.testPlayer.getForm().getBoundsInParent();
+        this.testPlayer.getForm().getBoundsInParent();
     }
 
     @After
@@ -89,7 +92,9 @@ public class GamePhysicsTest {
 //    public void playerMovementTest() {
 //        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.LEFT, false, false, false, false));
 //        for (int i = 0; i < 100; i++) {
+//            System.out.println(this.testPlayer.getForm().getBoundsInLocal().equals(this.testPlayer.getForm().getBoundsInParent()));
 //            this.testPhysics.updateGameWorld();
+//            this.testBackground.getChildren().forEach(x -> System.out.println(x.getBoundsInParent()));
 //        }
 //        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_RELEASED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.DOWN, false, false, false, false));
 //        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.LEFT, false, false, false, false));

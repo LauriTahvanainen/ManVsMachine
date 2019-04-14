@@ -10,6 +10,8 @@ import javafx.stage.StageStyle;
 import eventhandling.ActionEventHandler;
 import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
+import java.io.FileInputStream;
+import java.util.Properties;
 import statemanagement.State;
 
 public class Main extends Application {
@@ -35,9 +37,11 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         this.scene = new Scene(new Pane(), WIDTH, HEIGHT);
-        this.stateManager = new StateManager();
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("config.properties"));
+        DatabaseUserDao userDao = new DatabaseUserDao(properties.getProperty("databasepath"));
+        this.stateManager = new StateManager(properties);
         this.stateManager.setScene(this.scene);
-        DatabaseUserDao userDao = new DatabaseUserDao();
         KeyEventHandler KeyListener = new KeyEventHandler();
         this.scene.setOnKeyPressed(KeyListener);
         this.scene.setOnKeyReleased(KeyListener);

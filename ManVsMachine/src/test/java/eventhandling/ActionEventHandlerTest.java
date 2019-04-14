@@ -1,5 +1,6 @@
 package eventhandling;
 
+import java.util.Properties;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -30,7 +31,7 @@ public class ActionEventHandlerTest {
         this.menuButton = new Button("Sign out");
         this.loginTextField = new TextField();
         this.menuTextField = new TextField();
-        this.testManager = new StateManager();
+        this.testManager = new StateManager(new Properties());
         this.testLoginState = new EventHandlingTestLoginState(this.loginButton, this.loginTextField, this.testManager);
         this.testMenuState = new EventHandlingTestMenuState(this.menuButton, this.menuTextField, this.testManager);
         this.testManager.addState(this.testLoginState);

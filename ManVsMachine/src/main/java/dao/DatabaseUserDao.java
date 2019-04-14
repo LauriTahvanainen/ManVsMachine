@@ -16,10 +16,8 @@ public class DatabaseUserDao implements UserDao {
     private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(user varchar(64) PRIMARY KEY, map1 varchar(16));";
     private final String databasepath;
 
-    public DatabaseUserDao() throws Exception {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
-        this.databasepath = properties.getProperty("databasepath");
+    public DatabaseUserDao(String databasePath) throws Exception {
+        this.databasepath = databasePath;
         initDatabase(this.databasepath);
     }
 
