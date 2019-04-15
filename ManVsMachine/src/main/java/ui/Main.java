@@ -11,6 +11,8 @@ import eventhandling.ActionEventHandler;
 import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 import statemanagement.State;
 
@@ -38,7 +40,12 @@ public class Main extends Application {
     public void init() throws Exception {
         this.scene = new Scene(new Pane(), WIDTH, HEIGHT);
         Properties properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
+        try {
+            properties.load(new FileInputStream("config.properties"));
+        } catch (IOException e) {
+            properties.load(Main.class.getResourceAsStream("/defaultConfig.properties"));
+            properties.store(new FileOutputStream("config.properties"), "");
+        }
         DatabaseUserDao userDao = new DatabaseUserDao(properties.getProperty("databasepath"));
         this.stateManager = new StateManager(properties);
         this.stateManager.setScene(this.scene);
