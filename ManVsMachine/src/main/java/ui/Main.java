@@ -44,7 +44,7 @@ public class Main extends Application {
             properties.load(new FileInputStream("config.properties"));
         } catch (IOException e) {
             properties.load(Main.class.getResourceAsStream("/defaultConfig.properties"));
-            properties.store(new FileOutputStream("config.properties"), "");
+            properties.store(new FileOutputStream("./config.properties"), "");
         }
         DatabaseUserDao userDao = new DatabaseUserDao(properties.getProperty("databasepath"));
         this.stateManager = new StateManager(properties);
