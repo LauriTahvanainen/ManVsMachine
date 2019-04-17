@@ -2,6 +2,7 @@ package dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import javafx.scene.paint.Color;
 import org.junit.After;
@@ -39,6 +40,12 @@ public class DatabaseUserDaoTest {
 
     @After
     public void tearDown() {
+    }
+
+    @Test
+    public void connectionNotNull() {
+        Connection c = this.dao.openConnection(database.getAbsolutePath());
+        assertTrue(c != null);
     }
 
     @Test
@@ -136,9 +143,9 @@ public class DatabaseUserDaoTest {
         }
         fail("ret should be 2, but is now: " + ret);
     }
-    
+
     @Test
-    public void usernameUpdated() throws SQLException {
+    public void usernameUpdatedTest1() throws SQLException {
         this.dao.create("TeppoTest");
         this.dao.update("TeppoTest", "Teppo");
         User ret = this.dao.read("TeppoTest");
@@ -148,6 +155,17 @@ public class DatabaseUserDaoTest {
         fail("Username not updated correctly!");
     }
     
+    @Test
+    public void usernameUpdatedTest2() throws SQLException {
+        this.dao.create("TeppoTest");
+        this.dao.update("TeppoTest", "Teppo");
+        User ret = this.dao.read("Teppo");
+        if (ret != null) {
+            return;
+        }
+        fail("Username not updated correctly!");
+    }
+
     @Test
     public void updatingToOldUsernameReturns2() throws SQLException {
         this.dao.create("Teppo");
@@ -159,7 +177,7 @@ public class DatabaseUserDaoTest {
         }
         fail("ret should be 4, but was: " + ret);
     }
-    
+
     @Test
     public void updatingToExistingUsernameDoesNotWork() throws SQLException {
         this.dao.create("Teppo");
@@ -169,7 +187,54 @@ public class DatabaseUserDaoTest {
         if (ret != null) {
             return;
         }
-        fail("It should be impossible to update to an existing username but now it was possible!");
+        fail("It should be impossible to update to an existing username but now the username was updated!");
     }
 
+    @Test
+    public void updateColorTest() throws SQLException {
+        this.dao.create("Teppo");
+        this.dao.updateColor("Teppo", 244, 34, 1);
+        Color ret1 = this.dao.read("Teppo").getColor();;
+        this.dao.updateColor("Teppo", 0, 0, 0);
+        Color ret2 = this.dao.read("Teppo").getColor();
+        if ((int) (ret1.getRed() * 255) == 244 && (int) (ret1.getGreen() * 255) == 34 && (int) (ret1.getBlue() * 255) == 1 && ret2.equals(Color.BLACK)) {
+            return;
+        }
+        fail("UpdateColor does not work as intended!");
+    }
+
+    @Test
+    public void usernameUpdateUsernameCheckReturnsRightValues() throws SQLException {
+        this.dao.create("Teppo");
+        int ret = this.dao.update("Teppo", "Tep ppo");
+        ret += this.dao.update("Teppo", "Teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeppo");
+        ret += this.dao.update("Teppo", "Tep");
+        ret += this.dao.update("Teppo", "Teppo");
+        ret += this.dao.update("Teppo", "Tintti");
+        if (ret == 2 + 3 + 4 + 16 + 1) {
+            return;
+        }
+        fail("Given return values are not correct, ret should have been 26, but was: " + ret);
+    }
+
+    @Test
+    public void updateColorDoesNotUpdateWrongColors() throws SQLException {
+        this.dao.create("Teppo");
+        this.dao.updateColor("Teppo", 0, 5, 2555);
+        User ret = this.dao.read("Teppo");
+        assertTrue(ret.getColor().equals(Color.RED));
+    }
+
+    @Test
+    public void checkColorsTest() throws SQLException {
+        this.dao.create("Teppo");
+        this.dao.updateColor("Teppo", 0, 256, 0);
+        this.dao.updateColor("Teppo", 0, -2, 0);
+        this.dao.updateColor("Teppo", -2, 0, 0);
+        this.dao.updateColor("Teppo", 2677, 25, 0);
+        this.dao.updateColor("Teppo", 0, 2, -46);
+        this.dao.updateColor("Teppo", 0, 25, 7777);
+        User ret = this.dao.read("Teppo");
+        assertTrue(ret.getColor().equals(Color.RED));
+    }
 }

@@ -1,13 +1,11 @@
 package dao;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 import javafx.scene.paint.Color;
 
 public class DatabaseUserDao implements UserDao {
@@ -28,7 +26,7 @@ public class DatabaseUserDao implements UserDao {
             return ret;
         }
         PreparedStatement stmt;
-        try (Connection conn = this.openConnection()) {
+        try (Connection conn = this.openConnection(this.databasepath)) {
             stmt = conn.prepareStatement("INSERT INTO Username(username,password,red,green,blue) VALUES(?,'-',255,0,0)");
             try {
                 stmt.setString(1, userName);
@@ -50,7 +48,7 @@ public class DatabaseUserDao implements UserDao {
             return ret;
         }
         PreparedStatement stmt;
-        try (Connection conn = this.openConnection()) {
+        try (Connection conn = this.openConnection(this.databasepath)) {
             stmt = conn.prepareStatement("UPDATE Username SET username = ? WHERE username = ?");
             try {
                 stmt.setString(1, newUsername);
@@ -66,7 +64,7 @@ public class DatabaseUserDao implements UserDao {
     }
 
     private void initDatabase(String path) throws SQLException {
-        Connection conn = this.openConnection();
+        Connection conn = this.openConnection(this.databasepath);
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(USERTABLE_INIT);
             stmt.execute(BFS_INIT);
@@ -76,7 +74,7 @@ public class DatabaseUserDao implements UserDao {
     @Override
     public User read(String username) throws SQLException {
         ResultSet rs;
-        try (Connection conn = this.openConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT username,red,green,blue FROM Username WHERE username = ?")) {
+        try (Connection conn = this.openConnection(this.databasepath); PreparedStatement stmt = conn.prepareStatement("SELECT username,red,green,blue FROM Username WHERE username = ?")) {
             stmt.setString(1, username);
             rs = stmt.executeQuery();
             if (!rs.next()) {
@@ -87,19 +85,20 @@ public class DatabaseUserDao implements UserDao {
     }
 
     @Override
-    public Connection openConnection() {
-        Connection conn = null;
+    public Connection openConnection(String databasePath) {
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:" + this.databasepath);
+            return DriverManager.getConnection("jdbc:sqlite:" + databasePath);
         } catch (SQLException e) {
             return null;
         }
-        return conn;
     }
 
     public void updateColor(String username, int red, int green, int blue) throws SQLException {
+        if (checkColors(red, green, blue)) {
+            return;
+        }
         PreparedStatement stmt;
-        try (Connection conn = this.openConnection()) {
+        try (Connection conn = this.openConnection(this.databasepath)) {
             stmt = conn.prepareStatement("UPDATE Username SET red = ?, green = ?, blue = ? WHERE username = ?");
             try {
                 stmt.setInt(1, red);
@@ -135,5 +134,9 @@ public class DatabaseUserDao implements UserDao {
             return 16;
         }
         return 1;
+    }
+
+    private boolean checkColors(int red, int green, int blue) {
+        return red > 255 || red < 0 || green > 255 || green < 0 || blue > 255 || blue < 0;
     }
 }

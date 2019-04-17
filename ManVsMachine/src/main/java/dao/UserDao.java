@@ -9,5 +9,5 @@ public interface UserDao {
 
     int update(String oldUsername, String newUsername) throws SQLException;
     
-    Connection openConnection();
+    Connection openConnection(String databasePath);
 }
