@@ -53,7 +53,7 @@ public class MachineTest {
 
     @Before
     public void setUp() {
-        this.testMachine = new Machine(Color.BLACK, 10, 10, new BFS(this.map));
+        this.testMachine = new Machine(Color.BLACK, 10, 10, new BFS(this.map), new GridPane());
         this.pane = new GridPane();
         this.pane.add(this.testMachine.getForm(), 1, 1);
     }
@@ -87,19 +87,5 @@ public class MachineTest {
         }
         assertTrue(this.testMachine.getForm().getTranslateX() == (this.lastX * 40) && this.testMachine.getForm().getTranslateY() == (this.lastY * 40));
     }
-    
-    @Test
-    public void moveTowardsMovesTowards() {
-        Point2D towards = new Point2D(1,6);
-        double distance = towards.distance(this.testMachine.getForm().getTranslateX(), this.testMachine.getForm().getTranslateY());
-        this.testMachine.moveTowards(towards);
-        this.testMachine.moveTowards(towards);
-        
-        if (distance > towards.distance(this.testMachine.getForm().getTranslateX(), this.testMachine.getForm().getTranslateY())) {
-            return;
-        }
-        fail("Machine doesn't get closer to the given point");
-    }
-    
     
 }

@@ -1,8 +1,11 @@
 package sprite;
 
+import game.Tile;
 import javafx.geometry.Bounds;
+import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
@@ -12,6 +15,7 @@ public class Sprite {
     private Color color;
     private double height;
     private double width;
+    private double movementFactor;
 
     public Sprite(Color color, double height, double width) {
         this.form = new Polygon(0, 0, 0, height, width, height, width, 0);
@@ -19,7 +23,8 @@ public class Sprite {
         this.form.setFill(this.color);
         this.height = height;
         this.width = width;
-
+        this.movementFactor = 1;
+        GridPane.setHalignment(this.form, HPos.CENTER);
     }
 
     public Polygon getForm() {
@@ -28,6 +33,10 @@ public class Sprite {
 
     public double getTranslateY() {
         return this.form.getTranslateY();
+    }
+
+    public void setMovementFactor(double movementFactor) {
+        this.movementFactor = movementFactor;
     }
 
     public double getTranslateX() {
@@ -39,19 +48,19 @@ public class Sprite {
     }
 
     public void moveRight() {
-        this.form.setTranslateX(this.form.getTranslateX() + 0.5);
+        this.form.setTranslateX(this.form.getTranslateX() + (0.5 * this.movementFactor));
     }
 
     public void moveUp() {
-        this.form.setTranslateY(this.form.getTranslateY() - 0.5);
+        this.form.setTranslateY(this.form.getTranslateY() - (0.5 * this.movementFactor));
     }
 
     public void moveDown() {
-        this.form.setTranslateY(this.form.getTranslateY() + 0.5);
+        this.form.setTranslateY(this.form.getTranslateY() + (0.5 * this.movementFactor));
     }
 
     public void moveLeft() {
-        this.form.setTranslateX(this.form.getTranslateX() - 0.5);
+        this.form.setTranslateX(this.form.getTranslateX() - (0.5 * this.movementFactor));
     }
 
     public void getOutCollision(Bounds b) {

@@ -80,7 +80,7 @@ public class PlayingState extends State {
     public void restore(Algorithm algo, int[][] map) {
         this.background = renderer.renderMap(map);
         this.player = new Sprite(this.gsm.getCurrentUser().getColor(), 20, 20);
-        this.machine = new Machine(Color.BLUE, 20, 20, algo);
+        this.machine = new Machine(Color.BLUE, 20, 20, algo, this.background);
         this.machineGoal = new Rectangle(40, 40, Color.BLUE);
         this.playerGoal = new Rectangle(40, 40, this.gsm.getCurrentUser().getColor());
         this.map = map;
@@ -88,8 +88,7 @@ public class PlayingState extends State {
         this.background.add(this.machine.getForm(), 1, 1);
         this.background.add(this.machineGoal, 28, 16);
         this.background.add(this.playerGoal, 1, 16);
-        GridPane.setHalignment(this.player.getForm(), HPos.CENTER);
-        GridPane.setHalignment(this.machine.getForm(), HPos.CENTER);
+        this.background.add(this.machine.getScanner().getScannerHead(), 1, 1);
         this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal);
         this.gsm.setSceneRoot(background);
         this.gsm.startLoop();

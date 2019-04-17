@@ -46,10 +46,10 @@ public class MapRendererTest {
     @Test
     public void finalMapGridHasRightAmountOfRectangles() {
         GridPane ret = this.renderer.renderMap(this.map);
-        if (ret.getChildren().size() == 302) {
+        if (ret.getChildren().size() == 540) {
             return;
         }
-        fail("The renderer doesn't draw a right amount of rectangles to the GridPane. Children size should be 302, was: " + ret.getChildren().size());
+        fail("The renderer doesn't draw a right amount of rectangles to the GridPane. Children size should be 540, was: " + ret.getChildren().size());
     }
 
     @Test

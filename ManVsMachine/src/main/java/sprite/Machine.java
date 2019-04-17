@@ -3,21 +3,24 @@ package sprite;
 import algorithm.Algorithm;
 import algorithm.Vertex;
 import java.util.ArrayDeque;
+import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 public class Machine extends Sprite {
 
     private Algorithm algorithm;
     private ArrayDeque<Vertex> route;
-    private ArrayDeque<Vertex> scanRoute;
+    private Scanner scanner;
 
-    public Machine(Color color, double height, double width, Algorithm a) {
+    public Machine(Color color, double height, double width, Algorithm a, GridPane scanBackground) {
         super(color, height, width);
         this.algorithm = a;
         this.algorithm.calculateRoute();
+        GridPane.setHalignment(this.getForm(), HPos.CENTER);
         this.route = this.algorithm.getRoute();
-        this.scanRoute = this.algorithm.getMapScan();
+        this.scanner = new Scanner(this.algorithm.getMapScan(), scanBackground);
     }
 
     public void takeStep() {
@@ -28,27 +31,20 @@ public class Machine extends Sprite {
         this.moveAlong(new Point2D(v.getColumn() - this.getForm().getTranslateX(), v.getRow() - this.getForm().getTranslateY()));
     }
 
-    public void scanNext() {
-        Vertex v = this.scanRoute.peekFirst();
-        if (this.getForm().getTranslateY() == v.getRow() && this.getForm().getTranslateX() == v.getColumn()) {
-            this.scanRoute.pop();
-        }
-        moveTowards(new Point2D(v.getColumn(), v.getRow()));
-    }
-
     public ArrayDeque<Vertex> getRoute() {
         return this.route;
     }
 
     public ArrayDeque<Vertex> getScanRoute() {
-        return this.scanRoute;
+        return this.scanner.getScanRoute();
     }
 
-    public void moveTowards(Point2D point) {
-        Point2D towards = new Point2D(point.getX() - this.getForm().getTranslateX(), point.getY() - this.getForm().getTranslateY());
-        towards.normalize();
-        this.getForm().setTranslateX(this.getForm().getTranslateX() + towards.getX());
-        this.getForm().setTranslateY(this.getForm().getTranslateY() + towards.getY());
+    public Scanner getScanner() {
+        return scanner;
+    }
+    
+    public void scanNext() {
+        this.scanner.scanNext();
     }
 
 }

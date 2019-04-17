@@ -20,8 +20,6 @@ public class GamePhysics {
     public GamePhysics(KeyEventHandler handler) {
         this.handler = handler;
     }
-    
-    
 
     public void setUpPhysicsWorld(GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal) {
         this.background = background;
@@ -32,12 +30,20 @@ public class GamePhysics {
     }
 
     public int updateGameWorld() {
+        if (!this.machine.getScanRoute().isEmpty()) {
+            this.machine.scanNext();
+            if (this.machine.getScanRoute().isEmpty()) {
+                this.machine.getScanner().deleteScan();
+            }
+        } else {
+            if (!this.machine.getRoute().isEmpty()) {
+                this.machine.takeStep();
+            }
+        }
         if (wallCollisionCheck()) {
             updatePlayerPosition();
         }
-        if (!this.machine.getRoute().isEmpty()) {
-            this.machine.takeStep();
-        }
+
         if (playerGoalCollisionCheck()) {
             return 1;
         }
@@ -64,10 +70,18 @@ public class GamePhysics {
 
     private boolean wallCollisionCheck() {
         for (Node node : this.background.getChildren()) {
-            if (node.equals(this.machine.getForm()) || node.equals(this.machineGoal) || node.equals(this.playerGoal)) {
+            if (node.equals(this.machine.getForm()) || node.equals(this.machineGoal) || node.equals(this.playerGoal) || Tile.SCAN_TILE.nodeEqualsTile(node)) {
                 continue;
             }
             if (this.player.checkCollision(node)) {
+                if (Tile.SAND.nodeEqualsTile(node)) {
+                    this.player.setMovementFactor(0.5);
+                    continue;
+                }
+                if (Tile.FLOOR.nodeEqualsTile(node)) {
+                    this.player.setMovementFactor(1);
+                    continue;
+                }
                 this.player.getOutCollision(node.getBoundsInParent());
                 return false;
             }
@@ -76,7 +90,7 @@ public class GamePhysics {
     }
 
     private boolean playerGoalCollisionCheck() {
-        //The first check is done because the seems to be a bug where a nodes bounds in it's parent will not update immediately after adding the node to the parent
+        //The first check is done because there seems to be a bug where a nodes bounds in it's parent will not update immediately after adding the node to the parent
         if (this.playerGoal.getBoundsInParent().getMaxY() != this.playerGoal.getBoundsInLocal().getMaxY()) {
             if (this.player.checkCollision(this.playerGoal)) {
                 return true;

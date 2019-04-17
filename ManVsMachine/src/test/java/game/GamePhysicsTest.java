@@ -56,8 +56,8 @@ public class GamePhysicsTest {
         this.testHandler = new KeyEventHandler();
         this.testPhysics = new GamePhysics(testHandler);
         this.testPlayer = new Sprite(Color.ALICEBLUE, 20, 20);
-        this.testMachine = new Machine(Color.BLANCHEDALMOND, 20, 20, new BFS(this.map));
         this.testBackground = new GridPane();
+        this.testMachine = new Machine(Color.BLANCHEDALMOND, 20, 20, new BFS(this.map), this.testBackground);
         this.testBackground.add(MACHINEGOAL, 4, 6);
         this.testBackground.add(PLAYERGOAL, 1, 1);
         this.testBackground.add(new Rectangle(40,40,Color.BLACK), 2, 3);  

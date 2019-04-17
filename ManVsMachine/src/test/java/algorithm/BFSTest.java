@@ -1,6 +1,7 @@
 package algorithm;
 
 import java.util.ArrayDeque;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -49,7 +50,7 @@ public class BFSTest {
     @Before
     public void setUp() {
         this.search = new BFS(this.map);
-        this.machine = new Machine(Color.BLACK, 20, 20, this.search);
+        this.machine = new Machine(Color.BLACK, 20, 20, this.search, new GridPane());
     }
 
     @After
