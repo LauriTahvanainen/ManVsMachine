@@ -20,15 +20,16 @@ Pelinäkymä on y-akselin mukaan symmetrinen labyrintti, jossa pelaajan lähtö 
 * Käyttäjä voi syöttää käyttäjänimensä lisäyslomakkeeseen uutta käyttäjänimeä luodessa. Nimen on oltava:
 	* Vähintään 4 merkkiä, maksimissaan 16 merkkiä pitkä
 	* Uniikki
-* Kirjautuessa vanhalla nimellä, järjestelmä ilmoittaa jos nimeä ei ole järjestelmässä.
+	* Nimi ei saa sisältää välilyöntejä
+* Järjestelmä ilmoittaa jos nimeä ei ole järjestelmässä.
 
 ### Kirjautumisen jälkeen
 * Käyttäjä näkee päävalikon, josta hän voi valita:
 	* Uuden pelin
 	* Huipputulosten tarkastelun
 	* Asetukset
-* Uuden pelin valitessaan käyttäjä voi valita algoritmeista vastustajan itselleen, minkä jälkeen peli alkaa satunnaisessa, valmiiksi generoidussa kartassa (Ei satunnaisgeneroitu, vaan kartta valmiiksi piirrettynä pelin muistissa)
-* Itse pelissä on kaksi hahmoa, algoritmin hahmo, ja käyttäjän hahmo. Molemmat lähtevät samasta paikasta, tavoitteenaan päästä ensimmäisenä maaliin
+* Uuden pelin valitessaan käyttäjä voi valita algoritmeista vastustajan itselleen, minkä jälkeen peli alkaa satunnaisessa, valmiiksi generoidussa kartassa (Ei satunnaisgeneroitu, vaan kartta valmiina)
+* Itse pelissä on kaksi hahmoa, algoritmin hahmo, ja käyttäjän hahmo. Molempien tavoitteena on päästä ensimmäisenä maaliin.
 * Käyttäjä ohjaa hahmonsa labyrintin läpi nuolinäppäimillä
 * Pisteitä käyttäjä saa kartan voittaessa tasoon kulutetun ajan mukaan
 * Pelin jälkeen käyttäjän on mahdollista joko, tallentaa tuloksensa, tai palata päävalikkoon
@@ -48,6 +49,6 @@ Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seura
 * Toiminnallisuuksien lisääminen itse peliin, esim algoritmien erikoisvoimat
 * Huipputuloksissa voi valita näytetäänkö pelaajan omat, vai kaikkien tulokset
 * Erilaiset graafiset paketit, joista käyttäjä voi valita mieluisensa
-* Kontrolline kustomointi
+* Kontrollien kustomointi
 * Selviytymispelimuoto, jossa pelaaja aloittaa helppoa algoritmia vastaan, ja peli jatkuu aina uudessa kartassa, vaikeammalla algoritmilla, niin kauan kun pelaaja voittaa algoritmin
 
