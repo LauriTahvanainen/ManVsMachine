@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import sprite.Machine;
 import sprite.Sprite;
 
@@ -16,9 +17,15 @@ public class GamePhysics {
     private Rectangle playerGoal;
     private Rectangle machineGoal;
     private final KeyEventHandler handler;
+    private double timeScore;
+    private double lengthScore;
+    private final Text timeScoreText;
+    private final Text lengthScoreText;
 
-    public GamePhysics(KeyEventHandler handler) {
+    public GamePhysics(KeyEventHandler handler, Text timeScoreText, Text lengthScore) {
         this.handler = handler;
+        this.timeScoreText = timeScoreText;
+        this.lengthScoreText = lengthScore;
     }
 
     public void setUpPhysicsWorld(GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal) {
@@ -27,6 +34,8 @@ public class GamePhysics {
         this.machine = machine;
         this.playerGoal = playerGoal;
         this.machineGoal = machineGoal;
+        this.timeScore = 2000.0;
+        this.lengthScore = 0;
     }
 
     public int updateGameWorld() {
@@ -39,32 +48,42 @@ public class GamePhysics {
             if (!this.machine.getRoute().isEmpty()) {
                 this.machine.takeStep();
             }
+            if (wallCollisionCheck()) {
+                updatePlayerPosition();
+            }
+            this.timeScore -= 0.16;
+            if (this.timeScore < 0) {
+                this.timeScore = 0;
+            }
         }
-        if (wallCollisionCheck()) {
-            updatePlayerPosition();
-        }
-
+        this.timeScoreText.setText("Time Score: " + String.valueOf(Double.valueOf(timeScore).intValue()));
+        this.lengthScoreText.setText("Route Length: " + String.valueOf(Double.valueOf(lengthScore).intValue()));
         if (playerGoalCollisionCheck()) {
-            return 1;
+            return (int) (this.timeScore + this.lengthScore);
         }
         if (machineGoalCollisionCheck()) {
-            return 2;
+            this.timeScoreText.setText("Score: 0");
+            return -1;
         }
-        return 0;
+        return checkForPause();
     }
 
     private void updatePlayerPosition() {
         if (this.handler.getKeyCodes().contains(KeyCode.UP)) {
             this.player.moveUp();
+            this.lengthScore += 0.5;
         }
         if (this.handler.getKeyCodes().contains(KeyCode.DOWN)) {
             this.player.moveDown();
+            this.lengthScore += 0.5;
         }
         if (this.handler.getKeyCodes().contains(KeyCode.LEFT)) {
             this.player.moveLeft();
+            this.lengthScore += 0.5;
         }
         if (this.handler.getKeyCodes().contains(KeyCode.RIGHT)) {
             this.player.moveRight();
+            this.lengthScore += 0.5;
         }
     }
 
@@ -107,5 +126,17 @@ public class GamePhysics {
             }
         }
         return false;
+    }
+
+    private int checkForPause() {
+        if (this.handler.getKeyCodes().contains(KeyCode.ESCAPE)) {
+            return 7;
+        }
+        return 0;
+    }
+
+    public void restoreScore() {
+        this.timeScore = 2000.0;
+        this.lengthScore = 0;
     }
 }

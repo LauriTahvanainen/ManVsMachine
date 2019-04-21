@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,12 +10,12 @@ import javafx.scene.paint.Color;
 public class DatabaseUserDao implements UserDao {
 
     private static final String USERTABLE_INIT = "CREATE TABLE IF NOT EXISTS Username(username VARCHAR(16) PRIMARY KEY, password VARCHAR(64), red INTEGER, green INTEGER, blue INTEGER);";
-    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(user varchar(64) PRIMARY KEY, map1 varchar(16));";
-    private final String databasepath;
-
-    public DatabaseUserDao(String databasePath) throws Exception {
-        this.databasepath = databasePath;
-        initDatabase(this.databasepath);
+    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0);";
+    private final Connector connector;
+    
+    public DatabaseUserDao(Connector conn) throws Exception {
+        this.connector = conn;
+        initDatabase();
     }
 
     @Override
@@ -26,7 +25,7 @@ public class DatabaseUserDao implements UserDao {
             return ret;
         }
         PreparedStatement stmt;
-        try (Connection conn = this.openConnection(this.databasepath)) {
+        try (Connection conn = this.connector.openConnection()) {
             stmt = conn.prepareStatement("INSERT INTO Username(username,password,red,green,blue) VALUES(?,'-',255,0,0)");
             try {
                 stmt.setString(1, userName);
@@ -48,7 +47,7 @@ public class DatabaseUserDao implements UserDao {
             return ret;
         }
         PreparedStatement stmt;
-        try (Connection conn = this.openConnection(this.databasepath)) {
+        try (Connection conn = this.connector.openConnection()) {
             stmt = conn.prepareStatement("UPDATE Username SET username = ? WHERE username = ?");
             try {
                 stmt.setString(1, newUsername);
@@ -63,8 +62,8 @@ public class DatabaseUserDao implements UserDao {
         return 1;
     }
 
-    private void initDatabase(String path) throws SQLException {
-        Connection conn = this.openConnection(this.databasepath);
+    private void initDatabase() throws SQLException {
+        Connection conn = this.connector.openConnection();
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(USERTABLE_INIT);
             stmt.execute(BFS_INIT);
@@ -74,7 +73,7 @@ public class DatabaseUserDao implements UserDao {
     @Override
     public User read(String username) throws SQLException {
         ResultSet rs;
-        try (Connection conn = this.openConnection(this.databasepath); PreparedStatement stmt = conn.prepareStatement("SELECT username,red,green,blue FROM Username WHERE username = ?")) {
+        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT username,red,green,blue FROM Username WHERE username = ?")) {
             stmt.setString(1, username);
             rs = stmt.executeQuery();
             if (!rs.next()) {
@@ -85,20 +84,12 @@ public class DatabaseUserDao implements UserDao {
     }
 
     @Override
-    public Connection openConnection(String databasePath) {
-        try {
-            return DriverManager.getConnection("jdbc:sqlite:" + databasePath);
-        } catch (SQLException e) {
-            return null;
-        }
-    }
-
     public void updateColor(String username, int red, int green, int blue) throws SQLException {
         if (checkColors(red, green, blue)) {
             return;
         }
         PreparedStatement stmt;
-        try (Connection conn = this.openConnection(this.databasepath)) {
+        try (Connection conn = this.connector.openConnection()) {
             stmt = conn.prepareStatement("UPDATE Username SET red = ?, green = ?, blue = ? WHERE username = ?");
             try {
                 stmt.setInt(1, red);

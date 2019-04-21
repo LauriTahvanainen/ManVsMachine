@@ -100,10 +100,10 @@ public class BFSTest {
         while (!this.search.getMapScan().isEmpty()) {
             this.machine.scanNext();
         }
-        if (this.machine.getForm().getTranslateX() == this.lastX * 40 && this.machine.getForm().getTranslateY() == this.lastY * 40) {
+        if (this.machine.getScanner().getScannerHead().getTranslateX() == this.lastX * 40 && this.machine.getScanner().getScannerHead().getTranslateY() == this.lastY * 40) {
             return;
         }
-        fail("Your machine doesn't end up in its goal: (" + (this.lastX * 40) + ":" + (this.lastY * 40) + ") It ends at: (" + this.machine.getForm().getTranslateX() + ":" + this.machine.getForm().getTranslateY());
+        fail("Your machine doesn't end up in its goal: (" + (this.lastX * 40) + ":" + (this.lastY * 40) + ") It ends at: (" + this.machine.getScanner().getScannerHead().getTranslateX() + ":" + this.machine.getScanner().getScannerHead().getTranslateY());
     }
 
     @Test

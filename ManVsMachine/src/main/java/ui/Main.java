@@ -1,5 +1,7 @@
 package ui;
 
+import dao.Connector;
+import dao.DatabaseScoreDao;
 import dao.DatabaseUserDao;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -46,16 +48,18 @@ public class Main extends Application {
             properties.load(Main.class.getResourceAsStream("/defaultConfig.properties"));
             properties.store(new FileOutputStream("./config.properties"), "");
         }
-        DatabaseUserDao userDao = new DatabaseUserDao(properties.getProperty("databasepath"));
+        Connector connector = new Connector(properties.getProperty("databasepath"));
+        DatabaseUserDao userDao = new DatabaseUserDao(connector);
+        DatabaseScoreDao scoreDao = new DatabaseScoreDao(connector);
         this.stateManager = new StateManager(properties);
         this.stateManager.setScene(this.scene);
         KeyEventHandler KeyListener = new KeyEventHandler();
         this.scene.setOnKeyPressed(KeyListener);
         this.scene.setOnKeyReleased(KeyListener);
         State loginState = new LoginState(this.stateManager, userDao);
-        State menuState = new MenuState(this.stateManager, userDao);
-        State playingState = new PlayingState(this.stateManager, userDao);
-        State settingsState = new SettingsState(this.stateManager, userDao);
+        State menuState = new MenuState(this.stateManager, userDao, scoreDao);
+        State playingState = new PlayingState(this.stateManager, userDao, scoreDao);
+        State settingsState = new SettingsState(this.stateManager, userDao, scoreDao);
 
         this.stateManager.addState(loginState);
         this.stateManager.addState(menuState);

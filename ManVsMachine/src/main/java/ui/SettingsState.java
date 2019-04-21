@@ -2,6 +2,8 @@ package ui;
 
 import algorithm.Algorithm;
 import dao.DatabaseUserDao;
+import dao.ScoreDao;
+import dao.UserDao;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -23,7 +25,8 @@ import statemanagement.StateManager;
 public class SettingsState extends State {
 
     private final StateManager stateM;
-    private final DatabaseUserDao userdao;
+    private final UserDao userDao;
+    private final ScoreDao scoreDao;
     private final Button changeUsername;
     private final Button changeUsername2;
     private final Button customizeCharacter;
@@ -48,9 +51,10 @@ public class SettingsState extends State {
     private final VBox colorPicButtons;
     private Pane currentPane;
 
-    public SettingsState(StateManager stateM, DatabaseUserDao dbUD) {
+    public SettingsState(StateManager stateM, UserDao userDao, ScoreDao scoreDao) {
         this.stateM = stateM;
-        this.userdao = dbUD;
+        this.userDao = userDao;
+        this.scoreDao = scoreDao;
         this.backToMenu = new Button("Back to menu");
         this.cancel1 = new Button("Cancel");
         this.cancel2 = new Button("Back to settings");
@@ -174,7 +178,7 @@ public class SettingsState extends State {
     private void handleUsernameChangePane(ActionEvent t) {
         if (t.getTarget().equals(this.changeUsername2)) {
             try {
-                int ret = this.userdao.update(this.stateM.getCurrentUser().getUsername(), this.newUserNameInput.getText());
+                int ret = this.userDao.update(this.stateM.getCurrentUser().getUsername(), this.newUserNameInput.getText());
                 handleUsernameChangeRetVal(ret, this.newUserNameInput.getText());
             } catch (SQLException e) {
                 this.errorText.setText("Unexpected error!");
@@ -212,7 +216,7 @@ public class SettingsState extends State {
             int green = (int) (toBeChangedTo.getGreen() * 255);
             int blue = (int) (toBeChangedTo.getBlue() * 255);
             try {
-                this.userdao.updateColor(this.stateM.getCurrentUser().getUsername(), red, green, blue);
+                this.userDao.updateColor(this.stateM.getCurrentUser().getUsername(), red, green, blue);
             } catch (SQLException e) {
                 this.errorText2.setText("Unexpected error!");
                 return;

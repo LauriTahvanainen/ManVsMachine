@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,6 +48,8 @@ public class GamePhysicsTest {
     private Machine testMachine;
     private Sprite testPlayer;
     private GridPane testBackground;
+    private Text timeScore;
+    private Text lengthScore;
     private static final Rectangle PLAYERGOAL = new Rectangle(40, 40, Color.RED);
     private static final Rectangle MACHINEGOAL = new Rectangle(40, 40, Color.BLUE);
     private final KeyEventHandler testHandler;
@@ -54,7 +57,9 @@ public class GamePhysicsTest {
 
     public GamePhysicsTest() {
         this.testHandler = new KeyEventHandler();
-        this.testPhysics = new GamePhysics(testHandler);
+        this.timeScore = new Text();
+        this.lengthScore = new Text();
+        this.testPhysics = new GamePhysics(testHandler, timeScore, lengthScore);
         this.testPlayer = new Sprite(Color.ALICEBLUE, 20, 20);
         this.testBackground = new GridPane();
         this.testMachine = new Machine(Color.BLANCHEDALMOND, 20, 20, new BFS(this.map), this.testBackground);

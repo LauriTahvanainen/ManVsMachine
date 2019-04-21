@@ -85,7 +85,7 @@ public class MachineTest {
         while (!this.testMachine.getScanRoute().isEmpty()) {
             this.testMachine.scanNext();
         }
-        assertTrue(this.testMachine.getForm().getTranslateX() == (this.lastX * 40) && this.testMachine.getForm().getTranslateY() == (this.lastY * 40));
+        assertTrue(this.testMachine.getScanner().getScannerHead().getTranslateX() == (this.lastX * 40) && this.testMachine.getScanner().getScannerHead().getTranslateY() == (this.lastY * 40));
     }
     
 }

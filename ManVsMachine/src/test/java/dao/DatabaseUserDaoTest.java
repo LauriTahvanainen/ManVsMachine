@@ -1,8 +1,6 @@
 package dao;
 
 import java.io.File;
-import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import javafx.scene.paint.Color;
 import org.junit.After;
@@ -35,17 +33,11 @@ public class DatabaseUserDaoTest {
     @Before
     public void setUp() throws Exception {
         database = testFolder.newFile("testDatabase.db");
-        dao = new DatabaseUserDao(database.getAbsolutePath());
+        dao = new DatabaseUserDao(new Connector(database.getAbsolutePath()));
     }
 
     @After
     public void tearDown() {
-    }
-
-    @Test
-    public void connectionNotNull() {
-        Connection c = this.dao.openConnection(database.getAbsolutePath());
-        assertTrue(c != null);
     }
 
     @Test

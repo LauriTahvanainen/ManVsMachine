@@ -18,7 +18,7 @@
 |  11.4.|  9   | Käyttäjänimen vaihto-ominaisuuden ja pelaajan värin vaihtamisominaisuuden toteuttaminen. Samalla pieniä rakenteellisia muutoksia. |
 |  14.4.|  5   | Sekvenssikaavio sisäänkirjautumisesta. Testausta. |
 |  15.4.|  3   | Jarin generoimisen mahdollistaminen niin, että config file luodaan defaultConfig files jos sitä ei ole. Viikon 5 palautus kuntoon. |
-|       |      |  |
-|       |      |  |
-|       |      |  |
-| yht   |  80  |  | 
+|  17.4.|  7   | Testausta ja scannaustoiminnallisuuden, sekä Tile luokan koodaaminen |
+|  20.4.|  3   | Highscoren ja pause-menun koodailua |
+|  21.4.|  4   | ScoreDaon toteuttaminen, testien korjailua. |
+| yht   |  94  |  | 

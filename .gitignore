@@ -6,3 +6,5 @@ ManVsMachine/target/
 /ManVsMachine/nbproject/
 ManVsMachine/database.db
 ManVsMachine/config.properties
+ManVsMachine/nb-configuration.xml
+

@@ -2,6 +2,7 @@ package ui;
 
 import algorithm.Algorithm;
 import algorithm.BFS;
+import dao.HighScoreUser;
 import dao.UserDao;
 import statemanagement.StateManager;
 import javafx.application.Platform;
@@ -14,6 +15,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import statemanagement.State;
+import dao.ScoreDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class MenuState extends State {
 
@@ -40,13 +45,15 @@ public final class MenuState extends State {
     private final int stateId;
     private final BorderPane menu;
     private final StateManager gsm;
-    private final UserDao userdao;
+    private final UserDao userDao;
+    private final ScoreDao scoreDao;
     private Text currentUserText;
 
-    public MenuState(StateManager gsm, UserDao userdao) {
+    public MenuState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
         this.gsm = gsm;
         this.stateId = 1;
-        this.userdao = userdao;
+        this.userDao = userDao;
+        this.scoreDao = scoreDao;
         this.menu = new BorderPane();
         this.menu.setPrefSize(this.gsm.getScene().getWidth(), this.gsm.getScene().getHeight());
         initPane();
@@ -65,6 +72,17 @@ public final class MenuState extends State {
     @Override
     public void update() {
         this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser().getUsername());
+        int ret = 0;
+        try {
+            ret = this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "BFS");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+//        if (ret == 1) {
+//            System.out.println("Default scores added!");
+//        } else {
+//            System.out.println("Default scores were already there!");
+//        }
     }
 
     @Override
@@ -96,8 +114,14 @@ public final class MenuState extends State {
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Highscores")) {
             //TODO
-//            gsm.setCurrentState(4);
-//            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
+            try {
+                HighScoreUser user = this.scoreDao.listUser("BFS", this.gsm.getCurrentUser().getUsername());
+                for (int i = 1; i < 4; i++) {
+                    System.out.println(user.getMapScore(i).toString());
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         } else if (button.getText().equals("Sign Out")) {
             gsm.setCurrentState(0);
             gsm.setCurrentUser(null);

@@ -15,6 +15,7 @@ public class Scanner {
 
     private Rectangle scannerHead;
     private ArrayDeque<Vertex> scanRoute;
+    private ArrayDeque<Vertex> scanRouteBackUp;
     private GridPane backGround;
     private boolean scanned;
 
@@ -22,6 +23,7 @@ public class Scanner {
         this.scannerHead = new Rectangle(10, 10);
         this.scannerHead.setFill(Color.rgb(255, 2, 255, 0));
         this.scanRoute = scanRoute;
+        this.scanRouteBackUp = this.scanRoute.clone();
         GridPane.setHalignment(scannerHead, HPos.CENTER);
         this.backGround = scanBackground;
         this.scanned = false;
@@ -64,4 +66,12 @@ public class Scanner {
         return scannerHead;
     }
 
+    public void restoreScanRoute() {
+        this.scanRoute = this.scanRouteBackUp.clone();
+    }
+
+    public void clearTranslate() {
+        this.scannerHead.setTranslateX(0);
+        this.scannerHead.setTranslateY(0);
+    }
 }
