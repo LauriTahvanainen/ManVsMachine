@@ -139,4 +139,8 @@ public class GamePhysics {
         this.timeScore = 2000.0;
         this.lengthScore = 0;
     }
+    
+    public void clearScan() {
+        this.machine.getScanner().deleteScan();
+    }
 }

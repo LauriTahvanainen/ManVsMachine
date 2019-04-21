@@ -246,6 +246,7 @@ public class PlayingState extends State {
         this.machine.getScanner().restoreScanRoute();
         this.machine.getScanner().clearTranslate();
         this.physics.restoreScore();
+        this.physics.clearScan();
         this.finalScore = 0;
         this.saveHighScore.setDisable(false);
         this.gsm.startLoop();
