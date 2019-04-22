@@ -21,4 +21,5 @@
 |  17.4.|  7   | Testausta ja scannaustoiminnallisuuden, sekä Tile luokan koodaaminen |
 |  20.4.|  3   | Highscoren ja pause-menun koodailua |
 |  21.4.|  4   | ScoreDaon toteuttaminen, testien korjailua. |
-| yht   |  94  |  | 
+|  22.4.|  9   | Huipputulosten tarkastelun toteuttaminen. Uusi kartta, pelitilan alustaminen siihen kuntoon, että kartan valinta on helppo toteuttaa |
+| yht   |  103 |  | 
