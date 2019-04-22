@@ -153,7 +153,7 @@ public class SettingsState extends State {
     }
 
     @Override
-    public void restore(Algorithm a, int[][] map) {
+    public void restore(Algorithm a, String map) {
 
     }
 
@@ -176,6 +176,7 @@ public class SettingsState extends State {
     }
 
     private void handleUsernameChangePane(ActionEvent t) {
+        //TODO username update also updates scoreTables.
         if (t.getTarget().equals(this.changeUsername2)) {
             try {
                 int ret = this.userDao.update(this.stateM.getCurrentUser().getUsername(), this.newUserNameInput.getText());

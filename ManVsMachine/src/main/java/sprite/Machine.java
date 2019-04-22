@@ -15,14 +15,10 @@ public class Machine extends Sprite {
     private ArrayDeque<Vertex> routeBackUp;
     private Scanner scanner;
 
-    public Machine(Color color, double height, double width, Algorithm a, GridPane scanBackground) {
+    public Machine(Color color, double height, double width, Algorithm a) {
         super(color, height, width);
         this.algorithm = a;
-        this.algorithm.calculateRoute();
         GridPane.setHalignment(this.getForm(), HPos.CENTER);
-        this.route = this.algorithm.getRoute();
-        this.routeBackUp = this.route.clone();
-        this.scanner = new Scanner(this.algorithm.getMapScan(), scanBackground);
     }
 
     public void takeStep() {
@@ -44,12 +40,19 @@ public class Machine extends Sprite {
     public Scanner getScanner() {
         return scanner;
     }
-    
+
     public void scanNext() {
         this.scanner.scanNext();
     }
-    
+
     public void restoreRoute() {
         this.route = this.routeBackUp.clone();
+    }
+
+    public void calculateRoute(int goalX, int goalY) {
+        this.algorithm.calculateRoute(goalX, goalY);
+        this.route = this.algorithm.getRoute();
+        this.routeBackUp = this.route.clone();
+        this.scanner = new Scanner(this.algorithm.getMapScan());
     }
 }

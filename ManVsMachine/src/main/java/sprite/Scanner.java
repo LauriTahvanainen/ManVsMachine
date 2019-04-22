@@ -19,13 +19,12 @@ public class Scanner {
     private GridPane backGround;
     private boolean scanned;
 
-    public Scanner(ArrayDeque<Vertex> scanRoute, GridPane scanBackground) {
+    public Scanner(ArrayDeque<Vertex> scanRoute) {
         this.scannerHead = new Rectangle(10, 10);
         this.scannerHead.setFill(Color.rgb(255, 2, 255, 0));
         this.scanRoute = scanRoute;
         this.scanRouteBackUp = this.scanRoute.clone();
         GridPane.setHalignment(scannerHead, HPos.CENTER);
-        this.backGround = scanBackground;
         this.scanned = false;
     }
 
@@ -73,5 +72,9 @@ public class Scanner {
     public void clearTranslate() {
         this.scannerHead.setTranslateX(0);
         this.scannerHead.setTranslateY(0);
+    }
+
+    public void setBackground(GridPane scanBackground) {
+        this.backGround = scanBackground;
     }
 }

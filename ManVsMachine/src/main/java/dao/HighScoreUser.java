@@ -1,18 +1,22 @@
 package dao;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HighScoreUser {
     private String name;
-    private ArrayList<MapScore> mapHighScores;
+    private HashMap<String, Integer> mapHighScores;
 
     public HighScoreUser(String name) {
         this.name = name;
-        this.mapHighScores = new ArrayList<>();
+        this.mapHighScores = new HashMap<>();
     }
-
-    public ArrayList<MapScore> getMapHighScore() {
-        return mapHighScores;
+    
+    public int getScore(String map) {
+        return this.mapHighScores.get(map);
+    }
+    
+    public String getScoreAsString(String map) {
+        return String.valueOf(this.mapHighScores.get(map));
     }
 
     public String getName() {
@@ -20,10 +24,10 @@ public class HighScoreUser {
     }
     
     public void addScore(String map, int score) {
-        this.mapHighScores.add(new MapScore(map, score));
+        this.mapHighScores.putIfAbsent(map, score);
     }
     
-    public MapScore getMapScore(int map) {
-        return this.mapHighScores.get(map - 1);
+    public void updateScore(String map, int score) {
+        this.mapHighScores.put(map, score);
     }
 }

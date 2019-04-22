@@ -64,9 +64,9 @@ public class DatabaseScoreDao implements ScoreDao {
     }
 
     @Override
-    public ArrayList<HighScoreUser> listAll(String algorithm) throws SQLException {
+    public ArrayList<HighScoreUser> listAllSorted(String algorithm, String mapToSortBy) throws SQLException {
         ResultSet rs;
-        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + algorithm + ";")) {
+        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + algorithm + " ORDER BY " + mapToSortBy + " DESC;")) {
             rs = stmt.executeQuery();
             ArrayList<HighScoreUser> ret = new ArrayList<>();
             while (rs.next()) {

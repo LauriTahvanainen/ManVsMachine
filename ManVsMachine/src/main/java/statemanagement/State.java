@@ -18,6 +18,6 @@ public abstract class State {
 
     public abstract void restore();
 
-    public abstract void restore(Algorithm a, int[][] map);
+    public abstract void restore(Algorithm a, String mapName);
 
 }

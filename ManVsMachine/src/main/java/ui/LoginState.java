@@ -158,7 +158,7 @@ public final class LoginState extends State {
     }
 
     @Override
-    public void restore(Algorithm a, int[][] map) {
+    public void restore(Algorithm a, String map) {
     }
 
     private void reactToUsernameCreation(int ret, Text errorText, String username) {

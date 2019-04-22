@@ -4,6 +4,7 @@ import statemanagement.StateManager;
 import eventhandling.KeyEventHandler;
 import sprite.Sprite;
 import algorithm.Algorithm;
+import dao.HighScoreUser;
 import dao.UserDao;
 import game.GamePhysics;
 import game.MapRenderer;
@@ -28,8 +29,6 @@ import sprite.Machine;
 import statemanagement.State;
 import dao.ScoreDao;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PlayingState extends State {
 
@@ -40,7 +39,7 @@ public class PlayingState extends State {
     private Rectangle playerGoal;
     private Rectangle machineGoal;
     private final StateManager gsm;
-    private int[][] map;
+    private int[][] mapArray;
     private final UserDao userDao;
     private final ScoreDao scoreDao;
     private final MapRenderer renderer;
@@ -59,6 +58,8 @@ public class PlayingState extends State {
     private final Text endText;
     private final Text yourEndScore;
     private int finalScore;
+    private HighScoreUser currentScores;
+    private String mapName;
 
     public PlayingState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
         this.root = new StackPane();
@@ -141,6 +142,9 @@ public class PlayingState extends State {
         this.endGamePane.setTop(this.endText);
         BorderPane.setAlignment(this.endText, Pos.CENTER);
         this.endText.setFont(new Font("Didact Gothic", 40));
+        this.endText.setLineSpacing(20);
+        this.endText.setTextAlignment(TextAlignment.CENTER);
+        this.yourEndScore.setFont(new Font("Didact Gothic", 30));
         buttons.getChildren().addAll(this.yourEndScore, this.playAgain, this.saveHighScore, this.backToMainMenu);
 
         //pause init
@@ -182,15 +186,18 @@ public class PlayingState extends State {
         if (t.getTarget().equals(this.saveHighScore)) {
             //TODO
             try {
-                this.scoreDao.updateScore("BFS", this.gsm.getCurrentUser().getUsername(), "map1", this.finalScore);
+                this.scoreDao.updateScore("BFS", this.gsm.getCurrentUser().getUsername(), this.mapName, this.finalScore);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
+            this.yourEndScore.setText("Highscore updated!");
+            this.saveHighScore.setDisable(true);
+            this.currentScores.updateScore(this.mapName, finalScore);
         }
     }
 
     public void setMap(int[][] map) {
-        this.map = map;
+        this.mapArray = map;
     }
 
     public void setBackground(GridPane background) {
@@ -198,32 +205,43 @@ public class PlayingState extends State {
     }
 
     @Override
-    public void restore(Algorithm algo, int[][] map) {
-        this.background = renderer.renderMap(map);
+    public void restore(Algorithm algo, String mapName) {
+        this.mapName = mapName;
         this.player = new Sprite(this.gsm.getCurrentUser().getColor(), 20, 20);
-        this.machine = new Machine(Color.BLUE, 20, 20, algo, this.background);
+        this.machine = new Machine(Color.BLUE, 20, 20, algo);
         this.machineGoal = new Rectangle(40, 40, Color.BLUE);
         this.playerGoal = new Rectangle(40, 40, this.gsm.getCurrentUser().getColor());
-        this.map = map;
-        this.background.add(this.player.getForm(), 28, 1);
-        this.background.add(this.machine.getForm(), 1, 1);
-        this.background.add(this.machineGoal, 28, 16);
-        this.background.add(this.playerGoal, 1, 16);
-        this.background.add(this.machine.getScanner().getScannerHead(), 1, 1);
+        this.mapArray = this.renderer.formArrayMap(mapName);
+        int[] machineCoordinates = this.renderer.getMachineCoordinates(mapArray);
+        algo.setUpAlgorithm(mapArray, machineCoordinates[0], machineCoordinates[1]);
+        this.machine.calculateRoute(machineCoordinates[2], machineCoordinates[3]);
+        this.background = renderer.renderMap(mapArray);
+        this.renderer.placeSpritesOnMap(machineCoordinates, background, player, machine, playerGoal, machineGoal);
+        this.machine.getScanner().setBackground(background);
         this.saveHighScore.setDisable(false);
         this.pauseMenu.setTop(this.gameStatisticsPane);
         this.root.getChildren().addAll(this.background, this.pauseMenu);
         this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal);
         this.finalScore = 0;
+        try {
+            this.currentScores = this.scoreDao.listUser("BFS", this.gsm.getCurrentUser().getUsername());
+        } catch (SQLException ex) {
+            return;
+        }
         this.gsm.setSceneRoot(this.root);
         this.gsm.startLoop();
     }
 
     private void playerWin(int finalScore) {
         gsm.stopLoop();
-        this.endText.setText("You Won!");
         this.yourEndScore.setText("Your Final Score: " + finalScore);
         this.finalScore = finalScore;
+        if (this.currentScores.getScore(mapName) < this.finalScore) {
+            this.endText.setText("You Won!\nCurrent Highscore: " + this.currentScores.getScore(mapName) + "\nNew Highscore!");
+        } else {
+            this.endText.setText("You Won!\nCurrent Highscore: " + this.currentScores.getScore(mapName) + "\n");
+            this.saveHighScore.setDisable(true);
+        }
         this.pauseMenu.setCenter(this.endGamePane);
         this.pauseMenu.setTop(null);
     }

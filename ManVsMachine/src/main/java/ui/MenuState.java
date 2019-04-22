@@ -42,7 +42,6 @@ public final class MenuState extends State {
         {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
-    private final int stateId;
     private final BorderPane menu;
     private final StateManager gsm;
     private final UserDao userDao;
@@ -51,7 +50,6 @@ public final class MenuState extends State {
 
     public MenuState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
         this.gsm = gsm;
-        this.stateId = 1;
         this.userDao = userDao;
         this.scoreDao = scoreDao;
         this.menu = new BorderPane();
@@ -107,21 +105,15 @@ public final class MenuState extends State {
         if (button.getText().equals("Play")) {
             gsm.setCurrentState(2);
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
-            gsm.getCurrentState().restore(new BFS(this.map), this.map);
+            gsm.getCurrentState().restore(new BFS(), "map2");
         } else if (button.getText().equals("Settings")) {
             gsm.setCurrentState(3);
             gsm.stateUpdate();
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Highscores")) {
             //TODO
-            try {
-                HighScoreUser user = this.scoreDao.listUser("BFS", this.gsm.getCurrentUser().getUsername());
-                for (int i = 1; i < 4; i++) {
-                    System.out.println(user.getMapScore(i).toString());
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+            gsm.setCurrentState(4);
+            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Sign Out")) {
             gsm.setCurrentState(0);
             gsm.setCurrentUser(null);
@@ -137,8 +129,8 @@ public final class MenuState extends State {
     }
 
     @Override
-    public void restore(Algorithm a, int[][] map) {
-
+    public void restore(Algorithm a, String map) {
+        
     }
 
 }

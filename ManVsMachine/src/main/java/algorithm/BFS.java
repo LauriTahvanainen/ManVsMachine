@@ -9,27 +9,19 @@ public class BFS extends Algorithm {
     private boolean[][] visited;
     private ArrayDeque<Vertex> mapScan;
     private Vertex[][] routeMap;
-
-    public BFS(int[][] map) {
-        this.map = map;
-        this.queue = new ArrayDeque<>();
-        this.visited = new boolean[map.length][map[0].length];
-        this.visited[1][1] = true;
-        this.queue.add(new Vertex(1, 1));
-        this.mapScan = new ArrayDeque<>();
-        this.routeMap = new Vertex[this.map.length][this.map[0].length];
-    }
+    private int startX;
+    private int startY;
 
     @Override
-    public void calculateRoute() {
-        while (!this.queue.isEmpty() && !this.visited[16][28]) {
+    public void calculateRoute(int goalX, int goalY) {
+        while (!this.queue.isEmpty() && !this.visited[goalX][goalY]) {
             Vertex v = this.queue.poll();
             checkTile(v, 1, 0);
             checkTile(v, 0, 1);
             checkTile(v, -1, 0);
             checkTile(v, 0, -1);
         }
-        buildRoute();
+        buildRoute(goalX, goalY);
     }
 
     private void checkTile(Vertex vertex, int xOffset, int yOffset) {
@@ -43,14 +35,14 @@ public class BFS extends Algorithm {
     }
 
     @Override
-    protected void buildRoute() {
+    protected void buildRoute(int goalX, int goalY) {
         //build the route backwards from the goal
         //because the movement is done with the translate of the sprite, there is a -1 x and y offset in the route, so the
         //last coordinate in the route is not the coordinate map[map.length - 2][map[0].length - 2], but -3
         this.queue.clear();
-        Vertex v = this.routeMap[16][28];
-        this.queue.add(new Vertex(40 * 15, 40 * 27));
-        while (v.getRow() != 1 && v.getColumn() != 1) {
+        Vertex v = this.routeMap[goalX][goalY];
+        this.queue.add(new Vertex(40 * (goalX - 1), 40 * (goalY - 1)));
+        while (v.getRow() != startX || v.getColumn() != startY) {
             v = this.routeMap[v.getRow()][v.getColumn()];
             this.queue.addFirst(v.scaleOffset(40, 0, 0));
         }
@@ -64,6 +56,19 @@ public class BFS extends Algorithm {
     @Override
     public ArrayDeque<Vertex> getMapScan() {
         return this.mapScan;
+    }
+    
+    @Override
+    public void setUpAlgorithm(int[][] map, int startX, int startY) {
+        this.map = map;
+        this.queue = new ArrayDeque<>();
+        this.visited = new boolean[map.length][map[0].length];
+        this.visited[startX][startY] = true;
+        this.queue.add(new Vertex(startX, startY));
+        this.mapScan = new ArrayDeque<>();
+        this.routeMap = new Vertex[this.map.length][this.map[0].length];
+        this.startX = startX;
+        this.startY = startY;
     }
 
 }
