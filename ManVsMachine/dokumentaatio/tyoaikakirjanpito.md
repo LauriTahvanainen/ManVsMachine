@@ -22,4 +22,5 @@
 |  20.4.|  3   | Highscoren ja pause-menun koodailua |
 |  21.4.|  4   | ScoreDaon toteuttaminen, testien korjailua. |
 |  22.4.|  9   | Huipputulosten tarkastelun toteuttaminen. Uusi kartta, pelitilan alustaminen siihen kuntoon, että kartan valinta on helppo toteuttaa |
-| yht   |  103 |  | 
+|  23.4.|  9   | Algoritmin ja kartan valitsemisen toteutus. Testausta. |
+| yht   |  112 |  | 

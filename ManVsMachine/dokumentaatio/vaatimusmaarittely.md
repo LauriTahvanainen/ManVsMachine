@@ -11,29 +11,29 @@ Sovellus aukeaa kirjautumisnäkymään, jossa käyttäjä voi joko luoda uuden k
 * Uuteen peliin
 * Huipputulosten tarkasteluun
 * Asetuksiin
-Pelinäkymä on y-akselin mukaan symmetrinen labyrintti, jossa pelaajan lähtö on oikeassa yläkulmassa ja maali vasemmassa alakulmassa, kun taas algoritmin lähtö on vasemmassa yläkulmassa, ja maali oikeassa alakulmassa. Pelin päätyttyä pelaaja voi siirtyä päävalikkoon, tai tulosten tallentamiseen.
+Pelinäkymä on symmetrinen labyrintti, jossa pelaajan lähdön ja maalin paikka voi vaihdella, kun taas algoritmin lähtö on aina vasemmassa yläkulmassa, mutta maalin paikka voi vaihdella. Pelin päätyttyä pelaaja voi siirtyä päävalikkoon, käynnistää pelin uudelleen tai tallentaa huipputuloksena, jos hän sellaisen teki.
 
 ## Perusversion tarjoama toiminnallisuus
 
 ### Ennen kirjautumista
-* Käyttäjän on mahdollista joko kirjautua vanhalla käyttäjänimellä, tai kirjautua uudella käyttäjänimellä.
+* Käyttäjän on mahdollista joko kirjautua vanhalla käyttäjänimellä, tai luoda uusi käyttäjänimi jolla kirjautua.
 * Käyttäjä voi syöttää käyttäjänimensä lisäyslomakkeeseen uutta käyttäjänimeä luodessa. Nimen on oltava:
 	* Vähintään 4 merkkiä, maksimissaan 16 merkkiä pitkä
 	* Uniikki
 	* Nimi ei saa sisältää välilyöntejä
-* Järjestelmä ilmoittaa jos nimeä ei ole järjestelmässä.
+* Järjestelmä ilmoittaa jos nimi saadaan lisättyä, ja jos nimi ei täytä vaatimuksia.
 
 ### Kirjautumisen jälkeen
 * Käyttäjä näkee päävalikon, josta hän voi valita:
 	* Uuden pelin
 	* Huipputulosten tarkastelun
 	* Asetukset
-* Uuden pelin valitessaan käyttäjä voi valita algoritmeista vastustajan itselleen, minkä jälkeen peli alkaa satunnaisessa, valmiiksi generoidussa kartassa (Ei satunnaisgeneroitu, vaan kartta valmiina)
+* Uuden pelin valitessaan käyttäjä voi valita algoritmeista vastustajan itselleen, minkä jälkeen hänelle avautuu valitulla algoritmilla toimivat kartat. Kartan valittua peli alkaa.
 * Itse pelissä on kaksi hahmoa, algoritmin hahmo, ja käyttäjän hahmo. Molempien tavoitteena on päästä ensimmäisenä maaliin.
 * Käyttäjä ohjaa hahmonsa labyrintin läpi nuolinäppäimillä
 * Pisteitä käyttäjä saa kartan voittaessa tasoon kulutetun ajan mukaan
 * Pelin jälkeen käyttäjän on mahdollista joko, tallentaa tuloksensa, tai palata päävalikkoon
-* Huipputuloksissa käyttäjä voi tarkastella kaikkien pelaajien huipputuloksia erikseen jokaisesta kartasta, jokaista algoritmia vastaan. Myös selviytymispelimuodolla on erilliset tarkasteltavat huipputulokset.
+* Huipputuloksissa käyttäjä voi tarkastella 20 parhaan pelaajan huipputuloksia erikseen jokaisesta kartasta, jokaista algoritmia vastaan. Myös selviytymispelimuodolla on erilliset tarkasteltavat huipputulokset.
 * Asetuksissa pelaajan on mahdollista mm. vaihtaa käyttäjänimensä, sekä kustomoida pelihahmoaan.
 
 ## Jatkokehitysideoita
