@@ -61,12 +61,14 @@ public class Main extends Application {
         State playingState = new PlayingState(this.stateManager, userDao, scoreDao);
         State settingsState = new SettingsState(this.stateManager, userDao, scoreDao);
         State highscoreState = new HighscoreState(this.stateManager, scoreDao);
+        State gameSelectionState = new GameSelectionState(this.stateManager);
 
         this.stateManager.addState(loginState);
         this.stateManager.addState(menuState);
         this.stateManager.addState(playingState);
         this.stateManager.addState(settingsState);
         this.stateManager.addState(highscoreState);
+        this.stateManager.addState(gameSelectionState);
         this.scene.setRoot(this.stateManager.getCurrentState().getCurrent());
         this.actionEventHandler = new ActionEventHandler(stateManager);
         this.scene.addEventHandler(ActionEvent.ACTION, actionEventHandler);

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseScoreDao implements ScoreDao {
 
@@ -16,18 +18,12 @@ public class DatabaseScoreDao implements ScoreDao {
 
     @Override
     public int createDefault(String username, String algorithm) throws SQLException {
-        PreparedStatement stmt;
-        try (Connection conn = this.connector.openConnection()) {
-            stmt = conn.prepareStatement("INSERT INTO " + algorithm +"(username) VALUES(?)");
-            try {
-                stmt.setString(1, username);
-                stmt.executeUpdate();
-            } catch (SQLException e) {
-                stmt.close();
-                return 0;
-            }
+        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + algorithm + "(username) VALUES(?)")) {
+            stmt.setString(1, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            return 0;
         }
-        stmt.close();
         return 1;
     }
 
@@ -41,25 +37,20 @@ public class DatabaseScoreDao implements ScoreDao {
                 return -1;
             }
             return rs.getInt(map);
+        } catch (SQLException e) {
+            return -1;
         }
     }
 
     @Override
     public boolean updateScore(String algorithm, String username, String map, int score) throws SQLException {
-        PreparedStatement stmt;
-        try (Connection conn = this.connector.openConnection()) {
-            stmt = conn.prepareStatement("UPDATE " + algorithm + " SET " + map + " = ?" + " WHERE username = ?");
-            try {
-                stmt.setInt(1, score);
-                stmt.setString(2, username);
-                stmt.executeUpdate();
-            } catch (SQLException e) {
-                conn.close();
-                stmt.close();
-                return false;
-            }
+        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("UPDATE " + algorithm + " SET " + map + " = ?" + " WHERE username = ?")) {
+            stmt.setInt(1, score);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            return false;
         }
-        stmt.close();
         return true;
     }
 

@@ -62,7 +62,7 @@ public class EventHandlingTestLoginState extends State {
     }
 
     @Override
-    public void restore(Algorithm a, int[][] map) {
+    public void restore(Algorithm a, String map) {
 
     }
 

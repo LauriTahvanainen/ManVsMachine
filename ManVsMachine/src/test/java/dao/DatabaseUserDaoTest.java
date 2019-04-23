@@ -2,11 +2,9 @@ package dao;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
@@ -17,27 +15,15 @@ public class DatabaseUserDaoTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
     DatabaseUserDao dao;
+    ScoreDao scoreDao;
     File database;
-
-    public DatabaseUserDaoTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
 
     @Before
     public void setUp() throws Exception {
         database = testFolder.newFile("testDatabase.db");
-        dao = new DatabaseUserDao(new Connector(database.getAbsolutePath()));
-    }
-
-    @After
-    public void tearDown() {
+        Connector conn = new Connector(database.getAbsolutePath());
+        dao = new DatabaseUserDao(conn);
+        scoreDao = new DatabaseScoreDao(conn);
     }
 
     @Test
@@ -228,5 +214,22 @@ public class DatabaseUserDaoTest {
         this.dao.updateColor("Teppo", 0, 25, 7777);
         User ret = this.dao.read("Teppo");
         assertTrue(ret.getColor().equals(Color.RED));
+    }
+    
+    @Test   
+    public void updateUserNameAlsoUpdatesScoreTables() throws SQLException {
+        this.dao.create("Teppo");
+        this.dao.create("Testi");
+        this.scoreDao.createDefault("Teppo", "BFS");
+        this.scoreDao.createDefault("Testi", "BFS");
+        this.scoreDao.updateScore("BFS", "Teppo", "map1", 1000);
+        this.scoreDao.updateScore("BFS", "Testi", "map1", 2000);
+        this.dao.update("Teppo", "Seppo");
+        ArrayList<HighScoreUser> list = this.scoreDao.listAllSorted("BFS", "map1");
+        HighScoreUser user = this.scoreDao.listUser("BFS", "Teppo");
+        if (list.size() == 2 && user == null && list.get(1).getName().equals("Seppo") && list.get(1).getScore("map1") == 1000) {
+            return;
+        }
+        fail("Updating an username does not update scoretables correctly");
     }
 }

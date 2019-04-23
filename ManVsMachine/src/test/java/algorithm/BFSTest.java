@@ -1,21 +1,18 @@
 package algorithm;
 
 import java.util.ArrayDeque;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import sprite.Machine;
 
 public class BFSTest {
 
     private int[][] map = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 4, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1},
         {1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
         {1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
         {1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1},
@@ -30,13 +27,12 @@ public class BFSTest {
         {1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
         {1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1},
         {1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1},
-        {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+        {1, 3, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 5, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
     //coordniates of the row have a -1 offset in the route that the algorithm gives
     private int lastX = this.map[0].length - 3;
     private int lastY = this.map.length - 3;
-    private Machine machine;
     private BFS search;
 
     @BeforeClass
@@ -49,12 +45,9 @@ public class BFSTest {
 
     @Before
     public void setUp() {
-        this.search = new BFS(this.map);
-        this.machine = new Machine(Color.BLACK, 20, 20, this.search, new GridPane());
-    }
-
-    @After
-    public void tearDown() {
+        this.search = new BFS();
+        this.search.setUpAlgorithm(map, 1, 1);
+        this.search.calculateRoute(16, 28);
     }
 
     @Test
@@ -85,28 +78,6 @@ public class BFSTest {
     }
 
     @Test
-    public void routeFoundToGoal() {
-        while (!this.search.getRoute().isEmpty()) {
-            this.machine.takeStep();
-        }
-        if (this.machine.getForm().getTranslateX() == this.lastX * 40 && this.machine.getForm().getTranslateY() == this.lastY * 40) {
-            return;
-        }
-        fail("Your machine doesn't end up in its goal: (" + (this.lastX * 40) + ":" + (this.lastY * 40) + ") It ends at: (" + this.machine.getForm().getTranslateX() + ":" + this.machine.getForm().getTranslateY());
-    }
-    
-    @Test
-    public void scanFoundToGoal() {
-        while (!this.search.getMapScan().isEmpty()) {
-            this.machine.scanNext();
-        }
-        if (this.machine.getScanner().getScannerHead().getTranslateX() == this.lastX * 40 && this.machine.getScanner().getScannerHead().getTranslateY() == this.lastY * 40) {
-            return;
-        }
-        fail("Your machine doesn't end up in its goal: (" + (this.lastX * 40) + ":" + (this.lastY * 40) + ") It ends at: (" + this.machine.getScanner().getScannerHead().getTranslateX() + ":" + this.machine.getScanner().getScannerHead().getTranslateY());
-    }
-
-    @Test
     public void scanLastOnScanIsGoal() {
         ArrayDeque<Vertex> ret = this.search.getMapScan();
         Vertex v = ret.pollLast();
@@ -121,5 +92,12 @@ public class BFSTest {
         assertFalse(this.search.getRoute().contains(new Vertex(40,40)));
     }
 
+    @Test
+    public void routeLengthIsRight() {
+        if (this.search.getRoute().size() == 46) {
+            return;
+        }
+        fail("Route length should be 46, but is: " + this.search.getRoute().size());
+    }
     
 }

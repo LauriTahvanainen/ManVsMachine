@@ -17,7 +17,6 @@ public class Scanner {
     private ArrayDeque<Vertex> scanRoute;
     private ArrayDeque<Vertex> scanRouteBackUp;
     private GridPane backGround;
-    private boolean scanned;
 
     public Scanner(ArrayDeque<Vertex> scanRoute) {
         this.scannerHead = new Rectangle(10, 10);
@@ -25,7 +24,6 @@ public class Scanner {
         this.scanRoute = scanRoute;
         this.scanRouteBackUp = this.scanRoute.clone();
         GridPane.setHalignment(scannerHead, HPos.CENTER);
-        this.scanned = false;
     }
 
     public void scanNext() {
@@ -34,10 +32,7 @@ public class Scanner {
             this.backGround.add(Tile.SCAN_TILE.getTile(), v.getColumn() / 40 + 1, v.getRow() / 40 + 1);
             this.scanRoute.pop();
         }
-        moveTowards(new Point2D(v.getColumn(), v.getRow()));
-        if (this.scanRoute.isEmpty()) {
-            this.scanned = true;
-        }
+        moveTo(new Point2D(v.getColumn(), v.getRow()));
     }
 
     public void deleteScan() {
@@ -50,9 +45,8 @@ public class Scanner {
         }
     }
 
-    public void moveTowards(Point2D point) {
+    public void moveTo(Point2D point) {
         Point2D towards = new Point2D(point.getX() - this.scannerHead.getTranslateX(), point.getY() - this.scannerHead.getTranslateY());
-        towards.normalize();
         this.scannerHead.setTranslateX(this.scannerHead.getTranslateX() + towards.getX());
         this.scannerHead.setTranslateY(this.scannerHead.getTranslateY() + towards.getY());
     }

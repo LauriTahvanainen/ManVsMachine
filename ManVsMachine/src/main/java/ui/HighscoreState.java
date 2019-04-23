@@ -38,12 +38,14 @@ public class HighscoreState extends State {
     private final ScrollPane scoreScroller;
     private final StateManager sm;
     private final GridPane scoreList;
-    private final GridPane maps;
     private final Button map1;
     private final Button map2;
+    private final Button map3;
     private final Button backToMapSelect;
     private final Text algInfo;
     private final Text mapInfo;
+    private final Text selectedAlgoText;
+    private String selectedAlgo;
     private static final String RESOURCE_PATH = "/pictures/";
 
     public HighscoreState(StateManager sm, ScoreDao scoreDao) {
@@ -52,7 +54,6 @@ public class HighscoreState extends State {
         this.root = new StackPane();
         this.selectionPane = new BorderPane();
         this.scorePane = new BorderPane();
-        this.maps = new GridPane();
         this.mapScroller = new ScrollPane();
         this.scoreScroller = new ScrollPane();
         this.scoreList = new GridPane();
@@ -64,8 +65,11 @@ public class HighscoreState extends State {
         this.backToMapSelect = new Button("Go Back");
         this.algInfo = new Text();
         this.mapInfo = new Text();
+        this.selectedAlgo = "-";
+        this.selectedAlgoText = new Text("Selected: " + selectedAlgo);
         this.map1 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map1.png"))));
         this.map2 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map2.png"))));
+        this.map3 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         initPane();
     }
 
@@ -86,15 +90,23 @@ public class HighscoreState extends State {
 
     @Override
     public void initPane() {
+        Font font = new Font("Didact Gothic", 40);
+
         //selector
         this.root.getChildren().addAll(this.selectionPane, this.scorePane);
 
-        //Buttons
+        //Buttons and selectionview
         VBox buttons = new VBox();
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(10);
         buttons.getChildren().addAll(this.backToMenu, this.bfs, this.dfs, this.dijkstra, this.aStar);
         this.selectionPane.setLeft(buttons);
+
+        this.selectedAlgoText.setFont(font);
+        HBox selectedPane = new HBox();
+        selectedPane.setAlignment(Pos.CENTER);
+        selectedPane.getChildren().add(this.selectedAlgoText);
+        this.selectionPane.setTop(selectedPane);
 
         //Mapscrolling view
         this.selectionPane.setCenter(this.mapScroller);
@@ -103,18 +115,14 @@ public class HighscoreState extends State {
         //map select view
         this.map1.setId("map1");
         this.map2.setId("map2");
-        this.mapScroller.setContent(this.maps);
-        this.maps.setAlignment(Pos.CENTER);
-        this.maps.setHgap(10);
-        this.maps.setVgap(10);
-        this.maps.addRow(0, this.map1, this.map2);
+        this.map3.setId("map3");
 
         //scoreview
         VBox buttons2 = new VBox();
         HBox info = new HBox();
         info.setSpacing(40);
-        this.algInfo.setFont(new Font("Didact Gothic", 40));
-        this.mapInfo.setFont(new Font("Didact Gothic", 40));
+        this.algInfo.setFont(font);
+        this.mapInfo.setFont(font);
         info.setAlignment(Pos.CENTER);
         info.getChildren().addAll(this.algInfo, this.mapInfo);
         buttons2.setAlignment(Pos.CENTER);
@@ -144,30 +152,60 @@ public class HighscoreState extends State {
             this.sm.setCurrentState(1);
             this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
         }
+        if (t.getTarget().equals(this.bfs)) {
+            showRegularMaps();
+            setSelectedAlgo("BFS");
+        }
+        if (t.getTarget().equals(this.dfs)) {
+            showRegularMaps();
+            setSelectedAlgo("DFS");
+        }
+        if (t.getTarget().equals(this.dijkstra)) {
+            showAllMaps();
+            setSelectedAlgo("Dijkstra");
+        }
+        if (t.getTarget().equals(this.aStar)) {
+            showAllMaps();
+            setSelectedAlgo("A-Star");
+        }
         if (t.getTarget().equals(this.map1)) {
             try {
-                formScoreList(this.scoreDao.listAllSorted("BFS", "map1"), "map1");
+                formScoreList(this.scoreDao.listAllSorted("BFS", "map1"), "map1", this.selectedAlgo);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
             this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
         }
         if (t.getTarget().equals(this.map2)) {
             try {
-                formScoreList(this.scoreDao.listAllSorted("BFS", "map2"), "map2");
+                formScoreList(this.scoreDao.listAllSorted("BFS", "map2"), "map2", this.selectedAlgo);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
             this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
+        if (t.getTarget().equals(this.map3)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted("BFS", "map3"), "map3", this.selectedAlgo);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
         }
         if (t.getTarget().equals(this.backToMapSelect)) {
             this.scorePane.setVisible(false);
+            this.selectionPane.setDisable(false);
         }
     }
 
     @Override
     public void restore() {
-        this.mapScroller.setVisible(false);
+        this.mapScroller.setContent(null);
+        this.selectedAlgo = "-";
+        this.selectedAlgoText.setText("Selected: -");
     }
 
     @Override
@@ -175,10 +213,10 @@ public class HighscoreState extends State {
 
     }
 
-    private void formScoreList(ArrayList<HighScoreUser> list, String map) throws SQLException {
+    private void formScoreList(ArrayList<HighScoreUser> list, String map, String algo) throws SQLException {
         HighScoreUser currentUser = this.scoreDao.listUser("BFS", this.sm.getCurrentUser().getUsername());
         this.scoreList.getChildren().clear();
-        this.algInfo.setText("BFS");
+        this.algInfo.setText(algo);
         this.mapInfo.setText("Map " + map.charAt(3));
         Font font = new Font("Didact Gothic", 60);
         Text username = new Text("Username");
@@ -216,6 +254,37 @@ public class HighscoreState extends State {
                 break;
             }
         }
+    }
+
+    private void showRegularMaps() {
+        GridPane maps = new GridPane();
+
+        maps.setAlignment(Pos.CENTER);
+        maps.setHgap(10);
+        maps.setVgap(10);
+
+        maps.getChildren().clear();
+        maps.addRow(0, this.map1, this.map2);
+        maps.addRow(1, this.map3);
+        this.mapScroller.setContent(maps);
+    }
+
+    private void showAllMaps() {
+        GridPane maps = new GridPane();
+
+        maps.setAlignment(Pos.CENTER);
+        maps.setHgap(10);
+        maps.setVgap(10);
+
+        maps.getChildren().clear();
+        maps.addRow(0, this.map1, this.map2);
+        maps.addRow(1, this.map3);
+        this.mapScroller.setContent(maps);
+    }
+    
+    private void setSelectedAlgo(String algo) {
+        this.selectedAlgo = algo;
+        this.selectedAlgoText.setText("Selected: " + algo);
     }
 
 }
