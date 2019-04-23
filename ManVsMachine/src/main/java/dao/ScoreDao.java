@@ -11,7 +11,7 @@ public interface ScoreDao {
 
     boolean updateScore(String algorithm, String username, String map, int score) throws SQLException;
 
-    ArrayList<HighScoreUser> listAllSorted(String algorithm, String mapToSortBy) throws SQLException ;
+    ArrayList<HighScoreUser> listAllSorted(String algorithm, String mapToSortBy) throws SQLException;
 
-    HighScoreUser listUser(String algorithm, String username) throws SQLException ;
+    HighScoreUser listUser(String algorithm, String username) throws SQLException;
 }

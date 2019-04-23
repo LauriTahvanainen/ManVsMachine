@@ -39,18 +39,7 @@ public class GamePhysics {
     }
 
     public int updateGameWorld() {
-        if (!this.machine.getScanRoute().isEmpty()) {
-            this.machine.scanNext();
-            if (this.machine.getScanRoute().isEmpty()) {
-                this.machine.getScanner().deleteScan();
-            }
-        } else {
-            if (!this.machine.getRoute().isEmpty()) {
-                this.machine.takeStep();
-            }
-            if (wallCollisionCheck()) {
-                updatePlayerPosition();
-            }
+        if (updateMovement()) {
             this.timeScore -= 0.16;
             if (this.timeScore < 0) {
                 this.timeScore = 0;
@@ -139,8 +128,25 @@ public class GamePhysics {
         this.timeScore = 2000.0;
         this.lengthScore = 0;
     }
-    
+
     public void clearScan() {
         this.machine.getScanner().deleteScan();
+    }
+
+    private boolean updateMovement() {
+        if (!this.machine.getScanRoute().isEmpty()) {
+            this.machine.scanNext();
+            if (this.machine.getScanRoute().isEmpty()) {
+                this.machine.getScanner().deleteScan();
+            }
+            return false;
+        }
+        if (!this.machine.getRoute().isEmpty()) {
+            this.machine.takeStep();
+        }
+        if (wallCollisionCheck()) {
+            updatePlayerPosition();
+        }
+        return true;
     }
 }
