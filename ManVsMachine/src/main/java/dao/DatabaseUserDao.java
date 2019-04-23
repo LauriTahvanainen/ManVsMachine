@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public class DatabaseUserDao implements UserDao {
 
     private static final String USERTABLE_INIT = "CREATE TABLE IF NOT EXISTS Username(username VARCHAR(16) PRIMARY KEY, password VARCHAR(64), red INTEGER, green INTEGER, blue INTEGER);";
-    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0);";
+    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(Username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0);";
     private final Connector connector;
     
     public DatabaseUserDao(Connector conn) throws Exception {
@@ -46,19 +46,29 @@ public class DatabaseUserDao implements UserDao {
         if (ret == 2 || ret == 3 || ret == 4 || ret == 16) {
             return ret;
         }
-        PreparedStatement stmt;
+        PreparedStatement username, bfs;
         try (Connection conn = this.connector.openConnection()) {
-            stmt = conn.prepareStatement("UPDATE Username SET username = ? WHERE username = ?");
+            conn.setAutoCommit(false);
+            username = conn.prepareStatement("UPDATE Username SET username = ? WHERE username = ?");
+            bfs = conn.prepareStatement("UPDATE BFS SET username = ? WHERE username = ?");
             try {
-                stmt.setString(1, newUsername);
-                stmt.setString(2, oldUsername);
-                stmt.executeUpdate();
+                username.setString(1, newUsername);
+                username.setString(2, oldUsername);
+                bfs.setString(1, newUsername);
+                bfs.setString(2, oldUsername);
+                username.executeUpdate();
+                bfs.executeUpdate();
+                conn.commit();
+                conn.setAutoCommit(true);
             } catch (SQLException e) {
-                stmt.close();
+                username.close();
+                bfs.close();
+                conn.rollback();
                 return 0;
             }
         }
-        stmt.close();
+        username.close();
+        bfs.close();
         return 1;
     }
 
