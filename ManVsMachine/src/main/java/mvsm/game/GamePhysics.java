@@ -25,6 +25,8 @@ public class GamePhysics {
     private double lengthScore;
     private final Text timeScoreText;
     private final Text lengthScoreText;
+    private int machineRestoreX;
+    private int machineRestoreY;
 
     /**
      *
@@ -56,12 +58,14 @@ public class GamePhysics {
      * @see mvsm.ui.PlayingState#restore(mvsm.algorithm.Algorithm,
      * java.lang.String)
      */
-    public void setUpPhysicsWorld(GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal) {
+    public void setUpPhysicsWorld(GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal, int machineRestoreX, int machineRestoreY) {
         this.background = background;
         this.player = player;
         this.machine = machine;
         this.playerGoal = playerGoal;
         this.machineGoal = machineGoal;
+        this.machineRestoreX = machineRestoreX;
+        this.machineRestoreY = machineRestoreY;
         restoreScore();
     }
 
@@ -163,19 +167,28 @@ public class GamePhysics {
     }
 
     /**
-     * Restore scores to their default values. Used in restoring the level.
+     * Restores level. Sets Sprites to starting positions, restores machine's
+     * routes, clears scans from screen and restores scores.
+     *
+     * @see mvsm.sprite.Machine#restoreRoute()
+     * @see mvsm.sprite.Scanner#restoreScanRoute()
      */
-    public void restoreScore() {
+    public void restoreLevel() {
+        this.player.clearTranslate();
+        this.machine.setTranslate(this.machineRestoreX, this.machineRestoreY);
+        this.machine.restoreRoute();
+        this.machine.getScanner().restoreScanRoute();
+        this.machine.getScanner().clearTranslate();
+        restoreScore();
+        clearScan();
+    }
+
+    private void restoreScore() {
         this.timeScore = 2000.0;
         this.lengthScore = 0;
     }
 
-    /**
-     * Used in restoring the level
-     *
-     * @see mvsm.sprite.Scanner#deleteScan()
-     */
-    public void clearScan() {
+    private void clearScan() {
         this.machine.getScanner().deleteScan();
     }
 

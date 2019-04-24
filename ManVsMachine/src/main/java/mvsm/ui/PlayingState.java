@@ -60,8 +60,6 @@ public class PlayingState extends State {
     private int finalScore;
     private HighScoreUser currentScores;
     private String mapName;
-    private int machineRestoreX = 0;
-    private int machineRestoreY = 0;
 
     public PlayingState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
         this.root = new StackPane();
@@ -220,8 +218,6 @@ public class PlayingState extends State {
      */
     @Override
     public void restore(Algorithm algo, String mapName) {
-        this.machineRestoreX = 0;
-        this.machineRestoreY = 0;
         this.mapName = mapName;
         this.player = new Sprite(this.gsm.getCurrentUser().getColor(), 20, 20);
         this.machine = new Machine(Color.BLUE, 20, 20, algo);
@@ -233,13 +229,11 @@ public class PlayingState extends State {
         this.machine.calculateRoute(machineCoordinates[2], machineCoordinates[3]);
         this.background = renderer.renderMap(mapArray);
         this.renderer.placeSpritesOnMap(machineCoordinates, background, player, machine, playerGoal, machineGoal);
-        this.machineRestoreX = (machineCoordinates[1] - 1) * 40;
-        this.machineRestoreY = (machineCoordinates[0] - 1) * 40;
         this.machine.getScanner().setBackground(background);
         this.saveHighScore.setDisable(false);
         this.pauseMenu.setTop(this.gameStatisticsPane);
         this.root.getChildren().addAll(this.background, this.pauseMenu);
-        this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal);
+        this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, (machineCoordinates[1] - 1) * 40, (machineCoordinates[0] - 1) * 40);
         this.finalScore = 0;
         try {
             this.currentScores = this.scoreDao.listUser("BFS", this.gsm.getCurrentUser().getUsername());
@@ -276,13 +270,7 @@ public class PlayingState extends State {
 
     @Override
     public void restore() {
-        this.player.clearTranslate();
-        this.machine.setTranslate(this.machineRestoreX, this.machineRestoreY);
-        this.machine.restoreRoute();
-        this.machine.getScanner().restoreScanRoute();
-        this.machine.getScanner().clearTranslate();
-        this.physics.restoreScore();
-        this.physics.clearScan();
+        this.physics.restoreLevel();
         this.finalScore = 0;
         this.saveHighScore.setDisable(false);
         this.gsm.startLoop();
