@@ -1,6 +1,7 @@
 
 package algorithm;
 
+import mvsm.algorithm.Vertex;
 import java.util.HashSet;
 import java.util.Random;
 import org.junit.After;

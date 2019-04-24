@@ -1,13 +1,13 @@
 package eventhandling;
 
-import algorithm.Algorithm;
+import mvsm.algorithm.Algorithm;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import statemanagement.State;
-import statemanagement.StateManager;
+import mvsm.statemanagement.State;
+import mvsm.statemanagement.StateManager;
 
 public class EventHandlingTestMenuState extends State {
     private GridPane pane;

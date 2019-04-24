@@ -1,8 +1,8 @@
 package game;
 
-import algorithm.Algorithm;
-import algorithm.BFS;
-import algorithm.Vertex;
+import mvsm.algorithm.Algorithm;
+import mvsm.algorithm.BFS;
+import mvsm.algorithm.Vertex;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import sprite.Machine;
+import mvsm.sprite.Machine;
 
 //Also tests scanner
 public class MachineTest {

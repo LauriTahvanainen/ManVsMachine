@@ -1,5 +1,11 @@
 package dao;
 
+import mvsm.dao.HighScoreUser;
+import mvsm.dao.Connector;
+import mvsm.dao.DatabaseUserDao;
+import mvsm.dao.ScoreDao;
+import mvsm.dao.DatabaseScoreDao;
+import mvsm.dao.User;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;

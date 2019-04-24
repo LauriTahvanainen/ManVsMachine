@@ -1,5 +1,7 @@
 package algorithm;
 
+import mvsm.algorithm.BFS;
+import mvsm.algorithm.Vertex;
 import java.util.ArrayDeque;
 import org.junit.After;
 import org.junit.AfterClass;

@@ -1,5 +1,6 @@
 package eventhandling;
 
+import mvsm.eventhandling.ActionEventHandler;
 import java.util.Properties;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,8 +12,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import statemanagement.State;
-import statemanagement.StateManager;
+import mvsm.statemanagement.State;
+import mvsm.statemanagement.StateManager;
 
 public class ActionEventHandlerTest {
 
