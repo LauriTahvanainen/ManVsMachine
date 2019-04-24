@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 /**
  * A class implementing the features of the machine. Machine has an instance of
  * scanner. The calculated routes are given to the scanner in the for of
- * Vertex-ArrayDeques.
+ * Vertex-ArrayDeques. It should be noted that in the GridPane, the x- and y-axis are flipped.
  *
  * @see Scanner
  */
@@ -94,5 +94,10 @@ public class Machine extends Sprite {
         this.route = this.algorithm.getRoute();
         this.routeBackUp = this.route.clone();
         this.scanner = new Scanner(this.algorithm.getMapScan());
+    }
+
+    public void setTranslate(int X, int Y) {
+        this.getForm().setTranslateX(X);
+        this.getForm().setTranslateY(Y);
     }
 }

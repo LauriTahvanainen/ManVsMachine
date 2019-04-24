@@ -60,6 +60,8 @@ public class PlayingState extends State {
     private int finalScore;
     private HighScoreUser currentScores;
     private String mapName;
+    private int machineRestoreX = 0;
+    private int machineRestoreY = 0;
 
     public PlayingState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
         this.root = new StackPane();
@@ -204,8 +206,22 @@ public class PlayingState extends State {
         this.background = background;
     }
 
+    /**
+     * Restores the PlayingState to start a new game. MachineRestore coordinates
+     * are saved, because machine movement is done via translate towards a point
+     * on the machines route. This means that the Machine should always be
+     * placed on the coordinates 1,1, and then it's translate should be set so
+     * that the machine's form gets to the starting coordinates. If the machine
+     * is simply placed on the machine coordinates, the machines movement will
+     * break.
+     *
+     * @param algo
+     * @param mapName
+     */
     @Override
     public void restore(Algorithm algo, String mapName) {
+        this.machineRestoreX = 0;
+        this.machineRestoreY = 0;
         this.mapName = mapName;
         this.player = new Sprite(this.gsm.getCurrentUser().getColor(), 20, 20);
         this.machine = new Machine(Color.BLUE, 20, 20, algo);
@@ -217,6 +233,8 @@ public class PlayingState extends State {
         this.machine.calculateRoute(machineCoordinates[2], machineCoordinates[3]);
         this.background = renderer.renderMap(mapArray);
         this.renderer.placeSpritesOnMap(machineCoordinates, background, player, machine, playerGoal, machineGoal);
+        this.machineRestoreX = (machineCoordinates[1] - 1) * 40;
+        this.machineRestoreY = (machineCoordinates[0] - 1) * 40;
         this.machine.getScanner().setBackground(background);
         this.saveHighScore.setDisable(false);
         this.pauseMenu.setTop(this.gameStatisticsPane);
@@ -259,7 +277,7 @@ public class PlayingState extends State {
     @Override
     public void restore() {
         this.player.clearTranslate();
-        this.machine.clearTranslate();
+        this.machine.setTranslate(this.machineRestoreX, this.machineRestoreY);
         this.machine.restoreRoute();
         this.machine.getScanner().restoreScanRoute();
         this.machine.getScanner().clearTranslate();
