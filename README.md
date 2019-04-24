@@ -11,7 +11,7 @@ Pelin tarkoituksena on ohjata oma hahmo labyrintin läpi ennen vastustajaa, algo
 ## Releaset
 [Viikko 5: V1.0](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/viikko5) 
 
-[Viikko 5: V1.1](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/viikko6)
+[Viikko 6: V1.1](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/viikko6)
 
 ## Komentorivitoiminnot
 
