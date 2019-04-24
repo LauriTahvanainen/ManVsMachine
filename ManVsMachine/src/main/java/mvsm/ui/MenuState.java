@@ -45,13 +45,7 @@ public final class MenuState extends State {
 
     @Override
     public void update() {
-        this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser().getUsername());
-        int ret = 0;
-        try {
-            ret = this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "BFS");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+
     }
 
     @Override
@@ -79,7 +73,7 @@ public final class MenuState extends State {
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Settings")) {
             gsm.setCurrentState(3);
-            gsm.stateUpdate();
+            gsm.getCurrentState().restore();
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Highscores")) {
             //TODO
@@ -97,7 +91,13 @@ public final class MenuState extends State {
 
     @Override
     public void restore() {
-
+        this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser().getUsername());
+        int ret = 0;
+        try {
+            ret = this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "BFS");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @Override

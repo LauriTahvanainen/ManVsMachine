@@ -64,8 +64,8 @@ public class SettingsState extends State {
         this.changeColor = new Button("Change default sprite color");
         this.changeColor2 = new Button("Change color");
         this.colorPicker = new ColorPicker(Color.WHITE);
-        this.currentColor = new Rectangle(60,60);
-        this.newColor = new Rectangle(60,60, Color.WHITE);
+        this.currentColor = new Rectangle(60, 60);
+        this.newColor = new Rectangle(60, 60, Color.WHITE);
         this.settingsPane = new VBox();
         this.changeUsernamePane = new VBox();
         this.custCharPane = new BorderPane();
@@ -92,7 +92,6 @@ public class SettingsState extends State {
 
     @Override
     public void update() {
-        this.currentColor.setFill(this.stateM.getCurrentUser().getColor());
     }
 
     @Override
@@ -114,18 +113,18 @@ public class SettingsState extends State {
         this.colorPickerPane.setAlignment(Pos.CENTER);
         this.custButtonPane.setAlignment(Pos.CENTER);
         this.colorPicButtons.setAlignment(Pos.CENTER);
-        
+
         this.custCharPane.setLeft(custButtonPane);
         this.custCharPane.setBottom(this.errorText2);
         this.errorText2.setFont(Font.font("alegreya", 20));
-        
+
         this.colorPicker.getStyleClass().add("button");
-        this.colorPickerPane.addRow(1,new Text("Current color"), new Text("New color"));
-        this.colorPickerPane.addRow(2,this.currentColor, this.newColor);
-        this.colorPickerPane.addRow(3,this.colorPicker);
-        
+        this.colorPickerPane.addRow(1, new Text("Current color"), new Text("New color"));
+        this.colorPickerPane.addRow(2, this.currentColor, this.newColor);
+        this.colorPickerPane.addRow(3, this.colorPicker);
+
         this.colorPicButtons.getChildren().addAll(this.changeColor2, this.cancel3);
-        
+
         custButtonPane.getChildren().addAll(this.cancel2, this.changeColor);
         this.custCharPane.setMaxSize(1120, 640);
         this.custCharPane.setStyle("-fx-background-color: rgba(220, 220, 250, 0.8); -fx-background-radius: 1;");
@@ -148,7 +147,7 @@ public class SettingsState extends State {
 
     @Override
     public void restore() {
-
+        this.currentColor.setFill(this.stateM.getCurrentUser().getColor());
     }
 
     @Override
@@ -165,7 +164,7 @@ public class SettingsState extends State {
         }
         if (t.getTarget().equals(this.backToMenu)) {
             this.stateM.setCurrentState(1);
-            this.stateM.stateUpdate();
+            this.stateM.getCurrentState().restore();
             this.stateM.setSceneRoot(this.stateM.getCurrentState().getCurrent());
             return;
         }

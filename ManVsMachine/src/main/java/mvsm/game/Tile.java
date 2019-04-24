@@ -4,6 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Enum for different types of Tiles for the map.
+ */
 public enum Tile {
     WALL(40, 40, Color.BLACK),
     SCAN_TILE(40, 40, Color.rgb(255, 25, 25, 0.2)),
@@ -21,10 +24,19 @@ public enum Tile {
         this.color = color;
     }
 
+    /**
+     *
+     * @return a new tile specified by the constructor and the selected Tile.
+     */
     public Rectangle getTile() {
         return new Rectangle(this.height, this.width, this.color);
     }
 
+    /**
+     *
+     * @param node to check equals with
+     * @return True, if the node equals this Tile, false otherwise.
+     */
     public boolean nodeEqualsTile(Node node) {
         Rectangle rectangle;
         try {

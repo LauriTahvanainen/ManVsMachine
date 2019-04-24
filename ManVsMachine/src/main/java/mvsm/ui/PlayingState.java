@@ -100,7 +100,7 @@ public class PlayingState extends State {
     @Override
     public void update() {
         int ret = this.physics.updateGameWorld();
-        if (ret == 7) {
+        if (ret == -2) {
             pause();
             return;
         }

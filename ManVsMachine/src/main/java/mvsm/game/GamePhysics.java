@@ -9,6 +9,10 @@ import mvsm.eventhandling.KeyEventHandler;
 import mvsm.sprite.Machine;
 import mvsm.sprite.Sprite;
 
+/**
+ * A class for handling physics and updating the state of the game. Collision
+ * check, moving Sprites, updating scores.
+ */
 public class GamePhysics {
 
     private GridPane background;
@@ -22,22 +26,56 @@ public class GamePhysics {
     private final Text timeScoreText;
     private final Text lengthScoreText;
 
-    public GamePhysics(KeyEventHandler handler, Text timeScoreText, Text lengthScore) {
+    /**
+     *
+     * @param handler sets the KeyEventhandler so the physics know what buttons
+     * are pressed at each frame.
+     * @param timeScoreText set Text that will be updated each frame with the
+     * current time score.
+     * @param lengthScoreText set Text that will be updated each frame with the
+     * current route length score.
+     */
+    public GamePhysics(KeyEventHandler handler, Text timeScoreText, Text lengthScoreText) {
         this.handler = handler;
         this.timeScoreText = timeScoreText;
-        this.lengthScoreText = lengthScore;
+        this.lengthScoreText = lengthScoreText;
     }
 
+    /**
+     * This method is called in the PlayingState's restore method when a new
+     * game is started. It is called after all the parameters have been
+     * initialized e.g. the map has been rendered, a new machine has been
+     * created.
+     *
+     * @param background The game's map.
+     * @param player The player Sprite
+     * @param machine The machine Sprite
+     * @param playerGoal Player's goal.
+     * @param machineGoal Machine's goal
+     *
+     * @see mvsm.ui.PlayingState#restore(mvsm.algorithm.Algorithm,
+     * java.lang.String)
+     */
     public void setUpPhysicsWorld(GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal) {
         this.background = background;
         this.player = player;
         this.machine = machine;
         this.playerGoal = playerGoal;
         this.machineGoal = machineGoal;
-        this.timeScore = 2000.0;
-        this.lengthScore = 0;
+        restoreScore();
     }
 
+    /**
+     * The method that handles updating the game world, and communicating events
+     * in the game world to the PlayingState. Checks for collisions, handles
+     * collisions, updates player positions, updates scores, checks for winning
+     * or losing, and checks for pause.
+     *
+     * @return 0 if no events have happened, the sum of scores if the player
+     * reaches the goal, -1 if the machine reaches the goal, and -2 if the esc
+     * button has been pressed.
+     *
+     */
     public int updateGameWorld() {
         if (updateMovement()) {
             this.timeScore -= 0.16;
@@ -119,16 +157,24 @@ public class GamePhysics {
 
     private int checkForPause() {
         if (this.handler.getKeyCodes().contains(KeyCode.ESCAPE)) {
-            return 7;
+            return -2;
         }
         return 0;
     }
 
+    /**
+     * Restore scores to their default values. Used in restoring the level.
+     */
     public void restoreScore() {
         this.timeScore = 2000.0;
         this.lengthScore = 0;
     }
 
+    /**
+     * Used in restoring the level
+     *
+     * @see mvsm.sprite.Scanner#deleteScan()
+     */
     public void clearScan() {
         this.machine.getScanner().deleteScan();
     }

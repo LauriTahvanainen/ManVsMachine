@@ -8,8 +8,20 @@ import javafx.scene.shape.Rectangle;
 import mvsm.sprite.Machine;
 import mvsm.sprite.Sprite;
 
+/**
+ * An utility class for rendering maps. For how this class is used:
+ *
+ */
 public class MapRenderer {
 
+    /**
+     * Draws the map to a GridPane using the 2-dimensional array given as a
+     * parameter. Drawing is done using tiles.
+     *
+     * @param map as an 2-dimensional integer array.
+     * @return a new GridPane with a drawn map.
+     * @see mvsm.game.Tile
+     */
     public GridPane renderMap(int[][] map) {
         GridPane background = new GridPane();
         for (int i = 0; i < map.length; i++) {
@@ -32,6 +44,12 @@ public class MapRenderer {
         return background;
     }
 
+    /**
+     * Form a 2-dimensional Integer array from a text file.
+     *
+     * @param mapName name of the map file to read the array from.
+     * @return 2-dimensional Integer array. Blueprint for rendering.
+     */
     public int[][] formArrayMap(String mapName) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(MapRenderer.class.getResourceAsStream("/maps/" + mapName)));
         int[][] ret = new int[18][30];
@@ -56,7 +74,15 @@ public class MapRenderer {
         return ret;
     }
 
-    //Machine and Sprite goal and form coordinates are put into the return array. Machine coordinates 0-3, Sprite 4-7.
+    /**
+     * get an integer array that contains the coordinates for where to place the
+     * Sprites and the goals on the map.
+     *
+     * @param map the map from where to get the coordinates. Player start is
+     * marked with the number 2, goal with the number 3. 4 and 5 for Machine.
+     * @return Integer array with the coordinates. 0-3 are for Machine start and
+     * goal coordinates. 4-7 are for Player coordinates.
+     */
     public int[] getMachineCoordinates(int[][] map) {
         int[] ret = new int[8];
         for (int row = 1; row < map.length - 1; row++) {
@@ -67,6 +93,17 @@ public class MapRenderer {
         return ret;
     }
 
+    /**
+     * Places Sprites and goals on the GridPane background after the map has
+     * been rendered.
+     *
+     * @param coordinates for placing the Sprites and goals.
+     * @param background the GridPane map
+     * @param player the player's Sprite
+     * @param machine the machine's Sprite
+     * @param playerGoal player's goal
+     * @param machineGoal machine's goal
+     */
     public void placeSpritesOnMap(int[] coordinates, GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal) {
         background.add(player.getForm(), coordinates[5], coordinates[4]);
         background.add(playerGoal, coordinates[7], coordinates[6]);

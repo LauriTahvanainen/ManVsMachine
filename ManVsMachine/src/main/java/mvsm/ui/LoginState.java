@@ -115,7 +115,7 @@ public final class LoginState extends State {
                     this.gsm.setCurrentUser(user);
                     this.gsm.setCurrentState(1);
                     this.gsm.setSceneRoot(this.gsm.getCurrentState().getCurrent());
-                    this.gsm.stateUpdate();
+                    this.gsm.getCurrentState().restore();
                     this.currentPane = this.root;
                 } else {
                     inputField.clear();
