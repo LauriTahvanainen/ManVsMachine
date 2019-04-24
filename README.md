@@ -8,6 +8,8 @@ Pelin tarkoituksena on ohjata oma hahmo labyrintin läpi ennen vastustajaa, algo
 
 [Arkkitehtuurikuvaus](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/arkkitehtuuri.md)
 
+[Kayttöohje](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kayttoohje.md)
+
 ## Releaset
 [Viikko 5: V1.0](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/viikko5) 
 
