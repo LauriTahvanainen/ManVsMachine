@@ -4,7 +4,7 @@ import java.sql.*;
 
 public interface UserDao {
 
-    int create(String userName) throws SQLException;
+    int create(String userName, String password) throws SQLException;
 
     User read(String username) throws SQLException;
 

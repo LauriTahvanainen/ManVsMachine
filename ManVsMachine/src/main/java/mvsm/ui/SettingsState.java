@@ -34,7 +34,6 @@ public class SettingsState extends State {
     private final Button cancel2;
     private final Button changeColor;
     private final Button changeColor2;
-    private final Button cancel3;
     private final Rectangle currentColor;
     private final Rectangle newColor;
     private final TextField newUserNameInput;
@@ -55,26 +54,37 @@ public class SettingsState extends State {
         this.userDao = userDao;
         this.scoreDao = scoreDao;
         this.backToMenu = new Button("Back to menu");
+
+        //cancel buttons
         this.cancel1 = new Button("Cancel");
         this.cancel2 = new Button("Back to settings");
-        this.cancel3 = new Button("Back to character customization");
+
+        //navigationbuttons
         this.changeUsername = new Button("Change username");
-        this.changeUsername2 = new Button("Change username");
         this.customizeCharacter = new Button("Customize character");
         this.changeColor = new Button("Change default sprite color");
+        //activation buttons
+        this.changeUsername2 = new Button("Change username");
         this.changeColor2 = new Button("Change color");
+
+        //colorpicker view
         this.colorPicker = new ColorPicker(Color.WHITE);
         this.currentColor = new Rectangle(60, 60);
         this.newColor = new Rectangle(60, 60, Color.WHITE);
         this.settingsPane = new VBox();
-        this.changeUsernamePane = new VBox();
-        this.custCharPane = new BorderPane();
         this.colorPickerPane = new GridPane();
-        this.newUserNameInput = new TextField();
-        this.custButtonPane = new VBox();
-        this.colorPicButtons = new VBox();
-        this.errorText = new Text();
         this.errorText2 = new Text();
+        this.colorPicButtons = new VBox();
+
+        //character cust view
+        this.custCharPane = new BorderPane();
+        this.custButtonPane = new VBox();
+
+        //usernamechange view
+        this.changeUsernamePane = new VBox();
+        this.newUserNameInput = new TextField();
+        this.errorText = new Text();
+
         this.root = new StackPane();
         initPane();
         this.currentPane = this.settingsPane;
@@ -99,10 +109,12 @@ public class SettingsState extends State {
         this.root.getChildren().addAll(this.settingsPane, this.changeUsernamePane, this.custCharPane);
         this.root.setAlignment(Pos.CENTER);
 
+        //settings view
         this.settingsPane.setAlignment(Pos.CENTER);
         this.settingsPane.setMaxSize(1200, 720);
         this.settingsPane.getChildren().addAll(this.changeUsername, this.customizeCharacter, this.backToMenu);
 
+        //change username view
         this.changeUsernamePane.setAlignment(Pos.CENTER);
         this.changeUsernamePane.setMaxSize(1120, 640);
         this.changeUsernamePane.setStyle("-fx-background-color: rgba(220, 220, 250, 0.8); -fx-background-radius: 1;");
@@ -110,20 +122,20 @@ public class SettingsState extends State {
         this.changeUsernamePane.getChildren().addAll(this.errorText, this.newUserNameInput, this.changeUsername2, this.cancel1);
         this.changeUsernamePane.setVisible(false);
 
+        //color picker view
         this.colorPickerPane.setAlignment(Pos.CENTER);
-        this.custButtonPane.setAlignment(Pos.CENTER);
         this.colorPicButtons.setAlignment(Pos.CENTER);
-
-        this.custCharPane.setLeft(custButtonPane);
-        this.custCharPane.setBottom(this.errorText2);
-        this.errorText2.setFont(Font.font("alegreya", 20));
-
         this.colorPicker.getStyleClass().add("button");
         this.colorPickerPane.addRow(1, new Text("Current color"), new Text("New color"));
         this.colorPickerPane.addRow(2, this.currentColor, this.newColor);
         this.colorPickerPane.addRow(3, this.colorPicker);
+        this.colorPickerPane.addRow(4, this.changeColor2);
 
-        this.colorPicButtons.getChildren().addAll(this.changeColor2, this.cancel3);
+        //character customization
+        this.custButtonPane.setAlignment(Pos.CENTER);
+        this.custCharPane.setLeft(custButtonPane);
+        this.custCharPane.setBottom(this.errorText2);
+        this.errorText2.setFont(Font.font("alegreya", 20));
 
         custButtonPane.getChildren().addAll(this.cancel2, this.changeColor);
         this.custCharPane.setMaxSize(1120, 640);
@@ -198,16 +210,11 @@ public class SettingsState extends State {
             this.currentPane = this.settingsPane;
             this.settingsPane.setDisable(true);
             this.custCharPane.setVisible(false);
+            this.custCharPane.setCenter(null);
             this.settingsPane.setDisable(false);
         } else if (t.getTarget().equals(this.changeColor)) {
-            this.custButtonPane.setDisable(true);
             this.custCharPane.setCenter(this.colorPickerPane);
             this.custCharPane.setRight(this.colorPicButtons);
-        } else if (t.getTarget().equals(this.cancel3)) {
-            this.custCharPane.setCenter(null);
-            this.custCharPane.setRight(null);
-            this.custButtonPane.setDisable(false);
-            this.errorText2.setText("");
         } else if (t.getTarget().equals(this.changeColor2)) {
             Color toBeChangedTo = this.colorPicker.getValue();
             int red = (int) (toBeChangedTo.getRed() * 255);

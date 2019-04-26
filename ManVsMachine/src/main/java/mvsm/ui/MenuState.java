@@ -54,10 +54,15 @@ public final class MenuState extends State {
         menuNodePane.setAlignment(Pos.CENTER);
         this.menu.setCenter(menuNodePane);
         Button play = new Button("Play");
+        play.setPrefWidth(100);
         Button settings = new Button("Settings");
+        settings.setPrefWidth(100);
         Button highScores = new Button("Highscores");
+        highScores.setPrefWidth(100);
         Button signOut = new Button("Sign Out");
+        signOut.setPrefWidth(100);
         Button quit = new Button("Quit");
+        quit.setPrefWidth(100);
         this.currentUserText = new Text();
         this.currentUserText.setTranslateY(200);
         this.currentUserText.setFont(Font.font("verdana", 20));

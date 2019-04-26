@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import mvsm.dao.StringChecker;
 
 public final class LoginState extends State {
 
@@ -30,6 +31,10 @@ public final class LoginState extends State {
     private Text errorText2;
     private TextField username;
     private TextField newUsername;
+    private PasswordField newPassword1;
+    private PasswordField newPassword2;
+    private final StringChecker checker;
+    private PasswordField password;
 
     public LoginState(StateManager gsm, UserDao userDao) {
         this.gsm = gsm;
@@ -39,6 +44,7 @@ public final class LoginState extends State {
         this.root.setCenter(this.signInPane);
         this.createAccountPane = new VBox();
         this.userDao = userDao;
+        this.checker = new StringChecker();
         initPane();
     }
 
@@ -52,15 +58,15 @@ public final class LoginState extends State {
         //sign in view
         this.signInPane.setAlignment(Pos.CENTER);
         Button quit = new Button("Quit");
-        Button signIn = new Button("Sign in");
-        Button createNewAccount = new Button("Create new account");
+        Button signIn = new Button("Sign In");
+        Button createNewAccount = new Button("Create New Account");
         createNewAccount.setPrefWidth(210);
         createNewAccount.setTextAlignment(TextAlignment.CENTER);
         Text usernameText = new Text("Username");
         Text passwordText = new Text("Password");
         this.errorText1 = new Text();
         this.username = new TextField();
-        PasswordField password = new PasswordField();
+        this.password = new PasswordField();
         username.setMaxWidth(210);
         username.setPromptText("Username");
         password.setMaxWidth(210);
@@ -69,23 +75,22 @@ public final class LoginState extends State {
         this.signInPane.addRow(1, usernameText, username);
         this.signInPane.addRow(2, passwordText, password);
         this.signInPane.addRow(3, signIn, createNewAccount, quit);
-        
 
         //create account view
         createAccountPane.setAlignment(Pos.CENTER);
-        Button returnB = new Button("Return");
+        Button returnB = new Button("Back to Sign In");
         returnB.setPrefWidth(210);
         returnB.setTextAlignment(TextAlignment.CENTER);
         this.newUsername = new TextField();
-        PasswordField newPassword1 = new PasswordField();
-        PasswordField newPassword2 = new PasswordField();
+        this.newPassword1 = new PasswordField();
+        this.newPassword2 = new PasswordField();
         newUsername.setMaxWidth(210);
-        newUsername.setPromptText("New username");
+        newUsername.setPromptText("New Username");
         newPassword1.setMaxWidth(210);
-        newPassword1.setPromptText("New password");
+        newPassword1.setPromptText("New Password");
         newPassword2.setMaxWidth(210);
-        newPassword2.setPromptText("Confirm new password");
-        Button createAccount = new Button("Create account");
+        newPassword2.setPromptText("Confirm New Password");
+        Button createAccount = new Button("Create Account");
         createAccount.setPrefWidth(210);
         createAccount.setTextAlignment(TextAlignment.CENTER);
         this.errorText2 = new Text();
@@ -116,28 +121,35 @@ public final class LoginState extends State {
     private void handleSignInView(ActionEvent t) {
         Button button = (Button) t.getTarget();
         String text = button.getText();
-        if (text.equals("Sign in")) {
+        if (text.equals("Sign In")) {
             User user;
             try {
                 user = this.userDao.read(this.username.getText());
-                if (user != null) {
+                if (user == null) {
                     this.username.clear();
+                    this.password.clear();
+                    this.errorText1.setText("The username doesn't exist!");
+                } else if (this.password.getText().hashCode() != user.getPassword()) {
+                    this.username.clear();
+                    this.password.clear();
+                    this.errorText1.setText("Wrong password!");
+                } else {
+                    this.username.clear();
+                    this.password.clear();
                     this.errorText1.setText("");
                     this.gsm.setCurrentUser(user);
                     this.gsm.setCurrentState(1);
                     this.gsm.setSceneRoot(this.gsm.getCurrentState().getCurrent());
                     this.gsm.getCurrentState().restore();
-                } else {
-                    this.username.clear();
-                    this.errorText1.setText("The username doesn't exist!");
                 }
             } catch (SQLException ex) {
                 errorText1.setText("There was an unexpected error!");
             }
 
-        } else if (text.equals("Create new account")) {
+        } else if (text.equals("Create New Account")) {
             errorText1.setText("");
             username.clear();
+            this.password.clear();
             this.root.setCenter(this.createAccountPane);
         } else {
             Platform.exit();
@@ -146,14 +158,23 @@ public final class LoginState extends State {
 
     private void handleCreateAccountView(ActionEvent t) {
         Button button = (Button) t.getTarget();
-        if (button.getText().equals("Create account")) {
-            try {
-                int ret = this.userDao.create(this.newUsername.getText());
-                reactToUsernameCreation(ret, this.newUsername.getText());
-                newUsername.clear();
-            } catch (SQLException ex) {
-                errorText2.setText("Unexpected error!");
-                newUsername.clear();
+        if (button.getText().equals("Create Account")) {
+            int pWCheck = this.checker.checkPassword(this.newPassword1.getText(), this.newPassword2.getText());
+            if (pWCheck == 0) {
+                try {
+                    int ret = this.userDao.create(this.newUsername.getText(), this.newPassword1.getText());
+                    reactToUsernameCreation(ret, this.newUsername.getText());
+                } catch (SQLException ex) {
+                    errorText2.setText("Unexpected error!");
+                    newUsername.clear();
+                    this.newPassword1.clear();
+                    this.newPassword2.clear();
+                }
+            } else {
+                reactToPasswordCheck(pWCheck);
+                this.newUsername.clear();
+                this.newPassword1.clear();
+                this.newPassword2.clear();
             }
         } else {
             errorText2.setText("");
@@ -182,6 +203,27 @@ public final class LoginState extends State {
             errorText2.setText("Given username too short!");
         } else {
             errorText2.setText("Given username too long!");
+        }
+        newUsername.clear();
+        this.newPassword1.clear();
+        this.newPassword2.clear();
+    }
+
+    private void reactToPasswordCheck(int ret) {
+        if (ret == 1) {
+            errorText2.setText("The given passwords do not match!");
+        } else if (ret == 6) {
+            errorText2.setText("The given password is too short!");
+        } else if (ret == 16) {
+            errorText2.setText("The given password is too long!");
+        } else if (ret == 2) {
+            errorText2.setText("The given password contains illegal characters!");
+        } else if (ret == 3) {
+            errorText2.setText("The given password does not contain a number!");
+        } else if (ret == 4) {
+            errorText2.setText("The given password does not contain a capital letter!");
+        } else {
+            errorText2.setText("The given password does not contain a lowercase letter!");
         }
     }
 
