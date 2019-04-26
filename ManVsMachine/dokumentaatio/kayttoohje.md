@@ -17,15 +17,14 @@ java -jar ManVsMachine-1.1-SNAPSHOT.jar
 ```
 
 ## Kirjautuminen
-Sovellus käynnistyy kirjautumisnäkymään, jossa käyttäjä voi valita, joko kirjautumisen vanhalla käyttäjänimellä, tai uuden käyttäjänimen luomisen.
+Sovellus käynnistyy kirjautumisnäkymään, jossa käyttäjä voi joko kirjautua olemassaolevalla käyttäjätunnuksella, tai siirtyä uuden käyttäjätunnuksen luomisen.
 
-
-Kirjautuminen onnistuu valitsemalla _sign in with an existing account_, kirjoittamalla olemassaoleva käyttäjänimi syötekenttään ja painamalla _sign in_.
+Kirjautuminen onnistuu, kirjoittamalla olemassaoleva käyttäjänimi ja tilin salasana syötekenttiin ja painamalla _Sign In_.
 
 ## Uuden käyttäjän luominen
-kirjautumisnäkymästä on mahdollista siirtyä luomaan uusi käyttäjä painamalla nappia _Create a new account_.
-Uusi käyttäjä luodaan syöttämällä käyttäjänimi syötekenttään ja painamalla _Create acoount_
-Järjestelmä ilmoittaa, jos käyttäjä luotiin onnistuneesti.
+Kirjautumisnäkymästä on mahdollista siirtyä luomaan uusi käyttäjä painamalla nappia _Create New Account_.
+Uusi käyttäjä luodaan syöttämällä käyttäjänimi, salasana, sekä salasanan vahvistus syötekenttiin ja painamalla _Create Account_
+Järjestelmä ilmoittaa, jos käyttäjätunnus luotiin onnistuneesti.
 
 ## Pelin aloittaminen
 Pelaamaan voi siirtyä päävalikosta painamalla nappia _Play_.
