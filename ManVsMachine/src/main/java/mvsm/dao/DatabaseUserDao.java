@@ -26,20 +26,13 @@ public class DatabaseUserDao implements UserDao {
         if (ret == 3 || ret == 4 || ret == 16) {
             return ret;
         }
-        PreparedStatement stmt;
-        try (Connection conn = this.connector.openConnection()) {
-            stmt = conn.prepareStatement("INSERT INTO Username(username,password,red,green,blue) VALUES(?,?,255,0,0)");
-            try {
-                stmt.setString(1, userName);
-                stmt.setInt(2, password.hashCode());
-                stmt.executeUpdate();
-            } catch (SQLException e) {
-                conn.close();
-                stmt.close();
-                return 0;
-            }
+        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("INSERT INTO Username(username,password,red,green,blue) VALUES(?,?,255,0,0)")) {
+            stmt.setString(1, userName);
+            stmt.setInt(2, password.hashCode());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            return 0;
         }
-        stmt.close();
         return 1;
     }
 

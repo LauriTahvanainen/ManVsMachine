@@ -96,8 +96,8 @@ public class Machine extends Sprite {
         this.scanner = new Scanner(this.algorithm.getMapScan());
     }
 
-    public void setTranslate(int X, int Y) {
-        this.getForm().setTranslateX(X);
-        this.getForm().setTranslateY(Y);
+    public void setTranslate(int coorX, int coorY) {
+        this.getForm().setTranslateX(coorX);
+        this.getForm().setTranslateY(coorY);
     }
 }

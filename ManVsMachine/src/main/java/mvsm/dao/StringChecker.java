@@ -40,13 +40,10 @@ public class StringChecker {
             int c = pW.codePointAt(i);
             if (!Character.isLetterOrDigit(c)) {
                 return 2;
-            } else if (Character.isLowerCase(c)) {
-                lowercaseLetter = true;
-            } else if (Character.isDigit(c)) {
-                number = true;
-            } else if (Character.isUpperCase(c)) {
-                capitalLetter = true;
             }
+            lowercaseLetter = Character.isLowerCase(c) || lowercaseLetter;
+            number = Character.isDigit(c) || number;
+            capitalLetter = Character.isUpperCase(c) || capitalLetter;
         }
         if (!number) {
             return 3;
