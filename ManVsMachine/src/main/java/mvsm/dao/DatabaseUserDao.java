@@ -7,6 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.scene.paint.Color;
 
+/**
+ * A class that implements the UserDao and handles the interaction with the
+ * database that involves Users. Also handles the initialization of the
+ * database.
+ *
+ * @see mvsm.dao.User
+ */
 public class DatabaseUserDao implements UserDao {
 
     private static final String USERTABLE_INIT = "CREATE TABLE IF NOT EXISTS Username(username VARCHAR(16) PRIMARY KEY, password INTEGER, red INTEGER, green INTEGER, blue INTEGER);";

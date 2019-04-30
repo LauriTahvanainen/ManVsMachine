@@ -37,6 +37,7 @@ public class MapRenderer {
                 }
                 if (value == 7) {
                     background.add(Tile.WATER.getTile(), j, i);
+                    continue;
                 }
                 background.add(Tile.FLOOR.getTile(), j, i);
             }
@@ -83,7 +84,7 @@ public class MapRenderer {
      * @return Integer array with the coordinates. 0-3 are for Machine start and
      * goal coordinates. 4-7 are for Player coordinates.
      */
-    public int[] getMachineCoordinates(int[][] map) {
+    public int[] getSpriteCoordinates(int[][] map) {
         int[] ret = new int[8];
         for (int row = 1; row < map.length - 1; row++) {
             for (int column = 1; column < map[1].length - 1; column++) {

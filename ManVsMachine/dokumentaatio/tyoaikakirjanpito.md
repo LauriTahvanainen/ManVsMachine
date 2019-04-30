@@ -23,4 +23,9 @@
 |  21.4.|  4   | ScoreDaon toteuttaminen, testien korjailua. |
 |  22.4.|  9   | Huipputulosten tarkastelun toteuttaminen. Uusi kartta, pelitilan alustaminen siihen kuntoon, että kartan valinta on helppo toteuttaa |
 |  23.4.|  9   | Algoritmin ja kartan valitsemisen toteutus. Testausta. |
-| yht   |  112 |  | 
+|  24.4.|  6   | Dokumentaatiota. Algoritmin aloituspaikan siirtämisen mahdollistaminen. Alusta UI salasanakirjautumiselle. |
+|  26.4.|  4   | Salasanakirjautuminen. |
+|  30.4.|  6   | Testausta, salasanan vaihtamisen mahdollistaminen, dokumentointia |
+|       |      |  |
+|       |      |  |
+| yht   |  128 |  | 

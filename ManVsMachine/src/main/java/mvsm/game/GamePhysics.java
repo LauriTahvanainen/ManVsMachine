@@ -50,10 +50,14 @@ public class GamePhysics {
      * created.
      *
      * @param background The game's map.
-     * @param player The player Sprite
-     * @param machine The machine Sprite
+     * @param player The player Sprite.
+     * @param machine The machine Sprite.
      * @param playerGoal Player's goal.
-     * @param machineGoal Machine's goal
+     * @param machineGoal Machine's goal.
+     * @param machineRestoreX The X-coordinate the machines translate-X should
+     * be restored to when restoring the level.
+     * @param machineRestoreY The Y-coordinate the machines translate-Y should
+     * be restored to when restoring the level.
      *
      * @see mvsm.ui.PlayingState#restore(mvsm.algorithm.Algorithm,
      * java.lang.String)

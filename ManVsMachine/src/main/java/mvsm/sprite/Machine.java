@@ -63,6 +63,10 @@ public class Machine extends Sprite {
         return scanner;
     }
 
+    public Algorithm getAlgorithm() {
+        return algorithm;
+    }
+
     /**
      * @see Scanner#scanNext()
      */

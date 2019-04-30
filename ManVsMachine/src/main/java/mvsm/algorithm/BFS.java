@@ -2,6 +2,11 @@ package mvsm.algorithm;
 
 import java.util.ArrayDeque;
 
+/**
+ * Breadth First Search algorithm extending the abstract Algorithm class.
+ *
+ * @see mvsm.algorithm.Algorithm
+ */
 public class BFS extends Algorithm {
 
     private int[][] map;
@@ -57,7 +62,7 @@ public class BFS extends Algorithm {
     public ArrayDeque<Vertex> getMapScan() {
         return this.mapScan;
     }
-    
+
     @Override
     public void setUpAlgorithm(int[][] map, int startX, int startY) {
         this.map = map;

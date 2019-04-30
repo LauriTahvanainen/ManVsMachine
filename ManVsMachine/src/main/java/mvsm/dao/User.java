@@ -2,8 +2,15 @@ package mvsm.dao;
 
 import javafx.scene.paint.Color;
 
-
+/**
+ * An object for encapsulating the data involving an user. Used by the DAOs.
+ * Does not save high-scores, that is done by HighScoreUser
+ *
+ * @see mvsm.dao.UserDao
+ * @see mvsm.dao.HighScoreUser
+ */
 public class User {
+
     private String username;
     private int password;
     private Color color;
@@ -37,5 +44,5 @@ public class User {
     public void setPassword(int password) {
         this.password = password;
     }
-    
+
 }

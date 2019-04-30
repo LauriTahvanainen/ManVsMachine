@@ -224,7 +224,7 @@ public class PlayingState extends State {
         this.machineGoal = new Rectangle(40, 40, Color.BLUE);
         this.playerGoal = new Rectangle(40, 40, this.gsm.getCurrentUser().getColor());
         this.mapArray = this.renderer.formArrayMap(mapName);
-        int[] machineCoordinates = this.renderer.getMachineCoordinates(mapArray);
+        int[] machineCoordinates = this.renderer.getSpriteCoordinates(mapArray);
         algo.setUpAlgorithm(mapArray, machineCoordinates[0], machineCoordinates[1]);
         this.machine.calculateRoute(machineCoordinates[2], machineCoordinates[3]);
         this.background = renderer.renderMap(mapArray);

@@ -1,8 +1,12 @@
-
 package mvsm.algorithm;
 
-
+/**
+ * A data structure for the algorithms. Used in saving the routes calculated by
+ * the algorithm in the form that the Machine can use the route given by the
+ * algorithm in its movement.
+ */
 public class Vertex {
+
     private final int row;
     private final int column;
 
@@ -18,9 +22,23 @@ public class Vertex {
     public int getRow() {
         return row;
     }
-    
+
+    /**
+     * An utility method used in scaling the coordinates used by the algorithm
+     * to fit the coordinates of a GridPane, the map-background. Offsets the
+     * coordinates by -1, the given offsets and scales them by the size of a
+     * game-tile. Returns a new Vertex. Both coordinates are subtracted by one
+     * to fit the returned Vertex to the coordinate-system of the background
+     * GridPane.
+     *
+     * @param scale By what Integer to multiply the coordinates by. Usually the
+     * size of a game-tile.
+     * @param yOffSet An Integer offSet to the Y-coordinate of the Vertex.
+     * @param xOffSet An Integer offSet to the X-coordinate of the Vertex.
+     * @return A new new Vertex scaled with the given parameters.
+     */
     public Vertex scaleOffset(int scale, int yOffSet, int xOffSet) {
-        return new Vertex((this.row - 1 + yOffSet) * 40, (this.column - 1 + xOffSet) * 40);
+        return new Vertex((this.row - 1 + yOffSet) * scale, (this.column - 1 + xOffSet) * scale);
     }
 
     @Override
@@ -51,6 +69,5 @@ public class Vertex {
         }
         return true;
     }
-    
-    
+
 }
