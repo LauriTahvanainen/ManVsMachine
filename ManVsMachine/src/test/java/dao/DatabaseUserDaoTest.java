@@ -34,7 +34,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void rightUserIsAdded() throws SQLException {
-        this.dao.create("Teppo","-");
+        this.dao.create("Teppo", "-");
         User teppo = this.dao.read("Teppo");
         if (teppo == null) {
             fail("Dao returns null when it should return an user");
@@ -47,7 +47,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void addingANewUserReturns1() throws SQLException {
-        int ret = this.dao.create("Teppo","-");
+        int ret = this.dao.create("Teppo", "-");
         User teppo = this.dao.read("Teppo");
         if (ret == 1) {
             return;
@@ -57,7 +57,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void defaultUserColorIsRed() throws SQLException {
-        this.dao.create("Teppo","-");
+        this.dao.create("Teppo", "-");
         User teppo = this.dao.read("Teppo");
         if (teppo.getColor().equals(Color.rgb(255, 0, 0))) {
             return;
@@ -67,10 +67,10 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void ifUserDoesntExistNullReturned() throws SQLException {
-        this.dao.create("Seppo","_");
-        this.dao.create("Teppo","-");
-        this.dao.create("Matti","-");
-        this.dao.create("Ilmari","-");
+        this.dao.create("Seppo", "_");
+        this.dao.create("Teppo", "-");
+        this.dao.create("Matti", "-");
+        this.dao.create("Ilmari", "-");
         User ret = this.dao.read("Antti");
         if (ret == null) {
             return;
@@ -80,11 +80,11 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void usernameTooLongReturns16() throws SQLException {
-        int ret = this.dao.create("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa","-");
-        ret += this.dao.create("sdfghkfkkv","-");
-        ret += this.dao.create("AAAAAAAAAAAAAAAAAAAA","-");
-        ret += this.dao.create("ttttttttttttttttt","-");
-        ret += this.dao.create("ttttttttttttttttt","-");
+        int ret = this.dao.create("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa", "-");
+        ret += this.dao.create("sdfghkfkkv", "-");
+        ret += this.dao.create("AAAAAAAAAAAAAAAAAAAA", "-");
+        ret += this.dao.create("ttttttttttttttttt", "-");
+        ret += this.dao.create("ttttttttttttttttt", "-");
         if (ret == 65) {
             return;
         }
@@ -93,11 +93,11 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void usernameTooShortReturns4() throws SQLException {
-        int ret = this.dao.create("aaa","-");
-        ret += this.dao.create("a","-");
-        ret += this.dao.create("aa","-");
-        ret += this.dao.create("","-");
-        ret += this.dao.create("aaaaaa","-");
+        int ret = this.dao.create("aaa", "-");
+        ret += this.dao.create("a", "-");
+        ret += this.dao.create("aa", "-");
+        ret += this.dao.create("", "-");
+        ret += this.dao.create("aaaaaa", "-");
         if (ret == 17) {
             return;
         }
@@ -106,10 +106,10 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void usernameContainsSpaceReturns3EvenIfTooShortOrLong() throws SQLException {
-        int ret = this.dao.create("AAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAaaa","-");
-        ret += this.dao.create("A ","-");
-        ret += this.dao.create("A asdsdds","-");
-        ret += this.dao.create("As s df f","-");
+        int ret = this.dao.create("AAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAaaa", "-");
+        ret += this.dao.create("A ", "-");
+        ret += this.dao.create("A asdsdds", "-");
+        ret += this.dao.create("As s df f", "-");
         if (ret == 12) {
             return;
         }
@@ -118,10 +118,10 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void addingADuplicateReturns0() throws SQLException {
-        int ret = this.dao.create("Teppo","-");
-        ret += this.dao.create("Teppo","-");
-        ret += this.dao.create("teppo","-");
-        ret += this.dao.create("teppo","-");
+        int ret = this.dao.create("Teppo", "-");
+        ret += this.dao.create("Teppo", "-");
+        ret += this.dao.create("teppo", "-");
+        ret += this.dao.create("teppo", "-");
         if (ret == 2) {
             return;
         }
@@ -130,7 +130,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void usernameUpdatedTest1() throws SQLException {
-        this.dao.create("TeppoTest","-");
+        this.dao.create("TeppoTest", "-");
         this.dao.update("TeppoTest", "Teppo");
         User ret = this.dao.read("TeppoTest");
         if (ret == null) {
@@ -138,10 +138,10 @@ public class DatabaseUserDaoTest {
         }
         fail("Username not updated correctly!");
     }
-    
+
     @Test
     public void usernameUpdatedTest2() throws SQLException {
-        this.dao.create("TeppoTest","-");
+        this.dao.create("TeppoTest", "-");
         this.dao.update("TeppoTest", "Teppo");
         User ret = this.dao.read("Teppo");
         if (ret != null) {
@@ -152,8 +152,8 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void updatingToOldUsernameReturns2() throws SQLException {
-        this.dao.create("Teppo","-");
-        this.dao.create("Test","-");
+        this.dao.create("Teppo", "-");
+        this.dao.create("Test", "-");
         int ret = this.dao.update("Teppo", "Teppo");
         ret += this.dao.update("Test", "Test");
         if (ret == 4) {
@@ -164,8 +164,8 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void updatingToExistingUsernameDoesNotWork() throws SQLException {
-        this.dao.create("Teppo","-");
-        this.dao.create("Test","-");
+        this.dao.create("Teppo", "-");
+        this.dao.create("Test", "-");
         this.dao.update("Teppo", "Test");
         User ret = this.dao.read("Teppo");
         if (ret != null) {
@@ -176,7 +176,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void updateColorTest() throws SQLException {
-        this.dao.create("Teppo","-");
+        this.dao.create("Teppo", "-");
         this.dao.updateColor("Teppo", 244, 34, 1);
         Color ret1 = this.dao.read("Teppo").getColor();;
         this.dao.updateColor("Teppo", 0, 0, 0);
@@ -189,7 +189,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void usernameUpdateUsernameCheckReturnsRightValues() throws SQLException {
-        this.dao.create("Teppo","-");
+        this.dao.create("Teppo", "-");
         int ret = this.dao.update("Teppo", "Tep ppo");
         ret += this.dao.update("Teppo", "Teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeppo");
         ret += this.dao.update("Teppo", "Tep");
@@ -203,7 +203,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void updateColorDoesNotUpdateWrongColors() throws SQLException {
-        this.dao.create("Teppo","-");
+        this.dao.create("Teppo", "-");
         this.dao.updateColor("Teppo", 0, 5, 2555);
         User ret = this.dao.read("Teppo");
         assertTrue(ret.getColor().equals(Color.RED));
@@ -211,7 +211,7 @@ public class DatabaseUserDaoTest {
 
     @Test
     public void checkColorsTest() throws SQLException {
-        this.dao.create("Teppo","-");
+        this.dao.create("Teppo", "-");
         this.dao.updateColor("Teppo", 0, 256, 0);
         this.dao.updateColor("Teppo", 0, -2, 0);
         this.dao.updateColor("Teppo", -2, 0, 0);
@@ -221,11 +221,11 @@ public class DatabaseUserDaoTest {
         User ret = this.dao.read("Teppo");
         assertTrue(ret.getColor().equals(Color.RED));
     }
-    
-    @Test   
+
+    @Test
     public void updateUserNameAlsoUpdatesScoreTables() throws SQLException {
-        this.dao.create("Teppo","-");
-        this.dao.create("Testi","-");
+        this.dao.create("Teppo", "-");
+        this.dao.create("Testi", "-");
         this.scoreDao.createDefault("Teppo", "BFS");
         this.scoreDao.createDefault("Testi", "BFS");
         this.scoreDao.updateScore("BFS", "Teppo", "map1", 1000);
@@ -237,5 +237,36 @@ public class DatabaseUserDaoTest {
             return;
         }
         fail("Updating an username does not update scoretables correctly");
+    }
+
+    @Test
+    public void passwordUpdates() throws SQLException {
+        this.dao.create("Test", "TestPassword2");
+        this.dao.create("Test2", "Password123");
+        String u1 = "Updated123";
+        String u2 = "321drowssaP";
+        this.dao.updatePassword("Test", u1);
+        this.dao.updatePassword("Test2", u2);
+        if (this.dao.read("Test").getPassword() == u1.hashCode() && this.dao.read("Test2").getPassword() == u2.hashCode()) {
+            return;
+        }
+        fail("Passwords are not updated properly.");
+    }
+
+    @Test
+    public void passwordAndUsernameUpdateWorkTogether() throws SQLException {
+        this.dao.create("Test", "TestPassword2");
+        this.dao.create("Test2", "Password123");
+        String u1 = "Updated123";
+        String u2 = "321drowssaP";
+        this.dao.update("Test", "TestTest");
+        this.dao.updatePassword("TestTest", u1);
+        this.dao.update("TestTest", "Test");
+        this.dao.updatePassword("Test2", u2);
+        this.dao.update("Test2", "TestTest");
+        if (this.dao.read("TestTest").getPassword() == u2.hashCode() && this.dao.read("Test").getPassword() == u1.hashCode() && this.dao.read("Test2") == null) {
+            return;
+        }
+        fail("Updating both the password and username does not work properly.");
     }
 }

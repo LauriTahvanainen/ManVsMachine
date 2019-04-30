@@ -8,10 +8,15 @@ import mvsm.statemanagement.StateManager;
 import java.sql.SQLException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -35,6 +40,10 @@ public final class LoginState extends State {
     private PasswordField newPassword2;
     private final StringChecker checker;
     private PasswordField password;
+    private TextField passwordVisible;
+    private static final String RESOURCE_PATH = "/pictures/";
+    private final ImageView eyeClosed = new ImageView(new Image(LoginState.class.getResourceAsStream(RESOURCE_PATH + "PwEye.png")));
+    private final ImageView eyeOpen = new ImageView(new Image(LoginState.class.getResourceAsStream(RESOURCE_PATH + "PwEyeOpen.png")));
 
     public LoginState(StateManager gsm, UserDao userDao) {
         this.gsm = gsm;
@@ -58,6 +67,10 @@ public final class LoginState extends State {
         //sign in view
         this.signInPane.setAlignment(Pos.CENTER);
         Button quit = new Button("Quit");
+        Button setPwVisible1 = new Button(null, eyeClosed);
+        setPwVisible1.setBackground(Background.EMPTY);
+        GridPane.setHalignment(setPwVisible1, HPos.CENTER);
+        GridPane.setValignment(setPwVisible1, VPos.CENTER);
         Button signIn = new Button("Sign In");
         Button createNewAccount = new Button("Create New Account");
         createNewAccount.setPrefWidth(210);
@@ -67,13 +80,18 @@ public final class LoginState extends State {
         this.errorText1 = new Text();
         this.username = new TextField();
         this.password = new PasswordField();
+        this.passwordVisible = new TextField();
         username.setMaxWidth(210);
         username.setPromptText("Username");
         password.setMaxWidth(210);
         password.setPromptText("Password");
+        this.passwordVisible.setMaxWidth(210);
+        this.passwordVisible.setVisible(false);
+        this.passwordVisible.setPromptText("Password");
         this.signInPane.add(errorText1, 1, 0);
         this.signInPane.addRow(1, usernameText, username);
-        this.signInPane.addRow(2, passwordText, password);
+        this.signInPane.addRow(2, passwordText, password, setPwVisible1);
+        this.signInPane.add(this.passwordVisible, 1, 2);
         this.signInPane.addRow(3, signIn, createNewAccount, quit);
 
         //create account view
@@ -120,8 +138,15 @@ public final class LoginState extends State {
 
     private void handleSignInView(ActionEvent t) {
         Button button = (Button) t.getTarget();
+        if (button.getText() == null) {
+            handleSetPwFieldVisible();
+            return;
+        }
         String text = button.getText();
         if (text.equals("Sign In")) {
+            if (this.passwordVisible.isVisible()) {
+                this.password.setText(this.passwordVisible.getText());
+            }
             User user;
             try {
                 user = this.userDao.read(this.username.getText());
@@ -224,6 +249,23 @@ public final class LoginState extends State {
             errorText2.setText("The given password does not contain a capital letter!");
         } else {
             errorText2.setText("The given password does not contain a lowercase letter!");
+        }
+    }
+
+    private void handleSetPwFieldVisible() {
+        Button button = (Button) this.signInPane.getChildren().get(5);
+        if (this.passwordVisible.isVisible()) {
+            this.password.setText(this.passwordVisible.getText());
+            button.setGraphic(this.eyeClosed);
+            this.password.setDisable(false);
+            this.passwordVisible.setDisable(true);
+            this.passwordVisible.setVisible(false);
+        } else {
+            this.passwordVisible.setText(this.password.getText());
+            this.password.setDisable(true);
+            button.setGraphic(this.eyeOpen);
+            this.passwordVisible.setDisable(false);
+            this.passwordVisible.setVisible(true);
         }
     }
 

@@ -9,8 +9,8 @@ import mvsm.sprite.Machine;
 import mvsm.sprite.Sprite;
 
 /**
- * An utility class for rendering maps. For how this class is used:
- *
+ * An utility class for rendering maps. Used by the PlayinState in:
+ * @see mvsm.ui.PlayingState#restore() 
  */
 public class MapRenderer {
 

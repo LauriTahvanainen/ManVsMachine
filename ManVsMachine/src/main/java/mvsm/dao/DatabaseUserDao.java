@@ -97,6 +97,19 @@ public class DatabaseUserDao implements UserDao {
         return true;
     }
 
+    @Override
+    public int updatePassword(String username, String newPassword) throws SQLException {
+        try (Connection conn = this.connector.openConnection();
+                PreparedStatement usernameTable = conn.prepareStatement("UPDATE Username SET password = ? WHERE username = ?")) {
+            usernameTable.setInt(1, newPassword.hashCode());
+            usernameTable.setString(2, username);
+            usernameTable.executeUpdate();
+        } catch (SQLException e) {
+            return -1;
+        }
+        return 1;
+    }
+
     private boolean checkColors(int red, int green, int blue) {
         return red > 255 || red < 0 || green > 255 || green < 0 || blue > 255 || blue < 0;
     }
@@ -105,4 +118,5 @@ public class DatabaseUserDao implements UserDao {
         stmt.setString(1, newUserName);
         stmt.setString(2, oldUserName);
     }
+
 }

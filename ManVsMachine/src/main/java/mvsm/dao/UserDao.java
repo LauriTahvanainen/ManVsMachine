@@ -11,4 +11,6 @@ public interface UserDao {
     int update(String oldUsername, String newUsername) throws SQLException;
     
     boolean updateColor(String username, int red, int green, int blue) throws SQLException;
+    
+    int updatePassword(String username, String newPassword) throws SQLException;
 }
