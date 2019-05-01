@@ -1,4 +1,4 @@
-package eventhandling;
+package Helpers;
 
 import mvsm.algorithm.Algorithm;
 import javafx.event.ActionEvent;
@@ -9,23 +9,28 @@ import javafx.scene.layout.Pane;
 import mvsm.statemanagement.State;
 import mvsm.statemanagement.StateManager;
 
-public class EventHandlingTestMenuState extends State {
+public class FakeLoginState extends State {
+
     private GridPane pane;
     private Button button;
     private TextField field;
     private final StateManager gsm;
+    private long number;
 
-    public EventHandlingTestMenuState(Button button, TextField field, StateManager sm) {
+    public FakeLoginState(Button button, TextField field, StateManager sm) {
         this.gsm = sm;
         this.button = button;
         this.field = field;
         this.pane = new GridPane();
         this.pane.add(field, 0, 0);
         this.pane.add(button, 0, 1);
+        this.number = 0;
+
     }
+
     @Override
     public int getStateId() {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -35,7 +40,7 @@ public class EventHandlingTestMenuState extends State {
 
     @Override
     public void update() {
-
+        number++;
     }
 
     @Override
@@ -45,24 +50,27 @@ public class EventHandlingTestMenuState extends State {
 
     @Override
     public void handleAction(ActionEvent t) {
-        this.field.setText("This should not happen");
         if (t.getTarget().getClass().equals(TextField.class)) {
-            this.button.setText("Textfield press got through");
+            this.button.setText("Texfield press got through");
         }
         Button button = (Button) t.getTarget();
-        if (button.getText().equals("Sign out")) {
-            this.gsm.setCurrentState(0);
+        if (button.getText().equals("Sign in")) {
+            this.gsm.setCurrentState(1);
         }
     }
 
     @Override
     public void restore() {
-
+        this.field.setText("Restored!");
     }
 
     @Override
     public void restore(Algorithm a, String map) {
 
+    }
+
+    public long getNumber() {
+        return number;
     }
 
 }

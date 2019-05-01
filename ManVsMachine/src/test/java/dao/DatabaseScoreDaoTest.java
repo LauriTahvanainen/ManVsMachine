@@ -29,6 +29,7 @@ public class DatabaseScoreDaoTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
+
     ScoreDao scoreDao;
     UserDao userDao;
     File database;
@@ -129,14 +130,13 @@ public class DatabaseScoreDaoTest {
         assertFalse(this.scoreDao.updateScore("bsf", "te", "map1", 50000000));
     }
 
-
-@Test
+    @Test
     public void updateScoreTest() throws SQLException {
-        for (int i = 1; i < 5;i++) {
-            this.scoreDao.updateScore("BFS", "Test" + i, "map1", i*1000);
+        for (int i = 1; i < 5; i++) {
+            this.scoreDao.updateScore("BFS", "Test" + i, "map1", i * 1000);
         }
         int val = 0;
-        for (int i = 1; i < 5;i++) {
+        for (int i = 1; i < 5; i++) {
             val += this.scoreDao.read("BFS", "Test" + i, "map1");
         }
         if (val == 10000) {

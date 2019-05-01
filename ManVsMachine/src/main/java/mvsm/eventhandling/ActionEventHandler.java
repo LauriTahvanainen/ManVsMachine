@@ -6,6 +6,13 @@ import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+/**
+ * Class for handling ActionEvents, mainly button-presses. Ignores presses on
+ * Text- or PasswordFields. Always relays the ActionEvent to the current state
+ * in the game with the help of the StateManager.
+ *
+ * @see mvsm.statemanagement.State#handleAction(javafx.event.ActionEvent)
+ */
 public class ActionEventHandler implements EventHandler<ActionEvent> {
 
     private StateManager gameStateManager;

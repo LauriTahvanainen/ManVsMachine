@@ -1,4 +1,4 @@
-package eventhandling;
+package Helpers;
 
 import mvsm.algorithm.Algorithm;
 import javafx.event.ActionEvent;
@@ -9,14 +9,14 @@ import javafx.scene.layout.Pane;
 import mvsm.statemanagement.State;
 import mvsm.statemanagement.StateManager;
 
-public class EventHandlingTestLoginState extends State {
-
+public class FakeMenuState extends State {
     private GridPane pane;
     private Button button;
     private TextField field;
     private final StateManager gsm;
+    private long number;
 
-    public EventHandlingTestLoginState(Button button, TextField field, StateManager sm) {
+    public FakeMenuState(Button button, TextField field, StateManager sm) {
         this.gsm = sm;
         this.button = button;
         this.field = field;
@@ -24,10 +24,9 @@ public class EventHandlingTestLoginState extends State {
         this.pane.add(field, 0, 0);
         this.pane.add(button, 0, 1);
     }
-
     @Override
     public int getStateId() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -37,28 +36,29 @@ public class EventHandlingTestLoginState extends State {
 
     @Override
     public void update() {
-
+        number++;
     }
 
     @Override
     public void initPane() {
-
+        
     }
 
     @Override
     public void handleAction(ActionEvent t) {
+        this.field.setText("This should not happen");
         if (t.getTarget().getClass().equals(TextField.class)) {
-            this.button.setText("Texfield press got through");
+            this.button.setText("Textfield press got through");
         }
         Button button = (Button) t.getTarget();
-        if (button.getText().equals("Sign in")) {
-            this.gsm.setCurrentState(1);
+        if (button.getText().equals("Sign out")) {
+            this.gsm.setCurrentState(0);
         }
     }
 
     @Override
     public void restore() {
-
+        this.field.setText("Restored!");
     }
 
     @Override
@@ -66,4 +66,7 @@ public class EventHandlingTestLoginState extends State {
 
     }
 
+    public long getNumber() {
+        return number;
+    }
 }

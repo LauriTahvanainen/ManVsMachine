@@ -47,7 +47,8 @@ public class GamePhysics {
      * This method is called in the PlayingState's restore method when a new
      * game is started. It is called after all the parameters have been
      * initialized e.g. the map has been rendered, a new machine has been
-     * created.
+     * created. It is good to remember that the Y and X axes are flipped in the
+     * GridPane when compared to an 2D array.
      *
      * @param background The game's map.
      * @param player The player Sprite.
@@ -68,8 +69,8 @@ public class GamePhysics {
         this.machine = machine;
         this.playerGoal = playerGoal;
         this.machineGoal = machineGoal;
-        this.machineRestoreX = machineRestoreX;
-        this.machineRestoreY = machineRestoreY;
+        this.machineRestoreX = (machineRestoreX - 1) * 40;
+        this.machineRestoreY = (machineRestoreY - 1) * 40;
         restoreScore();
     }
 
@@ -212,4 +213,53 @@ public class GamePhysics {
         }
         return true;
     }
+
+    public int getMachineRestoreX() {
+        return machineRestoreX;
+    }
+
+    public int getMachineRestoreY() {
+        return machineRestoreY;
+    }
+
+    public GridPane getBackground() {
+        return background;
+    }
+
+    public KeyEventHandler getHandler() {
+        return handler;
+    }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public Rectangle getMachineGoal() {
+        return machineGoal;
+    }
+
+    public double getLengthScore() {
+        return lengthScore;
+    }
+
+    public double getTimeScore() {
+        return timeScore;
+    }
+
+    public Text getTimeScoreText() {
+        return timeScoreText;
+    }
+
+    public Text getLengthScoreText() {
+        return lengthScoreText;
+    }
+
+    public Sprite getPlayer() {
+        return player;
+    }
+
+    public Rectangle getPlayerGoal() {
+        return playerGoal;
+    }
+
 }

@@ -28,8 +28,8 @@ public class Vertex {
      * to fit the coordinates of a GridPane, the map-background. Offsets the
      * coordinates by -1, the given offsets and scales them by the size of a
      * game-tile. Returns a new Vertex. Both coordinates are subtracted by one
-     * to fit the returned Vertex to the coordinate-system of the background
-     * GridPane.
+     * because the machine is always placed in to the GridPane coordinate 1:1
+     * and the route should be built to the coordinate system of the machine.
      *
      * @param scale By what Integer to multiply the coordinates by. Usually the
      * size of a game-tile.

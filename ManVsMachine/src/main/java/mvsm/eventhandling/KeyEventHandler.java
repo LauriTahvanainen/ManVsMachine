@@ -5,6 +5,12 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * Class for handling key events. Stores the keys being pressed in an ArrayList.
+ * Used mainly by the GamePhysics class.
+ *
+ * @see mvsm.game.GamePhysics
+ */
 public class KeyEventHandler implements EventHandler<KeyEvent> {
 
     private ArrayList<KeyCode> keyCodes;

@@ -1,15 +1,12 @@
 package eventhandling;
 
+import Helpers.FakeLoginState;
+import Helpers.FakeMenuState;
 import mvsm.eventhandling.ActionEventHandler;
 import java.util.Properties;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import mvsm.statemanagement.State;
@@ -33,27 +30,11 @@ public class ActionEventHandlerTest {
         this.loginTextField = new TextField();
         this.menuTextField = new TextField();
         this.testManager = new StateManager(new Properties());
-        this.testLoginState = new EventHandlingTestLoginState(this.loginButton, this.loginTextField, this.testManager);
-        this.testMenuState = new EventHandlingTestMenuState(this.menuButton, this.menuTextField, this.testManager);
+        this.testLoginState = new FakeLoginState(this.loginButton, this.loginTextField, this.testManager);
+        this.testMenuState = new FakeMenuState(this.menuButton, this.menuTextField, this.testManager);
         this.testManager.addState(this.testLoginState);
         this.testManager.addState(this.testMenuState);
         this.testHandler = new ActionEventHandler(this.testManager);
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test

@@ -233,7 +233,7 @@ public class PlayingState extends State {
         this.saveHighScore.setDisable(false);
         this.pauseMenu.setTop(this.gameStatisticsPane);
         this.root.getChildren().addAll(this.background, this.pauseMenu);
-        this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, (machineCoordinates[1] - 1) * 40, (machineCoordinates[0] - 1) * 40);
+        this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, machineCoordinates[1], machineCoordinates[0]);
         this.finalScore = 0;
         try {
             this.currentScores = this.scoreDao.listUser("BFS", this.gsm.getCurrentUser().getUsername());

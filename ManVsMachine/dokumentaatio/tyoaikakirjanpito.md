@@ -26,6 +26,6 @@
 |  24.4.|  6   | Dokumentaatiota. Algoritmin aloituspaikan siirtämisen mahdollistaminen. Alusta UI salasanakirjautumiselle. |
 |  26.4.|  4   | Salasanakirjautuminen. |
 |  30.4.|  6   | Testausta, salasanan vaihtamisen mahdollistaminen, dokumentointia |
+|  1.5. |  6   | Testausta |
 |       |      |  |
-|       |      |  |
-| yht   |  128 |  | 
+| yht   |  134 |  | 

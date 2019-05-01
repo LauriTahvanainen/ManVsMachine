@@ -7,6 +7,7 @@ import mvsm.dao.ScoreDao;
 import mvsm.dao.DatabaseScoreDao;
 import mvsm.dao.User;
 import java.io.File;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
@@ -20,6 +21,7 @@ public class DatabaseUserDaoTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
+
     DatabaseUserDao dao;
     ScoreDao scoreDao;
     File database;
@@ -30,6 +32,13 @@ public class DatabaseUserDaoTest {
         Connector conn = new Connector(database.getAbsolutePath());
         dao = new DatabaseUserDao(conn);
         scoreDao = new DatabaseScoreDao(conn);
+    }
+
+    @Test
+    public void connectorDoesNotReturnNull() {
+        Connector conn = new Connector(database.getAbsolutePath());
+        Connection ret = conn.openConnection();
+        assertTrue(ret != null);
     }
 
     @Test

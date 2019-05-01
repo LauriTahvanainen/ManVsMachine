@@ -228,6 +228,8 @@ public class MachineTest {
         if (this.testMachine.getRoute().size() == 46 && this.testMachine.getScanRoute().size() == 232) {
             return;
         }
+        scannerFindsToGoal();
+        machineFindsToGoal();
         fail("Routes not restored correctly. Route size should be 46, but was : " + this.testMachine.getRoute().size() + " ScanRoute size should be 232, but was: " + this.testMachine.getScanRoute().size());
     }
 

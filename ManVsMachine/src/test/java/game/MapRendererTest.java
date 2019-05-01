@@ -1,12 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//TODO test for drawing sand and water tiles.
 package game;
 
+import java.util.ArrayList;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import mvsm.game.MapRenderer;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import mvsm.algorithm.BFS;
@@ -15,6 +16,7 @@ import mvsm.sprite.Machine;
 import mvsm.sprite.Sprite;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 public class MapRendererTest {
 
@@ -39,6 +41,13 @@ public class MapRendererTest {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
     private MapRenderer renderer;
+    private Scene scene;
+
+    @Before
+    public void setUp() {
+        final JFXPanel fxPanel = new JFXPanel();
+        this.scene = new Scene(new Pane());
+    }
 
     public MapRendererTest() {
         this.renderer = new MapRenderer();
@@ -110,7 +119,7 @@ public class MapRendererTest {
     }
 
     @Test
-    public void machineIsAlwaysPlacedLeftCorner() {
+    public void spritesAndGoalsPlaced() {
         int[][] m1 = this.renderer.formArrayMap("map1");
         int[][] m3 = this.renderer.formArrayMap("map3");
         GridPane backG = this.renderer.renderMap(m1);
@@ -121,9 +130,35 @@ public class MapRendererTest {
         machine.calculateRoute(coords[2], coords[3]);
         Rectangle machineGoal = new Rectangle(40, 40, Color.BLUE);
         Rectangle playerGoal = new Rectangle(40, 40, Color.RED);
+        ArrayList<Node> nodes = new ArrayList<>();
+        nodes.add(machine.getForm());
+        nodes.add(machine.getScanner().getScannerHead());
+        nodes.add(player.getForm());
+        nodes.add(machineGoal);
+        nodes.add(playerGoal);
         this.renderer.placeSpritesOnMap(coords, backG, player, machine, playerGoal, machineGoal);
-//        if (!) {
-//            fail("The machine was not placed in the right coordinates!");
-//        }
+        if (!backG.getChildren().containsAll(nodes)) {
+            fail("The Sprites and goals are not placed in to the background");
+        }
     }
+//
+//    @Test
+//    public void spritesAndGoalsPlacedRight() {
+//        int[][] m1 = this.renderer.formArrayMap("map1");
+//        int[][] m3 = this.renderer.formArrayMap("map3");
+//        GridPane backG = this.renderer.renderMap(m1);
+//        this.scene.setRoot(backG);
+//        int[] coords = this.renderer.getSpriteCoordinates(m1);
+//        Sprite player = new Sprite(Color.RED, 20, 20);
+//        Machine machine = new Machine(Color.BLUE, 20, 20, new BFS());
+//        machine.getAlgorithm().setUpAlgorithm(m1, coords[0], coords[1]);
+//        machine.calculateRoute(coords[2], coords[3]);
+//        Rectangle machineGoal = new Rectangle(40, 40, Color.BLUE);
+//        Rectangle playerGoal = new Rectangle(40, 40, Color.RED);
+//        this.renderer.placeSpritesOnMap(coords, backG, player, machine, playerGoal, machineGoal);
+//        if (backG.getChildren().get(37).intersects(backG.getChildren().get(32).getBoundsInParent())) {
+//            return;
+//        }
+//        fail("ERHE");
+//    }
 }
