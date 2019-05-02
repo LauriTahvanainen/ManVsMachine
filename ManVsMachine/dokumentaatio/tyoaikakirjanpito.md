@@ -27,5 +27,5 @@
 |  26.4.|  4   | Salasanakirjautuminen. |
 |  30.4.|  6   | Testausta, salasanan vaihtamisen mahdollistaminen, dokumentointia |
 |  1.5. |  6   | Testausta |
-|       |      |  |
-| yht   |  134 |  | 
+|  2.5. |  7   | Musiikkien toteuttaminen. Uusi algoritmivastustaja DFS. |
+| yht   |  141 |  | 
