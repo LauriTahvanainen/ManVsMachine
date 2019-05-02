@@ -170,7 +170,7 @@ public class HighscoreState extends State {
         }
         if (t.getTarget().equals(this.map1)) {
             try {
-                formScoreList(this.scoreDao.listAllSorted("BFS", "map1"), "map1", this.selectedAlgo);
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map1"), "map1", this.selectedAlgo);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -179,7 +179,7 @@ public class HighscoreState extends State {
         }
         if (t.getTarget().equals(this.map2)) {
             try {
-                formScoreList(this.scoreDao.listAllSorted("BFS", "map2"), "map2", this.selectedAlgo);
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map2"), "map2", this.selectedAlgo);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -188,7 +188,7 @@ public class HighscoreState extends State {
         }
         if (t.getTarget().equals(this.map3)) {
             try {
-                formScoreList(this.scoreDao.listAllSorted("BFS", "map3"), "map3", this.selectedAlgo);
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map3"), "map3", this.selectedAlgo);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -214,7 +214,7 @@ public class HighscoreState extends State {
     }
 
     private void formScoreList(ArrayList<HighScoreUser> list, String map, String algo) throws SQLException {
-        HighScoreUser currentUser = this.scoreDao.listUser("BFS", this.sm.getCurrentUser().getUsername());
+        HighScoreUser currentUser = this.scoreDao.listUser(algo, this.sm.getCurrentUser().getUsername());
         this.scoreList.getChildren().clear();
         this.algInfo.setText(algo);
         this.mapInfo.setText("Map " + map.charAt(3));
@@ -281,7 +281,7 @@ public class HighscoreState extends State {
         maps.addRow(1, this.map3);
         this.mapScroller.setContent(maps);
     }
-    
+
     private void setSelectedAlgo(String algo) {
         this.selectedAlgo = algo;
         this.selectedAlgoText.setText("Selected: " + algo);

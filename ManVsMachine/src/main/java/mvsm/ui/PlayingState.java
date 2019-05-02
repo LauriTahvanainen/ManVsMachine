@@ -60,6 +60,7 @@ public class PlayingState extends State {
     private int finalScore;
     private HighScoreUser currentScores;
     private String mapName;
+    private String algorithmName;
 
     public PlayingState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
         this.root = new StackPane();
@@ -188,7 +189,7 @@ public class PlayingState extends State {
         if (t.getTarget().equals(this.saveHighScore)) {
             //TODO
             try {
-                this.scoreDao.updateScore("BFS", this.gsm.getCurrentUser().getUsername(), this.mapName, this.finalScore);
+                this.scoreDao.updateScore(this.algorithmName, this.gsm.getCurrentUser().getUsername(), this.mapName, this.finalScore);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -237,8 +238,9 @@ public class PlayingState extends State {
         this.root.getChildren().addAll(this.background, this.pauseMenu);
         this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, machineCoordinates[1], machineCoordinates[0]);
         this.finalScore = 0;
+        this.algorithmName = algo.getName();
         try {
-            this.currentScores = this.scoreDao.listUser("BFS", this.gsm.getCurrentUser().getUsername());
+            this.currentScores = this.scoreDao.listUser(this.algorithmName, this.gsm.getCurrentUser().getUsername());
         } catch (SQLException ex) {
             return;
         }

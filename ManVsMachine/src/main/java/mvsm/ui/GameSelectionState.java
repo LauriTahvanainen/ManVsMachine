@@ -19,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import mvsm.algorithm.DFS;
 
 public class GameSelectionState extends State {
 
@@ -95,6 +96,9 @@ public class GameSelectionState extends State {
                 }
                 if (target.getId().equals("DFS")) {
                     this.currentAlgoText.setText("Algorithm selected: DFS");
+                    this.algorithmSelect.setVisible(false);
+                    this.mapSelect.setVisible(true);
+                    this.selectedAlgorithm = new DFS();
                     this.currentAlgorithmName = "DFS";
                 }
                 if (target.getId().equals("DIJKSTRA")) {

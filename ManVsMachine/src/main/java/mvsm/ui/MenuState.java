@@ -98,11 +98,11 @@ public final class MenuState extends State {
     @Override
     public void restore() {
         this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser().getUsername());
-        int ret = 0;
         try {
-            ret = this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "BFS");
+            this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "BFS");
+            this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "DFS");
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            this.currentUserText.setText("There was an error creating default scores!");
         }
     }
 

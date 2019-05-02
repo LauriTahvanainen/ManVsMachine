@@ -43,8 +43,10 @@ public abstract class Algorithm {
      * Set up the algorithm so that a route can be calculated.
      *
      * @param map The map to run the algorithm in.
-     * @param startX X-Coordinate of the starting point of the algorithm.
      * @param startY Y-Coordinate of the starting point of the algorithm.
+     * @param startX X-Coordinate of the starting point of the algorithm.
      */
-    public abstract void setUpAlgorithm(int[][] map, int startX, int startY);
+    public abstract void setUpAlgorithm(int[][] map, int startY, int startX);
+    
+    public abstract String getName();
 }

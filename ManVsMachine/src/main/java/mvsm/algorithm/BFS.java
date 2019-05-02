@@ -14,8 +14,8 @@ public class BFS extends Algorithm {
     private boolean[][] visited;
     private ArrayDeque<Vertex> mapScan;
     private Vertex[][] routeMap;
-    private int startX;
     private int startY;
+    private int startX;
 
     @Override
     public void calculateRoute(int goalX, int goalY) {
@@ -47,7 +47,7 @@ public class BFS extends Algorithm {
         this.queue.clear();
         Vertex v = this.routeMap[goalX][goalY];
         this.queue.add(new Vertex(40 * (goalX - 1), 40 * (goalY - 1)));
-        while (v.getRow() != startX || v.getColumn() != startY) {
+        while (v.getRow() != startY || v.getColumn() != startX) {
             v = this.routeMap[v.getRow()][v.getColumn()];
             this.queue.addFirst(v.scaleOffset(40, 0, 0));
         }
@@ -64,16 +64,21 @@ public class BFS extends Algorithm {
     }
 
     @Override
-    public void setUpAlgorithm(int[][] map, int startX, int startY) {
+    public void setUpAlgorithm(int[][] map, int startY, int startX) {
         this.map = map;
         this.queue = new ArrayDeque<>();
         this.visited = new boolean[map.length][map[0].length];
-        this.visited[startX][startY] = true;
-        this.queue.add(new Vertex(startX, startY));
+        this.visited[startY][startX] = true;
+        this.queue.add(new Vertex(startY, startX));
         this.mapScan = new ArrayDeque<>();
         this.routeMap = new Vertex[this.map.length][this.map[0].length];
-        this.startX = startX;
         this.startY = startY;
+        this.startX = startX;
+    }
+
+    @Override
+    public String getName() {
+        return "BFS";
     }
 
 }
