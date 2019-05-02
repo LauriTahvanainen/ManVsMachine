@@ -1,5 +1,7 @@
 package mvsm.ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mvsm.algorithm.BFS;
 import mvsm.algorithm.Algorithm;
 import mvsm.statemanagement.State;

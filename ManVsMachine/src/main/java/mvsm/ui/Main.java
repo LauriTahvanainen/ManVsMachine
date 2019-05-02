@@ -72,6 +72,7 @@ public class Main extends Application {
         this.scene.setRoot(this.stateManager.getCurrentState().getCurrent());
         this.actionEventHandler = new ActionEventHandler(stateManager);
         this.scene.addEventHandler(ActionEvent.ACTION, actionEventHandler);
+        this.stateManager.playLoginMusic();
     }
 
     public static void main(String[] args) {

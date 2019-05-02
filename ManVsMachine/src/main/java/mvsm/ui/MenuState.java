@@ -86,6 +86,7 @@ public final class MenuState extends State {
             gsm.getCurrentState().restore();
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Sign Out")) {
+            gsm.playLoginMusic();
             gsm.setCurrentState(0);
             gsm.setCurrentUser(null);
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());

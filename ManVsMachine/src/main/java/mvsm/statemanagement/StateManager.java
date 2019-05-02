@@ -6,10 +6,12 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import mvsm.dao.User;
+import mvsm.ui.SoundPlayer;
 
 /**
- * Handles the management and updating of different GameStates. Extends
- * AnimationTimer.
+ * Handles the management and updating of different GameStates and playing
+ * audio. Extends AnimationTimer. States can call different services of the
+ * StateManager, e.g. they can call it to play music.
  */
 public class StateManager extends AnimationTimer {
 
@@ -18,6 +20,7 @@ public class StateManager extends AnimationTimer {
     private Scene scene;
     private User currentUser;
     private Properties properties;
+    private SoundPlayer player;
 
     /**
      * The constructor takes the properties downloaded from the
@@ -32,6 +35,7 @@ public class StateManager extends AnimationTimer {
         this.currentState = 0;
         this.currentUser = null;
         this.properties = properties;
+        this.player = new SoundPlayer();
     }
 
     /**
@@ -125,6 +129,51 @@ public class StateManager extends AnimationTimer {
     @Override
     public void handle(long l) {
         this.gameStates.get(currentState).update();
+    }
+
+    /**
+     * Starts playing login music.
+     *
+     * @see mvsm.ui.SoundPlayer#playLogin()
+     */
+    public void playLoginMusic() {
+        this.player.playLogin();
+    }
+
+    /**
+     * Starts playing a random menu song.
+     *
+     * @see mvsm.ui.SoundPlayer#playRandomMenu()
+     */
+    public void playMenuMusic() {
+        this.player.playRandomMenu();
+    }
+
+    /**
+     * Starts playing a random playing song.
+     *
+     * @see mvsm.ui.SoundPlayer#playRandomPlaying()
+     */
+    public void playPlayingMusic() {
+        this.player.playRandomPlaying();
+    }
+
+    /**
+     * Starts playing the music that has been loaded to the player.
+     *
+     * @see mvsm.ui.SoundPlayer#play()
+     */
+    public void playMusic() {
+        this.player.play();
+    }
+
+    /**
+     * Pauses the music that is being played.
+     *
+     * @see mvsm.ui.SoundPlayer#pause()
+     */
+    public void pauseMusic() {
+        this.player.pause();
     }
 
 }

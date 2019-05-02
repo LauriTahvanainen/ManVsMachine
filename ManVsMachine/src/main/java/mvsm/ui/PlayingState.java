@@ -168,6 +168,7 @@ public class PlayingState extends State {
             this.root.getChildren().clear();
             gsm.setCurrentState(1);
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
+            gsm.playMenuMusic();
             this.pauseMenu.getChildren().clear();
         }
         if (bText.equals("Restart game")) {
@@ -182,6 +183,7 @@ public class PlayingState extends State {
         if (t.getTarget().equals(this.continueGame)) {
             this.pauseMenu.setCenter(null);
             this.gsm.startLoop();
+            this.gsm.playMusic();
         }
         if (t.getTarget().equals(this.saveHighScore)) {
             //TODO
@@ -242,6 +244,7 @@ public class PlayingState extends State {
         }
         this.gsm.setSceneRoot(this.root);
         this.gsm.startLoop();
+        this.gsm.playPlayingMusic();
     }
 
     private void playerWin(int finalScore) {
@@ -274,10 +277,12 @@ public class PlayingState extends State {
         this.finalScore = 0;
         this.saveHighScore.setDisable(false);
         this.gsm.startLoop();
+        this.gsm.playPlayingMusic();
     }
 
     private void pause() {
         gsm.stopLoop();
+        this.gsm.pauseMusic();
         this.pauseMenu.setCenter(this.pauseButtonsPane);
     }
 

@@ -162,6 +162,7 @@ public final class LoginState extends State {
                     this.username.clear();
                     this.password.clear();
                     this.errorText1.setText("");
+                    this.gsm.playMenuMusic();
                     this.gsm.setCurrentUser(user);
                     this.gsm.setCurrentState(1);
                     this.gsm.setSceneRoot(this.gsm.getCurrentState().getCurrent());
