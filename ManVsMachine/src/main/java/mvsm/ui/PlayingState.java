@@ -244,7 +244,6 @@ public class PlayingState extends State {
         } catch (SQLException ex) {
             return;
         }
-        this.gsm.setSceneRoot(this.root);
         this.gsm.startLoop();
         this.gsm.playPlayingMusic();
     }

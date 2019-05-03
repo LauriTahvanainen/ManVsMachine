@@ -67,7 +67,7 @@ public final class LoginState extends State {
         //sign in view
         this.signInPane.setAlignment(Pos.CENTER);
         Button quit = new Button("Quit");
-        Button setPwVisible1 = new Button(null, eyeClosed);
+        Button setPwVisible1 = new Button(null, eyeOpen);
         setPwVisible1.setBackground(Background.EMPTY);
         GridPane.setHalignment(setPwVisible1, HPos.CENTER);
         GridPane.setValignment(setPwVisible1, VPos.CENTER);
@@ -93,6 +93,7 @@ public final class LoginState extends State {
         this.signInPane.addRow(2, passwordText, password, setPwVisible1);
         this.signInPane.add(this.passwordVisible, 1, 2);
         this.signInPane.addRow(3, signIn, createNewAccount, quit);
+        this.signInPane.setHgap(5);
 
         //create account view
         createAccountPane.setAlignment(Pos.CENTER);
@@ -257,14 +258,14 @@ public final class LoginState extends State {
         Button button = (Button) this.signInPane.getChildren().get(5);
         if (this.passwordVisible.isVisible()) {
             this.password.setText(this.passwordVisible.getText());
-            button.setGraphic(this.eyeClosed);
+            button.setGraphic(this.eyeOpen);
             this.password.setDisable(false);
             this.passwordVisible.setDisable(true);
             this.passwordVisible.setVisible(false);
         } else {
             this.passwordVisible.setText(this.password.getText());
             this.password.setDisable(true);
-            button.setGraphic(this.eyeOpen);
+            button.setGraphic(this.eyeClosed);
             this.passwordVisible.setDisable(false);
             this.passwordVisible.setVisible(true);
         }

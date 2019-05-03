@@ -259,6 +259,7 @@ public class SettingsState extends State {
             this.settingsPane.setDisable(true);
             this.custCharPane.setVisible(false);
             this.custCharPane.setCenter(null);
+            this.errorText2.setText("");
             this.settingsPane.setDisable(false);
         } else if (t.getTarget().equals(this.changeColor)) {
             this.custCharPane.setCenter(this.colorPickerPane);

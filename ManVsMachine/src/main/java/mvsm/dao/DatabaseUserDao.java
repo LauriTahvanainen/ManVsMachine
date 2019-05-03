@@ -25,7 +25,6 @@ public class DatabaseUserDao implements UserDao {
     public DatabaseUserDao(Connector conn) throws Exception {
         this.checker = new StringChecker();
         this.connector = conn;
-        initDatabase();
     }
 
     @Override
@@ -69,13 +68,18 @@ public class DatabaseUserDao implements UserDao {
         return 1;
     }
 
-    private void initDatabase() throws SQLException {
+    /**
+     * Initializes the database on startup.
+     * @throws Exception if the path to the database is incorrect;
+     */
+    public void initDatabase() throws Exception {
         Connection conn = this.connector.openConnection();
-        try (Statement stmt = conn.createStatement()) {
-            stmt.execute(USERTABLE_INIT);
-            stmt.execute(BFS_INIT);
-            stmt.execute(DFS_INIT);
-        }
+        Statement stmt = conn.createStatement(); 
+        stmt.execute(USERTABLE_INIT);
+        stmt.execute(BFS_INIT);
+        stmt.execute(DFS_INIT);
+        stmt.close();
+        conn.close();
     }
 
     @Override

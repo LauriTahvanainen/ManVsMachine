@@ -25,12 +25,13 @@ public class DatabaseUserDaoTest {
     DatabaseUserDao dao;
     ScoreDao scoreDao;
     File database;
-
+    
     @Before
     public void setUp() throws Exception {
         database = testFolder.newFile("testDatabase.db");
         Connector conn = new Connector(database.getAbsolutePath());
         dao = new DatabaseUserDao(conn);
+        dao.initDatabase();
         scoreDao = new DatabaseScoreDao(conn);
     }
 

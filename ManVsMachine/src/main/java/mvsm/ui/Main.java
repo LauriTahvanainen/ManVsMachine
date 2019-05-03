@@ -14,10 +14,23 @@ import javafx.stage.StageStyle;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 import mvsm.eventhandling.ActionEventHandler;
 import mvsm.eventhandling.KeyEventHandler;
 
+/**
+ * Main class of the application. Initializes and starts the application.
+ */
 public class Main extends Application {
 
     public final int WIDTH = 1200;
@@ -25,9 +38,10 @@ public class Main extends Application {
     private StateManager stateManager;
     private ActionEventHandler actionEventHandler;
     private Scene scene;
+    private boolean initSuccessful;
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws InterruptedException {
         stage.setTitle("Man Vs Machine");
         stage.setResizable(false);
         stage.setWidth(WIDTH);
@@ -35,11 +49,25 @@ public class Main extends Application {
         stage.centerOnScreen();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(this.scene);
-        stage.show();
+        if (initSuccessful) {
+            stage.show();
+        } else {
+            Text error = new Text("Databasepath in the config.properties file was was wrong.\nCheck that the directories in the path actually exist!\n\nClosing the program");
+            error.setFont(Font.font(30));
+            VBox pane = new VBox();
+            pane.setAlignment(Pos.CENTER);
+            pane.getChildren().add(error);
+            scene.setRoot(pane);
+            stage.show();
+            PauseTransition delay = new PauseTransition(Duration.seconds(5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 
     @Override
     public void init() throws Exception {
+        initSuccessful = true;
         this.scene = new Scene(new Pane(), WIDTH, HEIGHT);
         Properties properties = new Properties();
         try {
@@ -50,6 +78,12 @@ public class Main extends Application {
         }
         Connector connector = new Connector(properties.getProperty("databasepath"));
         DatabaseUserDao userDao = new DatabaseUserDao(connector);
+        try {
+            userDao.initDatabase();
+        } catch (Exception e) {
+            initSuccessful = false;
+            return;
+        }
         DatabaseScoreDao scoreDao = new DatabaseScoreDao(connector);
         this.stateManager = new StateManager(properties);
         this.stateManager.setScene(this.scene);

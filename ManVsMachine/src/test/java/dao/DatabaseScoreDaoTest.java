@@ -31,10 +31,11 @@ public class DatabaseScoreDaoTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     ScoreDao scoreDao;
-    UserDao userDao;
+    DatabaseUserDao userDao;
     File database;
 
     public DatabaseScoreDaoTest() {
+        
     }
 
     @Before
@@ -42,6 +43,7 @@ public class DatabaseScoreDaoTest {
         database = testFolder.newFile("testDatabase.db");
         Connector conn = new Connector(database.getAbsolutePath());
         userDao = new DatabaseUserDao(conn);
+        userDao.initDatabase();
         scoreDao = new DatabaseScoreDao(conn);
         this.scoreDao.createDefault("Test1", "BFS");
         this.scoreDao.createDefault("Test2", "BFS");
