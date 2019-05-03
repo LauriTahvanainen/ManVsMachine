@@ -2,7 +2,6 @@ package mvsm.ui;
 
 import mvsm.algorithm.Algorithm;
 import mvsm.dao.HighScoreUser;
-import mvsm.dao.UserDao;
 import mvsm.dao.ScoreDao;
 import mvsm.statemanagement.State;
 import mvsm.statemanagement.StateManager;
@@ -30,6 +29,16 @@ import mvsm.sprite.Machine;
 import mvsm.game.MapRenderer;
 import mvsm.sprite.Sprite;
 
+/**
+ * The State where the game is played. The only State that uses the
+ * restore(Algorithm algo, String mapName) method. Interacts with the classes
+ * StateManager, DatabaseScoreDao, GamePhysics, Machine.
+ *
+ * @see mvsm.statemanagement.StateManager
+ * @see mvsm.game.GamePhysics
+ * @see mvsm.dao.DatabaseScoreDao
+ * @see mvsm.sprite.Machine
+ */
 public class PlayingState extends State {
 
     private Sprite player;
@@ -40,7 +49,6 @@ public class PlayingState extends State {
     private Rectangle machineGoal;
     private final StateManager gsm;
     private int[][] mapArray;
-    private final UserDao userDao;
     private final ScoreDao scoreDao;
     private final MapRenderer renderer;
     private final GamePhysics physics;
@@ -62,7 +70,12 @@ public class PlayingState extends State {
     private String mapName;
     private String algorithmName;
 
-    public PlayingState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
+    /**
+     *
+     * @param gsm For state management and playing music.
+     * @param scoreDao For saving high-scores.
+     */
+    public PlayingState(StateManager gsm, ScoreDao scoreDao) {
         this.root = new StackPane();
         this.background = new GridPane();
         this.gameStatisticsPane = new HBox();
@@ -70,7 +83,6 @@ public class PlayingState extends State {
         this.endGamePane = new BorderPane();
         this.pauseButtonsPane = new BorderPane();
         this.gsm = gsm;
-        this.userDao = userDao;
         this.scoreDao = scoreDao;
         this.renderer = new MapRenderer();
         this.timeScoreBoard = new Text("Time Score: 100");
@@ -199,14 +211,6 @@ public class PlayingState extends State {
         }
     }
 
-    public void setMap(int[][] map) {
-        this.mapArray = map;
-    }
-
-    public void setBackground(GridPane background) {
-        this.background = background;
-    }
-
     /**
      * Restores the PlayingState to start a new game. MachineRestore coordinates
      * are saved, because machine movement is done via translate towards a point
@@ -216,8 +220,8 @@ public class PlayingState extends State {
      * is simply placed on the machine coordinates, the machines movement will
      * break.
      *
-     * @param algo
-     * @param mapName
+     * @param algo To play against.
+     * @param mapName To play in.
      */
     @Override
     public void restore(Algorithm algo, String mapName) {

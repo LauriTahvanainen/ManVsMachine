@@ -25,6 +25,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import mvsm.dao.StringChecker;
 
+/**
+ * State for login actions. Uses the class StringChecker for checking validity
+ * of input strings.
+ * @see mvsm.dao.StringChecker
+ */
 public final class LoginState extends State {
 
     private final BorderPane root;
@@ -45,6 +50,11 @@ public final class LoginState extends State {
     private final ImageView eyeClosed = new ImageView(new Image(LoginState.class.getResourceAsStream(RESOURCE_PATH + "PwEye.png")));
     private final ImageView eyeOpen = new ImageView(new Image(LoginState.class.getResourceAsStream(RESOURCE_PATH + "PwEyeOpen.png")));
 
+    /**
+     *
+     * @param gsm For state management and playing music.
+     * @param userDao For checking for sign in and for creating new users.
+     */
     public LoginState(StateManager gsm, UserDao userDao) {
         this.gsm = gsm;
         this.root = new BorderPane();

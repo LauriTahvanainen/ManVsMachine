@@ -16,6 +16,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.sql.SQLException;
 
+/**
+ * State representing the menu.
+ */
 public final class MenuState extends State {
 
     private final BorderPane menu;
@@ -24,6 +27,12 @@ public final class MenuState extends State {
     private final ScoreDao scoreDao;
     private Text currentUserText;
 
+    /**
+     *
+     * @param gsm For state management and playing music.
+     * @param userDao For updating the current User text;
+     * @param scoreDao For creating high-score defaults.
+     */
     public MenuState(StateManager gsm, UserDao userDao, ScoreDao scoreDao) {
         this.gsm = gsm;
         this.userDao = userDao;

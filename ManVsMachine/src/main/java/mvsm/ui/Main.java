@@ -14,10 +14,7 @@ import javafx.stage.StageStyle;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -42,7 +39,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws InterruptedException {
-        stage.setTitle("Man Vs Machine");
         stage.setResizable(false);
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
@@ -92,7 +88,7 @@ public class Main extends Application {
         this.scene.setOnKeyReleased(KeyListener);
         State loginState = new LoginState(this.stateManager, userDao);
         State menuState = new MenuState(this.stateManager, userDao, scoreDao);
-        State playingState = new PlayingState(this.stateManager, userDao, scoreDao);
+        State playingState = new PlayingState(this.stateManager, scoreDao);
         State settingsState = new SettingsState(this.stateManager, userDao, scoreDao);
         State highscoreState = new HighscoreState(this.stateManager, scoreDao);
         State gameSelectionState = new GameSelectionState(this.stateManager);

@@ -23,6 +23,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mvsm.dao.StringChecker;
 
+/**
+ * State for implementing the features in the settings. e.g. Change username and
+ * password and sprite color. Uses the class StringChecker for checking validity
+ * of input strings.
+ *
+ * @see mvsm.dao.StringChecker
+ */
 public class SettingsState extends State {
 
     private final StateManager stateM;
@@ -59,6 +66,12 @@ public class SettingsState extends State {
     private Pane currentPane;
     private final StringChecker checker;
 
+    /**
+     *
+     * @param stateM For state management.
+     * @param userDao For updating username.
+     * @param scoreDao For updating username.
+     */
     public SettingsState(StateManager stateM, UserDao userDao, ScoreDao scoreDao) {
         this.stateM = stateM;
         this.userDao = userDao;

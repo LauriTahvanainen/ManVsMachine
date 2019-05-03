@@ -1,9 +1,8 @@
 package game;
 
-import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -15,6 +14,7 @@ import mvsm.algorithm.BFS;
 import mvsm.eventhandling.KeyEventHandler;
 import mvsm.game.GamePhysics;
 import mvsm.game.MapRenderer;
+import mvsm.game.Tile;
 import mvsm.sprite.Machine;
 import mvsm.sprite.Sprite;
 import org.junit.After;
@@ -132,57 +132,34 @@ public class GamePhysicsTest {
 
     @Test
     public void restoreTest() {
-        for (int i = 0; i < 600; i++) {
+        while (!this.machine.getRoute().isEmpty()) {
             this.testPhysics.updateGameWorld();
         }
         assertTrue(!this.timeScore.getText().equals("Time Score: 2000") && this.lengthScore.getText().equals("Route Length: 0"));
-        assertTrue(this.machine.getForm().getTranslateX() != 560 && this.machine.getForm().getTranslateY() != 320);
+        assertTrue(this.machine.getForm().getTranslateX() != 560 && this.machine.getForm().getTranslateY() != 320 && this.machine.getRoute().isEmpty() && this.machine.getScanRoute().isEmpty());
         this.testPhysics.restoreLevel();
         this.testPhysics.updateGameWorld();
         assertTrue(this.timeScore.getText().equals("Time Score: 2000") && this.lengthScore.getText().equals("Route Length: 0"));
-        assertTrue(this.machine.getForm().getTranslateX() == 560 && this.machine.getForm().getTranslateY() == 320);        
+        assertTrue(this.machine.getForm().getTranslateX() == 560 && this.machine.getForm().getTranslateY() == 320 && this.machine.getRoute().size() ==  86 && this.machine.getScanRoute().size() == 116);        
     }
     
-//    @Test
-//    public void playerMovementTest() {
-//        this.machine.getScanRoute().clear();
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.LEFT, false, false, false, false));
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        System.out.println(this.player.getForm().getTranslateX() + ":" + this.player.getForm().getTranslateY());
-//        System.out.println("");
-//        //assertTrue(this.player.getForm().getTranslateX() == -1 && this.player.getForm().getTranslateY() == 0);
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_RELEASED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.LEFT, false, false, false, false));
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.UP, false, false, false, false));
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        System.out.println(this.player.getForm().getTranslateX() + ":" + this.player.getForm().getTranslateY());
-//        System.out.println("");
-//        //assertTrue(this.player.getForm().getTranslateX() == -1 && this.player.getForm().getTranslateY() == -1);
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_RELEASED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.UP, false, false, false, false));
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.RIGHT, false, false, false, false));
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        System.out.println(this.player.getForm().getTranslateX() + ":" + this.player.getForm().getTranslateY());
-//        System.out.println("");
-//        //assertTrue(this.player.getForm().getTranslateX() == 1 && this.player.getForm().getTranslateY() == -1);
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_RELEASED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.RIGHT, false, false, false, false));
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.DOWN, false, false, false, false));
-////        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.RIGHT, false, false, false, false));
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        this.testPhysics.updateGameWorld();
-//        System.out.println(this.player.getForm().getTranslateX() + ":" + this.player.getForm().getTranslateY());
-//        System.out.println("");
-//        if (this.player.getForm().getTranslateX() == 1 && this.player.getForm().getTranslateY() == -1) {
-//            return;
-//        }
-//        fail("The player ends up in wrong coordinates, should be x:y, but was "+ this.player.getForm().getTranslateX() + ":" + this.player.getForm().getTranslateY());
-//    }
+    @Test
+    public void ifEscPressedReturnMinusTwo() {
+        this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.ESCAPE, false, false, false, false));
+        assertTrue(this.testPhysics.updateGameWorld() == -2);
+    }
+    
+    @Test
+    public void restoreClearsScanFromScreen() {
+        for (int i = 0; i < 20;i++) {
+            this.testPhysics.updateGameWorld();
+        }
+        this.testPhysics.restoreLevel();
+        for (Node node:this.background.getChildren()) {
+            if (Tile.SCAN_TILE.equals(node)) {
+                fail("There should be no scantiles on the map!");
+            }
+        }
+    }
     
 }

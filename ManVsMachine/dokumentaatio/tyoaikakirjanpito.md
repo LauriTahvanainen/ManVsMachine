@@ -28,4 +28,5 @@
 |  30.4.|  6   | Testausta, salasanan vaihtamisen mahdollistaminen, dokumentointia |
 |  1.5. |  6   | Testausta |
 |  2.5. |  7   | Musiikkien toteuttaminen. Uusi algoritmivastustaja DFS. |
-| yht   |  141 |  | 
+|  3.5. |  10  | Dokumentointia ja testaamista. |
+| yht   |  151 |  | 

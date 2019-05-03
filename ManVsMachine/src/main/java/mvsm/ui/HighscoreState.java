@@ -23,6 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * State for presenting high-scores to the user.
+ */
 public class HighscoreState extends State {
 
     private final ScoreDao scoreDao;
@@ -48,6 +51,11 @@ public class HighscoreState extends State {
     private String selectedAlgo;
     private static final String RESOURCE_PATH = "/pictures/";
 
+    /**
+     *
+     * @param sm For state management.
+     * @param scoreDao For fetching score data from the database.
+     */
     public HighscoreState(StateManager sm, ScoreDao scoreDao) {
         this.scoreDao = scoreDao;
         this.sm = sm;
@@ -146,6 +154,14 @@ public class HighscoreState extends State {
         this.scoreScroller.setContent(this.scoreList);
     }
 
+    /**
+     * Handles the button presses. When an algorithm is chosen, maps are shown
+     * according to the selected algorithm in a scroll view. When a map is
+     * selected, an list of scores is called from the ScoreDao. These are formed
+     * in to a table and put in to a scroll view.
+     *
+     * @param t ActionEvent, the button pressed.
+     */
     @Override
     public void handleAction(ActionEvent t) {
         if (t.getTarget().equals(this.backToMenu)) {
