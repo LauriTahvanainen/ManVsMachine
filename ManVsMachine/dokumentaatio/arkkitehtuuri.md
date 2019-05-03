@@ -53,6 +53,20 @@ Update gameGameWorld() hoitaa törmäysten tunnistuksen ja käsittelyn, sekä Sp
 Alla pelkistetty sekvenssikaavio GameLoopin toiminnasta.
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/Starting%20the%20GameLoop%20with%20BFS%20and%20map1.png)
 
+### Tilan vaihtaminen
+Tilan vaihto tapahtuu kutsumalla tilassa ensin StateManagerin metodia setCurrentState(int index), joka muuttaa nykyisen tilan id:n. Tilat on tallennettuna StateManagerissa listaan, joten indeksin vaihto riittää. Sitten kutsutaan StateManagerin metodia
+
+`setSceneRoot(StateManager.getCurrentState.getCurrent)`
+
+, joka vaihtaa scenen rootiksi nykyisen tilan root-paneelin. Näiden kutsujen yhteydessä voidaan myös tarvittaesssa kutsua uudeksi nykyiseksi tilaksi vaihdetun tilan restore metodia StateManagerin avulla.
+
+### Nappien painallusten käsittely.
+Sillä ActionEventHandler kiinnitetään sovelluksen alustuksessa sceneen, käsittelee se kaikki nappien painallukset mitä sovelluksessa tulee. Sama Handler siis käsittelee kaikkien tilojen painallukset. ActionEventHandler tuntee kuitenkin StateManagerin, ja aina kun sen pitää käsitellä painallus, se ohjaa painalluksen käsittelyn StateManagerin nykyiselle tilalle.
+
+    `StateManager.getCurrentState.handleAction(ActionEvent t)`
+
+Painalluksen ActionEvent kulkee siis käsiteltäväksi aina oikealle tilalle, eli sille joka on aktiivisena.
+
 ## Tietojen pysyväistallennus
 Pakkauksen mvsm.dao luokat huolehtivat tietojen tallentamisesta tietokantaan, ja tietokannasta tietojen noutamisesta.
 
@@ -93,6 +107,7 @@ Kaikki daojen toiminnallisuuksia pyytävät ominaisuudet toimivat jotakuinkin sa
 
 ### Muita toiminnallisuuksia
 Musiikin soittamista pyydetään StateManagerilta. Musiikin soittaminen tapahtuukin varsin yksinkertaisesti. Aina tilanvaihdon yhteydessä tila pyytää StateManageria soittamaan musiikkia. Esimerkiksi LoginStaten vaihtuessa MenuStateen kutsutaan LoginStatessa tilaa vaihdettaessa StateManagerin metodia playMenuMusic().
+
 ## Yleisesti
 Pelin vallitseva rakenne koostuu tiloista, joilla on tietyt ominaisuudet, ja jotka voivat kaikki pyytää StateManagerin palveluja. Tämä on varsin hyvä rakenne siinä mielessä, että uusien ominaisuuksien lisääminen on varsin helppoa. Pelkistettynä lisätään vain uusi tila johon peli voi siirtyä, tai päivitetään vanhan tilan toimintaa.
 
