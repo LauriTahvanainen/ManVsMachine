@@ -128,20 +128,49 @@ public class GamePhysics {
             if (node.equals(this.machine.getForm()) || node.equals(this.machineGoal) || node.equals(this.playerGoal) || Tile.SCAN_TILE.nodeEqualsTile(node)) {
                 continue;
             }
+            if (this.machine.checkCollision(node)) {
+                machineMovementCollision(node);
+            }
             if (this.player.checkCollision(node)) {
-                if (Tile.SAND.nodeEqualsTile(node)) {
-                    this.player.setMovementFactor(0.5);
-                    continue;
-                }
-                if (Tile.FLOOR.nodeEqualsTile(node)) {
-                    this.player.setMovementFactor(1);
+                if (playerMovementCollision(node)) {
                     continue;
                 }
                 this.player.getOutCollision(node.getBoundsInParent());
                 return false;
             }
+
         }
         return true;
+    }
+
+    private void machineMovementCollision(Node node) {
+        if (Tile.SAND.nodeEqualsTile(node)) {
+            this.machine.setMovementFactor(0.5);
+            return;
+        }
+        if (Tile.WATER.nodeEqualsTile(node)) {
+            this.machine.setMovementFactor(0.25);
+            return;
+        }
+        if (Tile.FLOOR.nodeEqualsTile(node)) {
+            this.machine.setMovementFactor(1);
+        }
+    }
+    
+    private boolean playerMovementCollision(Node node) {
+        if (Tile.SAND.nodeEqualsTile(node)) {
+            this.player.setMovementFactor(0.5);
+            return true;
+        }
+        if (Tile.WATER.nodeEqualsTile(node)) {
+            this.player.setMovementFactor(0.25);
+            return true;
+        }
+        if (Tile.FLOOR.nodeEqualsTile(node)) {
+            this.player.setMovementFactor(1);
+            return true;
+        }
+        return false;
     }
 
     private boolean playerGoalCollisionCheck() {

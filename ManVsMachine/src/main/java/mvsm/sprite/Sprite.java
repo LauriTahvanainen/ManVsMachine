@@ -120,8 +120,8 @@ public class Sprite {
      */
     public void moveAlong(Point2D movementVector) {
         movementVector = movementVector.normalize();
-        this.form.setTranslateX(this.form.getTranslateX() + movementVector.getX() * 0.5);
-        this.form.setTranslateY(this.form.getTranslateY() + movementVector.getY() * 0.5);
+        this.form.setTranslateX(this.form.getTranslateX() + movementVector.getX() * 0.5 * movementFactor);
+        this.form.setTranslateY(this.form.getTranslateY() + movementVector.getY() * 0.5 * movementFactor);
     }
 
     /**
