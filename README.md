@@ -63,3 +63,9 @@ Tiedoston [checkstyle.xml](https://github.com/LauriTahvanainen/ot-harjoitustyo/b
 
 Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
 
+
+Osa musiikeista miksattu: 
+[Machine Takeover by TeknoAXE](https://www.youtube.com/watch?v=Br6yowCAh5w)
+
+[Lisenssi](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/TeknoAxeLicence.pdf)
+
