@@ -44,7 +44,7 @@ public class MachineTest {
     public void setUp() {
         this.pane = new GridPane();
         this.algo = new BFS();
-        this.testMachine = new Machine(Color.BLACK, 10, 10, this.algo);
+        this.testMachine = new Machine(10, 10, this.algo);
         this.algo.setUpAlgorithm(this.map, 1, 1);
         this.testMachine.calculateRoute(16, 28);
         this.testMachine.getScanner().setBackground(this.pane);

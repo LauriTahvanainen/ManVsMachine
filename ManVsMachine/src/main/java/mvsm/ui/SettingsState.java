@@ -6,21 +6,31 @@ import mvsm.dao.ScoreDao;
 import mvsm.statemanagement.State;
 import mvsm.statemanagement.StateManager;
 import java.sql.SQLException;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import mvsm.dao.StringChecker;
 
 /**
@@ -44,25 +54,27 @@ public class SettingsState extends State {
     private final Button cancel1;
     private final Button cancel2;
     private final Button cancelPwChange;
-    private final Button changeColor;
-    private final Button changeColor2;
+    private final Button changePortalColor;
+    private final Button changeSpriteTexture;
+    private final Button changePortalColor2;
     private final Rectangle currentColor;
     private final Rectangle newColor;
+    private final Rectangle currentTexture;
     private final TextField newUserNameInput;
     private final PasswordField newPasswordField;
     private final PasswordField newPasswordField2;
     private final Text errorText;
-    private final Text errorText2;
+    private final Text errorTextCharCust;
     private final Text errorTextPwChange;
     private final ColorPicker colorPicker;
     private final VBox settingsPane;
     private final VBox changeUsernamePane;
     private final VBox changePasswordPane;
     private final BorderPane custCharPane;
+    private final GridPane texturePane;
     private final StackPane root;
     private final GridPane colorPickerPane;
     private final VBox custButtonPane;
-    private final VBox colorPicButtons;
     private Pane currentPane;
     private final StringChecker checker;
 
@@ -88,11 +100,16 @@ public class SettingsState extends State {
         this.changeUsername = new Button("Change Username");
         this.changePassword1 = new Button("Change Password");
         this.customizeCharacter = new Button("Customize Character");
-        this.changeColor = new Button("Change Default Sprite Color");
+        this.changePortalColor = new Button("Change Default Portal Color");
+        this.changeSpriteTexture = new Button("Change Sprite Texture");
         //activation buttons
         this.changeUsername2 = new Button("Change Username");
-        this.changeColor2 = new Button("Change Color");
+        this.changePortalColor2 = new Button("Change Color");
         this.changePassword2 = new Button("Change Password");
+
+        //textureChange view
+        texturePane = new GridPane();
+        this.currentTexture = new Rectangle(80, 80);
 
         //colorpicker view
         this.colorPicker = new ColorPicker(Color.WHITE);
@@ -100,11 +117,22 @@ public class SettingsState extends State {
         this.newColor = new Rectangle(60, 60, Color.WHITE);
         this.settingsPane = new VBox();
         this.colorPickerPane = new GridPane();
-        this.errorText2 = new Text();
-        this.colorPicButtons = new VBox();
+        this.errorTextCharCust = new Text();
+        this.errorTextCharCust.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!errorTextCharCust.getText().equals("")) {
+                    PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                    delay.setOnFinished(event -> errorTextCharCust.setText(""));
+                    delay.play();
+                }
+            }
+
+        });
 
         //character cust view
         this.custCharPane = new BorderPane();
+        this.custCharPane.setPadding(new Insets(20));
         this.custButtonPane = new VBox();
 
         //changepassword view
@@ -112,6 +140,17 @@ public class SettingsState extends State {
         this.newPasswordField = new PasswordField();
         this.newPasswordField2 = new PasswordField();
         this.errorTextPwChange = new Text();
+        this.errorTextPwChange.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!errorTextPwChange.getText().equals("")) {
+                    PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                    delay.setOnFinished(event -> errorTextPwChange.setText(""));
+                    delay.play();
+                }
+            }
+
+        });
 
         //usernamechange view
         this.changeUsernamePane = new VBox();
@@ -163,6 +202,12 @@ public class SettingsState extends State {
         this.changeUsernamePane.getChildren().addAll(this.errorText, this.newUserNameInput, this.changeUsername2, this.cancel1);
         this.changeUsernamePane.setVisible(false);
 
+        //texture change view
+        this.changeSpriteTexture.setMinWidth(205);
+        this.texturePane.setAlignment(Pos.CENTER);
+        this.texturePane.setVgap(10);
+        this.texturePane.setHgap(10);
+
         //change password view
         this.changePasswordPane.setAlignment(Pos.CENTER);
         this.changePasswordPane.setMaxSize(1120, 640);
@@ -180,20 +225,24 @@ public class SettingsState extends State {
 
         //color picker view
         this.colorPickerPane.setAlignment(Pos.CENTER);
-        this.colorPicButtons.setAlignment(Pos.CENTER);
         this.colorPicker.getStyleClass().add("button");
         this.colorPickerPane.addRow(1, new Text("Current Color"), new Text("New Color"));
         this.colorPickerPane.addRow(2, this.currentColor, this.newColor);
         this.colorPickerPane.addRow(3, this.colorPicker);
-        this.colorPickerPane.addRow(4, this.changeColor2);
+        this.colorPickerPane.addRow(4, this.changePortalColor2);
 
         //character customization
         this.custButtonPane.setAlignment(Pos.CENTER);
         this.custCharPane.setLeft(custButtonPane);
-        this.custCharPane.setBottom(this.errorText2);
-        this.errorText2.setFont(Font.font("alegreya", 20));
+        VBox errorTextBox = new VBox();
+        errorTextBox.setAlignment(Pos.CENTER);
+        errorTextBox.getChildren().add(this.errorTextCharCust);
+        this.custCharPane.setBottom(errorTextBox);
+        this.errorTextCharCust.setFont(Font.font("alegreya", 20));
+        this.cancel2.setMinWidth(205);
+        this.changePortalColor.setMinWidth(205);
 
-        custButtonPane.getChildren().addAll(this.cancel2, this.changeColor);
+        custButtonPane.getChildren().addAll(this.cancel2, this.changePortalColor, this.changeSpriteTexture);
         this.custCharPane.setMaxSize(1120, 640);
         this.custCharPane.setStyle("-fx-background-color: rgba(220, 220, 250, 0.8); -fx-background-radius: 1;");
         this.custCharPane.setVisible(false);
@@ -203,22 +252,28 @@ public class SettingsState extends State {
     public void handleAction(ActionEvent t) {
         if (t.getTarget().equals(this.colorPicker)) {
             this.newColor.setFill(this.colorPicker.getValue());
+            return;
         }
         if (this.currentPane.equals(this.settingsPane)) {
             handleSettingsPane(t);
+            return;
         }
         if (this.currentPane.equals(this.changeUsernamePane)) {
             handleUsernameChangePane(t);
+            return;
         }
         if (this.currentPane.equals(this.changePasswordPane)) {
             handlePasswordChangePane(t);
+            return;
         }
-        handleCharacterCust(t);
+        if (this.currentPane.equals(this.custCharPane)) {
+            handleCharacterCust(t);
+        }
     }
 
     @Override
     public void restore() {
-        this.currentColor.setFill(this.stateM.getCurrentUser().getColor());
+        this.currentColor.setFill(this.stateM.getCurrentUser().getPortalColor());
     }
 
     @Override
@@ -270,14 +325,14 @@ public class SettingsState extends State {
         if (t.getTarget().equals(this.cancel2)) {
             this.currentPane = this.settingsPane;
             this.settingsPane.setDisable(true);
+            clearTextureSelect();
             this.custCharPane.setVisible(false);
-            this.custCharPane.setCenter(null);
-            this.errorText2.setText("");
+            this.errorTextCharCust.setText("");
             this.settingsPane.setDisable(false);
-        } else if (t.getTarget().equals(this.changeColor)) {
+        } else if (t.getTarget().equals(this.changePortalColor)) {
+            clearTextureSelect();
             this.custCharPane.setCenter(this.colorPickerPane);
-            this.custCharPane.setRight(this.colorPicButtons);
-        } else if (t.getTarget().equals(this.changeColor2)) {
+        } else if (t.getTarget().equals(this.changePortalColor2)) {
             Color toBeChangedTo = this.colorPicker.getValue();
             int red = (int) (toBeChangedTo.getRed() * 255);
             int green = (int) (toBeChangedTo.getGreen() * 255);
@@ -285,12 +340,28 @@ public class SettingsState extends State {
             try {
                 this.userDao.updateColor(this.stateM.getCurrentUser().getUsername(), red, green, blue);
             } catch (SQLException e) {
-                this.errorText2.setText("Unexpected error!");
+                this.errorTextCharCust.setText("Unexpected error while updating color values in the database!");
                 return;
             }
             this.currentColor.setFill(Color.rgb(red, green, blue));
-            this.stateM.getCurrentUser().setColorM(Color.rgb(red, green, blue));
-            this.errorText2.setText("Default Sprite Color Changed!");
+            this.stateM.getCurrentUser().setPortalColor(Color.rgb(red, green, blue));
+            this.errorTextCharCust.setText("Default Portal Color Changed!");
+        } else if (t.getTarget().equals(this.changeSpriteTexture)) {
+            buildTextureSelection();
+            this.custCharPane.setCenter(this.texturePane);
+        } else {
+            Button button = (Button) t.getTarget();
+            boolean ret = false;
+            try {
+                ret = this.userDao.updateTexture(this.stateM.getCurrentUser().getUsername(), button.getId());
+            } catch (SQLException e) {
+                this.errorTextCharCust.setText("Unexpected error while updating texture in the database!");
+            }
+            if (ret) {
+                this.stateM.getCurrentUser().setTexture(button.getId());
+                this.currentTexture.setFill(new ImagePattern(new Image(SettingsState.class.getResourceAsStream("/textures/" + this.stateM.getCurrentUser().getTexture() + "Left.png"))));
+                this.errorTextCharCust.setText("Sprite Texture Updated!");
+            }
         }
     }
 
@@ -360,6 +431,73 @@ public class SettingsState extends State {
         } else {
             errorTextPwChange.setText("The given password does not contain a lowercase letter!");
         }
+    }
+
+    private void buildTextureSelection() {
+        this.texturePane.getChildren().clear();
+        Button guyRed = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyRedLeft.png"))));
+        guyRed.setId("guyRed");
+        guyRed.setMaxSize(78, 84);
+        guyRed.setPrefSize(78, 84);
+        Button guyBlack = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyBlackLeft.png"))));
+        guyBlack.setId("guyBlack");
+        guyBlack.setMaxSize(78, 84);
+        guyBlack.setPrefSize(78, 84);
+        Button guyWhite = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyWhiteLeft.png"))));
+        guyWhite.setId("guyWhite");
+        guyWhite.setMaxSize(78, 84);
+        guyWhite.setPrefSize(78, 84);
+        Button guyBlue = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyBlueLeft.png"))));
+        guyBlue.setId("guyBlue");
+        guyBlue.setMaxSize(78, 84);
+        guyBlue.setPrefSize(78, 84);
+        Button guyYellow = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyYellowLeft.png"))));
+        guyYellow.setId("guyYellow");
+        guyYellow.setMaxSize(78, 84);
+        guyYellow.setPrefSize(78, 84);
+        Button guyBrown = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyBrownLeft.png"))));
+        guyBrown.setId("guyBrown");
+        guyBrown.setMaxSize(78, 84);
+        guyBrown.setPrefSize(78, 84);
+        Button guyGreen = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyGreenLeft.png"))));
+        guyGreen.setId("guyGreen");
+        guyGreen.setMaxSize(78, 84);
+        guyGreen.setPrefSize(78, 84);
+        Button guyPink = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/guyPinkLeft.png"))));
+        guyPink.setId("guyPink");
+        guyPink.setMaxSize(78, 84);
+        guyPink.setPrefSize(78, 84);
+        Button demon = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/demonLeft.png"))));
+        demon.setId("demon");
+        demon.setMaxSize(78, 84);
+        demon.setPrefSize(78, 84);
+        Button knight = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/knightLeft.png"))));
+        knight.setId("knight");
+        knight.setMaxSize(78, 84);
+        knight.setPrefSize(78, 84);
+        Button chef = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/chefLeft.png"))));
+        chef.setId("chef");
+        chef.setMaxSize(78, 84);
+        chef.setPrefSize(78, 84);
+
+        this.texturePane.addRow(0, guyRed, guyBlack, guyWhite, guyBlue, guyYellow);
+        this.texturePane.addRow(1, guyBrown, guyGreen, guyPink, demon, knight);
+        this.texturePane.addRow(2, chef);
+
+        HBox currentBox = new HBox();
+        currentBox.setAlignment(Pos.CENTER);
+        currentBox.setSpacing(10);
+        Text currentTextureText = new Text("Current texture:");
+        currentTextureText.setFont(Font.font("alegreya", 30));
+        this.currentTexture.setFill(new ImagePattern(new Image(SettingsState.class.getResourceAsStream("/textures/" + this.stateM.getCurrentUser().getTexture() + "Left.png"))));
+        currentBox.getChildren().addAll(currentTextureText, this.currentTexture);
+        this.custCharPane.setTop(currentBox);
+    }
+
+    public void clearTextureSelect() {
+        this.custCharPane.setTop(null);
+        this.custCharPane.setCenter(null);
+        this.texturePane.getChildren().clear();
     }
 
 }

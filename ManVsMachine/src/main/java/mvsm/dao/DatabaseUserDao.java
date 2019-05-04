@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
  */
 public class DatabaseUserDao implements UserDao {
 
-    private static final String USERTABLE_INIT = "CREATE TABLE IF NOT EXISTS Username(username VARCHAR(16) PRIMARY KEY, password INTEGER, red INTEGER, green INTEGER, blue INTEGER);";
+    private static final String USERTABLE_INIT = "CREATE TABLE IF NOT EXISTS Username(username VARCHAR(16) PRIMARY KEY, password INTEGER, red INTEGER, green INTEGER, blue INTEGER, texture VARCHAR(16));";
     private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS Bfs(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0, map6 INTEGER DEFAULT 0);";
     private static final String DFS_INIT = "CREATE TABLE IF NOT EXISTS Dfs(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0, map6 INTEGER DEFAULT 0);";
     private static final String DIJKSTRA_INIT = "CREATE TABLE IF NOT EXISTS Dijkstra(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0, map6 INTEGER DEFAULT 0);";
@@ -34,7 +34,7 @@ public class DatabaseUserDao implements UserDao {
         if (ret == 3 || ret == 4 || ret == 16) {
             return ret;
         }
-        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("INSERT INTO Username(username,password,red,green,blue) VALUES(?,?,255,0,0)")) {
+        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("INSERT INTO Username(username,password,red,green,blue,texture) VALUES(?,?,255,0,0,'guyRed')")) {
             stmt.setString(1, userName);
             stmt.setInt(2, password.hashCode());
             stmt.executeUpdate();
@@ -88,13 +88,13 @@ public class DatabaseUserDao implements UserDao {
     @Override
     public User read(String username) throws SQLException {
         ResultSet rs;
-        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT username, password,red,green,blue FROM Username WHERE username = ?")) {
+        try (Connection conn = this.connector.openConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT username, password, red, green, blue, texture FROM Username WHERE username = ?")) {
             stmt.setString(1, username);
             rs = stmt.executeQuery();
             if (!rs.next()) {
                 return null;
             }
-            return new User(rs.getString("username"), Color.rgb(rs.getInt("red"), rs.getInt("green"), rs.getInt("blue")), rs.getInt("password"));
+            return new User(rs.getString("username"), Color.rgb(rs.getInt("red"), rs.getInt("green"), rs.getInt("blue")), rs.getInt("password"), rs.getString("texture"));
         }
     }
 
@@ -143,6 +143,19 @@ public class DatabaseUserDao implements UserDao {
         stmt2.executeUpdate();
         stmt3.executeUpdate();
         stmt4.executeUpdate();
+    }
+
+    @Override
+    public boolean updateTexture(String username, String texture) throws SQLException {
+        try (Connection conn = this.connector.openConnection();
+                PreparedStatement stmt = conn.prepareStatement("UPDATE Username SET texture = ? WHERE username = ?")) {
+            stmt.setString(1, texture);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -23,6 +23,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import java.sql.SQLException;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import mvsm.game.GamePhysics;
 import mvsm.eventhandling.KeyEventHandler;
 import mvsm.sprite.Machine;
@@ -227,10 +229,10 @@ public class PlayingState extends State {
     @Override
     public void restore(Algorithm algo, String mapName) {
         this.mapName = mapName;
-        this.player = new Sprite(this.gsm.getCurrentUser().getColor(), 20, 20);
-        this.machine = new Machine(Color.BLUE, 20, 20, algo);
-        this.machineGoal = new Rectangle(40, 40, Color.BLUE);
-        this.playerGoal = new Rectangle(40, 40, this.gsm.getCurrentUser().getColor());
+        this.player = new Sprite(this.gsm.getCurrentUser().getTexture(), 22, 26);
+        this.machine = new Machine(38, 38, algo);
+        this.machineGoal = new Rectangle(40, 40, new ImagePattern(new Image(PlayingState.class.getResourceAsStream("/textures/oven.png"))));
+        this.playerGoal = new Rectangle(40, 40, this.gsm.getCurrentUser().getPortalColor());
         this.mapArray = this.renderer.formArrayMap(mapName);
         int[] machineCoordinates = this.renderer.getSpriteCoordinates(mapArray);
         algo.setUpAlgorithm(mapArray, machineCoordinates[0], machineCoordinates[1]);

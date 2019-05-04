@@ -21,6 +21,11 @@ import javafx.scene.text.Text;
 import mvsm.algorithm.DFS;
 import mvsm.algorithm.Dijkstra;
 
+/**
+ * State that presents the user with a selection view to select the algorithm to
+ * play against, and a map to play in. An algorithm is selected first, then the
+ * map.
+ */
 public class GameSelectionState extends State {
 
     private final StateManager sm;
@@ -194,11 +199,11 @@ public class GameSelectionState extends State {
         map2.setId("map2");
         Button map3 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         map3.setId("map3");
-        Button map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        Button map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map4.png"))));
         map4.setId("map4");
-        Button map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        Button map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map5.png"))));
         map5.setId("map5");
-        Button map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        Button map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map6.png"))));
         map6.setId("map6");
 
         GridPane mapButtons = new GridPane();

@@ -19,7 +19,7 @@ public class SpriteTest {
 
     @Before
     public void setUp() {
-        this.testSprite = new Sprite(Color.BLACK, 10, 10);
+        this.testSprite = new Sprite(10, 10);
         this.pane = new Pane();
         this.pane.getChildren().add(this.testSprite.getForm());
     }
@@ -73,7 +73,7 @@ public class SpriteTest {
 
     @Test
     public void getFormTest() {
-        Sprite sprite = new Sprite(Color.AQUA, 10, 15);
+        Sprite sprite = new Sprite(10, 15);
         ObservableList<Double> points = sprite.getForm().getPoints();
         double[] targetPoints = {0, 0, 0, 10, 15, 10, 15, 0};
         boolean pointsOk = true;

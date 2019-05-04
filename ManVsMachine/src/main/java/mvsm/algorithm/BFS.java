@@ -42,7 +42,6 @@ public class BFS extends Algorithm {
             this.visited[vertex.getRow() + yOffset][vertex.getColumn() + xOffset] = true;
             this.queue.add(new Vertex(vertex.getRow() + yOffset, vertex.getColumn() + xOffset));
             this.mapScan.add(vertex.scaleOffset(40, yOffset, xOffset));
-            //v to become successor of this vertex v
             this.routeMap[vertex.getRow() + yOffset][vertex.getColumn() + xOffset] = vertex;
         }
     }

@@ -13,24 +13,22 @@ public class User {
 
     private String username;
     private int password;
-    private Color color;
+    private Color portalColor;
+    private String texture;
 
-    public User(String username, Color color, int password) {
+    public User(String username, Color color, int password, String texture) {
         this.username = username;
-        this.color = color;
+        this.portalColor = color;
         this.password = password;
+        this.texture = texture;
     }
 
-    public Color getColor() {
-        return color;
+    public Color getPortalColor() {
+        return portalColor;
     }
 
     public String getUsername() {
         return username;
-    }
-
-    public void setColorM(Color color) {
-        this.color = color;
     }
 
     public void setUsername(String username) {
@@ -39,6 +37,18 @@ public class User {
 
     public int getPassword() {
         return password;
+    }
+
+    public String getTexture() {
+        return texture;
+    }
+
+    public void setPortalColor(Color portalColor) {
+        this.portalColor = portalColor;
+    }
+
+    public void setTexture(String texture) {
+        this.texture = texture;
     }
 
 }

@@ -3,10 +3,13 @@ package mvsm.game;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import mvsm.sprite.Machine;
 import mvsm.sprite.Sprite;
+import mvsm.ui.PlayingState;
 
 /**
  * An utility class for rendering maps. Used by the PlayinState in:
@@ -95,12 +98,13 @@ public class MapRenderer {
     public void placeSpritesOnMap(int[] coordinates, GridPane background, Sprite player, Machine machine, Rectangle playerGoal, Rectangle machineGoal) {
         background.add(player.getForm(), coordinates[5], coordinates[4]);
         background.add(playerGoal, coordinates[7], coordinates[6]);
+        background.add(new Rectangle(40, 40, new ImagePattern(new Image(PlayingState.class.getResourceAsStream("/textures/portal.png")))), coordinates[7], coordinates[6]);
         background.add(machine.getForm(), 1, 1);
         machine.setTranslates((coordinates[1] - 1) * 40, (coordinates[0] - 1) * 40);
         background.add(machine.getScanner().getScannerHead(), coordinates[1], coordinates[0]);
         background.add(machineGoal, coordinates[3], coordinates[2]);
     }
-
+    
     private void checkValue(int[] values, int row, int column, int value) {
         if (value == 4) {
             values[0] = row;
@@ -119,7 +123,7 @@ public class MapRenderer {
             values[7] = column;
         }
     }
-
+    
     private void addTile(GridPane background, int value, int y, int x) {
         if (value == 1) {
             background.add(Tile.WALL.getTile(), x, y);

@@ -4,9 +4,11 @@ import javafx.geometry.Bounds;
 import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
+import mvsm.ui.PlayingState;
 
 /**
  * Base class for all sprites in the game.
@@ -14,30 +16,42 @@ import javafx.scene.shape.Polygon;
 public class Sprite {
 
     private final Polygon form;
-    private final Color color;
     private final double height;
     private final double width;
+    private ImagePattern textureLeft;
+    private ImagePattern textureRight;
     /**
      * Variable that adjusts the movementSpeed of the sprite
      */
     private double movementFactor;
 
     /**
-     * Constructs a new Sprite with the given parameters and a movementFactor
-     * set to 1.
+     * Default constructor that creates a sprite with a black fill.
      *
-     * @param color to fill the form
-     * @param height height of the form
-     * @param width width of the form
+     * @param height Height of the form.
+     * @param width Width of the form.
      */
-    public Sprite(Color color, double height, double width) {
+    public Sprite(double height, double width) {
         this.form = new Polygon(0, 0, 0, height, width, height, width, 0);
-        this.color = color;
-        this.form.setFill(this.color);
         this.height = height;
         this.width = width;
         this.movementFactor = 1;
         GridPane.setHalignment(this.form, HPos.CENTER);
+    }
+
+    /**
+     * Constructs a new Sprite with the given parameters and a movementFactor
+     * set to 1.
+     *
+     * @param texture To fill the form with.
+     * @param height Height of the form.
+     * @param width Width of the form.
+     */
+    public Sprite(String texture, double height, double width) {
+        this(height, width);
+        this.textureLeft = new ImagePattern(new Image(Sprite.class.getResourceAsStream("/textures/" + texture + "Left.png")));
+        this.textureRight = new ImagePattern(new Image(Sprite.class.getResourceAsStream("/textures/" + texture + "Right.png")));
+        this.form.setFill(textureLeft);
     }
 
     public Polygon getForm() {
@@ -58,10 +72,11 @@ public class Sprite {
 
     /**
      * Move the Sprite's form right by adding 0.5 * movementFactor to it's
-     * translateX.
+     * translateX, and set its texture to point to the right.
      */
     public void moveRight() {
         this.form.setTranslateX(this.form.getTranslateX() + (0.5 * this.movementFactor));
+        this.form.setFill(textureRight);
     }
 
     /**
@@ -82,10 +97,11 @@ public class Sprite {
 
     /**
      * Move the Sprite's form left by subtracting 0.5 * movementFactor from it's
-     * translateX.
+     * translateX, and make its texture point to the left.
      */
     public void moveLeft() {
         this.form.setTranslateX(this.form.getTranslateX() - (0.5 * this.movementFactor));
+        this.form.setFill(textureLeft);
     }
 
     /**

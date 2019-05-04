@@ -49,7 +49,7 @@ public class DatabaseUserDaoTest {
         if (teppo == null) {
             fail("Dao returns null when it should return an user");
         }
-        if (teppo.getUsername().equals("Teppo") && teppo.getColor().equals(Color.rgb(255, 0, 0))) {
+        if (teppo.getUsername().equals("Teppo") && teppo.getPortalColor().equals(Color.rgb(255, 0, 0))) {
             return;
         }
         fail("The right user was not added!");
@@ -69,10 +69,10 @@ public class DatabaseUserDaoTest {
     public void defaultUserColorIsRed() throws SQLException {
         this.dao.create("Teppo", "-");
         User teppo = this.dao.read("Teppo");
-        if (teppo.getColor().equals(Color.rgb(255, 0, 0))) {
+        if (teppo.getPortalColor().equals(Color.rgb(255, 0, 0))) {
             return;
         }
-        fail("The user has a wrong color. Should have been 255:0:0 but was: " + (int) teppo.getColor().getRed() * 255 + ":" + (int) teppo.getColor().getGreen() * 255 + ":" + (int) teppo.getColor().getBlue() * 255 + ":");
+        fail("The user has a wrong color. Should have been 255:0:0 but was: " + (int) teppo.getPortalColor().getRed() * 255 + ":" + (int) teppo.getPortalColor().getGreen() * 255 + ":" + (int) teppo.getPortalColor().getBlue() * 255 + ":");
     }
 
     @Test
@@ -188,9 +188,9 @@ public class DatabaseUserDaoTest {
     public void updateColorTest() throws SQLException {
         this.dao.create("Teppo", "-");
         this.dao.updateColor("Teppo", 244, 34, 1);
-        Color ret1 = this.dao.read("Teppo").getColor();;
+        Color ret1 = this.dao.read("Teppo").getPortalColor();;
         this.dao.updateColor("Teppo", 0, 0, 0);
-        Color ret2 = this.dao.read("Teppo").getColor();
+        Color ret2 = this.dao.read("Teppo").getPortalColor();
         if ((int) (ret1.getRed() * 255) == 244 && (int) (ret1.getGreen() * 255) == 34 && (int) (ret1.getBlue() * 255) == 1 && ret2.equals(Color.BLACK)) {
             return;
         }
@@ -216,7 +216,7 @@ public class DatabaseUserDaoTest {
         this.dao.create("Teppo", "-");
         this.dao.updateColor("Teppo", 0, 5, 2555);
         User ret = this.dao.read("Teppo");
-        assertTrue(ret.getColor().equals(Color.RED));
+        assertTrue(ret.getPortalColor().equals(Color.RED));
     }
 
     @Test
@@ -229,7 +229,7 @@ public class DatabaseUserDaoTest {
         this.dao.updateColor("Teppo", 0, 2, -46);
         this.dao.updateColor("Teppo", 0, 25, 7777);
         User ret = this.dao.read("Teppo");
-        assertTrue(ret.getColor().equals(Color.RED));
+        assertTrue(ret.getPortalColor().equals(Color.RED));
     }
 
     @Test

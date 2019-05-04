@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Class that implements the ScoreDao and handles the interaction with the
+ * database that involves high-scores and HighScoreusers.
+ */
 public class DatabaseScoreDao implements ScoreDao {
 
     private final Connector connector;

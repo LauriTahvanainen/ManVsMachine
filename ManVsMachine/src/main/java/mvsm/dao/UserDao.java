@@ -72,4 +72,14 @@ public interface UserDao {
      * @throws SQLException
      */
     int updatePassword(String username, String newPassword) throws SQLException;
+
+    /**
+     * Updates the texture of a given User in the database.
+     *
+     * @param username The user whos texture to update.
+     * @param texture The texture to be updated.
+     * @return True, if the texture was updated successfully, else false.
+     * @throws SQLException
+     */
+    boolean updateTexture(String username, String texture) throws SQLException;
 }

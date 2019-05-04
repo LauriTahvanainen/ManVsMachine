@@ -3,10 +3,10 @@ package mvsm.sprite;
 import mvsm.algorithm.Vertex;
 import mvsm.algorithm.Algorithm;
 import java.util.ArrayDeque;
-import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 /**
  * A class implementing the features of the machine. Machine has an instance of
@@ -18,29 +18,33 @@ import javafx.scene.paint.Color;
  */
 public class Machine extends Sprite {
 
+    private static final ImagePattern FILL1 = new ImagePattern(new Image(Machine.class.getResourceAsStream("/textures/cooking_mechRight.png")));
+    private static final ImagePattern FILL2 = new ImagePattern(new Image(Machine.class.getResourceAsStream("/textures/cooking_mechLeft.png")));
     private final Algorithm algorithm;
     private ArrayDeque<Vertex> route;
     private ArrayDeque<Vertex> routeBackUp;
     private Scanner scanner;
 
     /**
-     * Constructor of the machine.
+     * Constructs a new machine, with height, width and an algortihm. Also set's
+     * the fill of the machine's form to machine's texture.
      *
-     * @param color For the machine's fill.
      * @param height height of the machines form.
      * @param width width of the machines form.
      * @param a The algorithm used by the machine to calculate it's route to the
      * goal, and calculate the scan route for the scanner.
      */
-    public Machine(Color color, double height, double width, Algorithm a) {
-        super(color, height, width);
+    public Machine(double height, double width, Algorithm a) {
+        super(height, width);
+        this.getForm().setFill(FILL1);
         this.algorithm = a;
-        GridPane.setHalignment(this.getForm(), HPos.CENTER);
     }
 
     /**
-     * Moves the form of the machine towards the next node on it's route. When
-     * the form reaches the next node, the node is popped from the route.
+     * Moves the form of the machine towards the next node on it's route, also
+     * switches the fill of the form depending on the direction the machine is
+     * moving. When the form reaches the next node, the node is popped from the
+     * route.
      *
      * @see Sprite#moveAlong(javafx.geometry.Point2D)
      */
@@ -48,6 +52,11 @@ public class Machine extends Sprite {
         Vertex v = this.route.peekFirst();
         if (Math.abs(v.getRow() - this.getTranslateY()) < 0.3 && Math.abs(v.getColumn() - this.getTranslateX()) < 0.3) {
             this.route.pop();
+        }
+        if (v.getColumn() > this.getTranslateX()) {
+            this.getForm().setFill(FILL1);
+        } else {
+            this.getForm().setFill(FILL2);
         }
         this.moveAlong(new Point2D(v.getColumn() - this.getForm().getTranslateX(), v.getRow() - this.getForm().getTranslateY()));
     }

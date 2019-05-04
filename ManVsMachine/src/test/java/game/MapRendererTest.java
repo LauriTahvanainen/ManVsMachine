@@ -141,8 +141,8 @@ public class MapRendererTest {
         int[][] m3 = this.renderer.formArrayMap("map3");
         GridPane backG = this.renderer.renderMap(m1);
         int[] coords = this.renderer.getSpriteCoordinates(m1);
-        Sprite player = new Sprite(Color.RED, 20, 20);
-        Machine machine = new Machine(Color.BLUE, 20, 20, new BFS());
+        Sprite player = new Sprite(20, 20);
+        Machine machine = new Machine(20, 20, new BFS());
         machine.getAlgorithm().setUpAlgorithm(m1, coords[0], coords[1]);
         machine.calculateRoute(coords[2], coords[3]);
         Rectangle machineGoal = new Rectangle(40, 40, Color.BLUE);

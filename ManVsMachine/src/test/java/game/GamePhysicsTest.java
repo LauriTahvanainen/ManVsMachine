@@ -43,7 +43,7 @@ public class GamePhysicsTest {
     public void setUp() {
         final JFXPanel fxPanel = new JFXPanel();
         this.renderer = new MapRenderer();
-        this.player = new Sprite(Color.RED, 20, 20);
+        this.player = new Sprite(20, 20);
         this.playerGoal = new Rectangle(40, 40, Color.RED);
         this.machineGoal = new Rectangle(40, 40, Color.BLUE);
         this.map = this.renderer.formArrayMap("map3");
@@ -51,7 +51,7 @@ public class GamePhysicsTest {
         this.coords = this.renderer.getSpriteCoordinates(map);
         this.bfs = new BFS();
         bfs.setUpAlgorithm(map, coords[0], coords[1]);
-        this.machine = new Machine(Color.BLUE, 20, 20, bfs);
+        this.machine = new Machine(20, 20, bfs);
         this.machine.calculateRoute(coords[2], coords[3]);
         this.machine.getScanner().setBackground(background);
         this.scene = new Scene(this.background);
