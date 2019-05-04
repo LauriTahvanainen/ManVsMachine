@@ -1,4 +1,3 @@
-//TODO test for drawing sand and water tiles.
 package game;
 
 import java.util.ArrayList;

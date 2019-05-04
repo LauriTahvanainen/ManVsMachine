@@ -29,4 +29,5 @@
 |  1.5. |  6   | Testausta |
 |  2.5. |  7   | Musiikkien toteuttaminen. Uusi algoritmivastustaja DFS. |
 |  3.5. |  12  | Dokumentointia ja testaamista. Pelin tekstuurien uusiminen. Koneen hidastumisen eri terrainilla toteuttaminen. |
-| yht   |  153 |  | 
+|  4.5. |  7   | Loppupalautuksen viimeistelyä, Dijkstran algoritmin toteutus pleiin.
+| yht   |  160 |  | 

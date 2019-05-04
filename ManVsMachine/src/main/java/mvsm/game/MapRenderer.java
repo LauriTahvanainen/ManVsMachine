@@ -25,22 +25,9 @@ public class MapRenderer {
      */
     public GridPane renderMap(int[][] map) {
         GridPane background = new GridPane();
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                int value = map[i][j];
-                if (value == 1) {
-                    background.add(Tile.WALL.getTile(), j, i);
-                    continue;
-                }
-                if (value == 6) {
-                    background.add(Tile.SAND.getTile(), j, i);
-                    continue;
-                }
-                if (value == 7) {
-                    background.add(Tile.WATER.getTile(), j, i);
-                    continue;
-                }
-                background.add(Tile.FLOOR.getTile(), j, i);
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[0].length; x++) {
+                addTile(background, map[y][x], y, x);
             }
         }
         return background;
@@ -61,8 +48,7 @@ public class MapRenderer {
                 char c = (char) reader.read();
                 if (c == 32) {
                     continue;
-                }
-                if (c == 10) {
+                } else if (c == 10) {
                     row++;
                     column = 0;
                     continue;
@@ -77,7 +63,7 @@ public class MapRenderer {
     }
 
     /**
-     * get an integer array that contains the coordinates for where to place the
+     * Get an integer array that contains the coordinates for where to place the
      * Sprites and the goals on the map.
      *
      * @param map the map from where to get the coordinates. Player start is
@@ -132,5 +118,21 @@ public class MapRenderer {
             values[6] = row;
             values[7] = column;
         }
+    }
+
+    private void addTile(GridPane background, int value, int y, int x) {
+        if (value == 1) {
+            background.add(Tile.WALL.getTile(), x, y);
+        } else if (value == 6) {
+            background.add(Tile.SAND.getTile(), x, y);
+        } else if (value == 7) {
+            background.add(Tile.WATER.getTile(), x, y);
+        } else {
+            background.add(Tile.FLOOR.getTile(), x, y);
+        }
+    }
+    
+    private void checkForSpaceAndEnter() {
+        
     }
 }

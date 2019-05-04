@@ -90,7 +90,6 @@ public final class MenuState extends State {
             gsm.getCurrentState().restore();
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else if (button.getText().equals("Highscores")) {
-            //TODO
             gsm.setCurrentState(4);
             gsm.getCurrentState().restore();
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());

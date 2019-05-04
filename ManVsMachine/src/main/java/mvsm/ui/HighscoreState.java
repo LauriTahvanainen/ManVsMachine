@@ -191,7 +191,7 @@ public class HighscoreState extends State {
             try {
                 formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map1"), "map1", this.selectedAlgo);
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                return;
             }
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);
@@ -200,7 +200,7 @@ public class HighscoreState extends State {
             try {
                 formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map2"), "map2", this.selectedAlgo);
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                return;
             }
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);
@@ -209,7 +209,7 @@ public class HighscoreState extends State {
             try {
                 formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map3"), "map3", this.selectedAlgo);
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                return;
             }
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);
@@ -218,7 +218,7 @@ public class HighscoreState extends State {
             try {
                 formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map4"), "map4", this.selectedAlgo);
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                return;
             }
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);
@@ -227,7 +227,7 @@ public class HighscoreState extends State {
             try {
                 formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map5"), "map5", this.selectedAlgo);
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                return;
             }
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);
@@ -236,7 +236,7 @@ public class HighscoreState extends State {
             try {
                 formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map6"), "map6", this.selectedAlgo);
             } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                return;
             }
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);

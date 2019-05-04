@@ -71,11 +71,12 @@ public class DatabaseUserDao implements UserDao {
 
     /**
      * Initializes the database on startup.
+     *
      * @throws Exception if the path to the database is incorrect;
      */
     public void initDatabase() throws Exception {
         Connection conn = this.connector.openConnection();
-        Statement stmt = conn.createStatement(); 
+        Statement stmt = conn.createStatement();
         stmt.execute(USERTABLE_INIT);
         stmt.execute(BFS_INIT);
         stmt.execute(DFS_INIT);
@@ -136,7 +137,7 @@ public class DatabaseUserDao implements UserDao {
         stmt.setString(1, newUserName);
         stmt.setString(2, oldUserName);
     }
-    
+
     private void executeUpdates(PreparedStatement stmt1, PreparedStatement stmt2, PreparedStatement stmt3, PreparedStatement stmt4) throws SQLException {
         stmt1.executeUpdate();
         stmt2.executeUpdate();

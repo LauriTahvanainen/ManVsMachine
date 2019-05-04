@@ -57,7 +57,8 @@ public interface ScoreDao {
      *
      * @param algorithm The table to search from.
      * @param mapToSortBy The map to sort the results by.
-     * @return An ArrayList of HighScoreUser objects.
+     * @return An ArrayList of HighScoreUser objects, or an empty list if the
+     * table was empty.
      * @throws SQLException
      * @see mvsm.dao.HighScoreUser
      */
@@ -69,8 +70,9 @@ public interface ScoreDao {
      *
      * @param algorithm The users scores against this algorithm.
      * @param username The user who's scores to return.
-     * @return A new HighScoreUser object containing the HighScores of the user
-     * against one algorithm, in all the maps.
+     * @return A new HighScoreUser object containing the high-scores of the
+     * user, or null if there was not a row in the table with the specified
+     * username. against one algorithm, in all the maps.
      * @throws SQLException
      * @see mvsm.dao.HighScoreUser
      */

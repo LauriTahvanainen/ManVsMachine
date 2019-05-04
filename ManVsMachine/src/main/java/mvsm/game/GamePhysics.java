@@ -175,11 +175,11 @@ public class GamePhysics {
 
     private boolean playerGoalCollisionCheck() {
         //The first check is done because there seems to be a bug where a nodes bounds in it's parent will not update immediately after adding the node to the parent
-        if (this.playerGoal.getBoundsInParent().getMaxY() != this.playerGoal.getBoundsInLocal().getMaxY()) {
+        //if (this.playerGoal.getBoundsInParent().getMaxY() != this.playerGoal.getBoundsInLocal().getMaxY()) {
             if (this.player.checkCollision(this.playerGoal)) {
                 return true;
             }
-        }
+        //}
         return false;
     }
 
