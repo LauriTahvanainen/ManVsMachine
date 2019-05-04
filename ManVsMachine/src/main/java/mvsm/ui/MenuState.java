@@ -97,6 +97,7 @@ public final class MenuState extends State {
         } else if (button.getText().equals("Sign Out")) {
             gsm.playLoginMusic();
             gsm.setCurrentState(0);
+            gsm.getCurrentState().restore();
             gsm.setCurrentUser(null);
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
         } else {
@@ -104,12 +105,17 @@ public final class MenuState extends State {
         }
     }
 
+    /**
+     * Called when the Menu should be restored. Tries to create default values
+     * for the high-scores of the user.
+     */
     @Override
     public void restore() {
         this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser().getUsername());
         try {
             this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "BFS");
             this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "DFS");
+            this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "Dijkstra");
         } catch (SQLException ex) {
             this.currentUserText.setText("There was an error creating default scores!");
         }

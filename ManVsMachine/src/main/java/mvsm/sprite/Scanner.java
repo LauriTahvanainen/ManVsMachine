@@ -17,9 +17,9 @@ import mvsm.game.Tile;
  */
 public class Scanner {
 
-    private Rectangle scannerHead;
+    private final Rectangle scannerHead;
     private ArrayDeque<Vertex> scanRoute;
-    private ArrayDeque<Vertex> scanRouteBackUp;
+    private final ArrayDeque<Vertex> scanRouteBackUp;
     private GridPane backGround;
 
     /**

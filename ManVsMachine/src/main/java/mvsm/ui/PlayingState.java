@@ -134,12 +134,13 @@ public class PlayingState extends State {
         this.gameStatisticsPane.setAlignment(Pos.CENTER);
         this.pauseMenu.setCenterShape(true);
         this.pauseMenu.setPrefSize(1200, 720);
+        
         this.timeScoreBoard.setFill(Color.CORNSILK);
         this.timeScoreBoard.setStrokeType(StrokeType.CENTERED);
         this.timeScoreBoard.setTextAlignment(TextAlignment.CENTER);
         this.timeScoreBoard.setStrokeLineCap(StrokeLineCap.ROUND);
         this.timeScoreBoard.setFont(Font.font("Nova Flat", 25));
-
+        
         this.lengthScoreBoard.setFill(Color.CORNSILK);
         this.lengthScoreBoard.setStrokeType(StrokeType.CENTERED);
         this.lengthScoreBoard.setTextAlignment(TextAlignment.CENTER);
@@ -205,6 +206,7 @@ public class PlayingState extends State {
                 System.out.println(ex.getMessage());
             }
             this.yourEndScore.setText("Highscore updated!");
+            this.endText.setText("You Won!\nCurrent Highscore: " + this.finalScore + "\n");
             this.saveHighScore.setDisable(true);
             this.currentScores.updateScore(this.mapName, finalScore);
         }
@@ -238,7 +240,7 @@ public class PlayingState extends State {
         this.machine.getScanner().setBackground(background);
         this.saveHighScore.setDisable(false);
         this.pauseMenu.setTop(this.gameStatisticsPane);
-        this.root.getChildren().addAll(this.background);
+        this.root.getChildren().addAll(this.background, this.pauseMenu);
         this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, machineCoordinates[1], machineCoordinates[0]);
         this.finalScore = 0;
         this.algorithmName = algo.getName();
@@ -276,6 +278,9 @@ public class PlayingState extends State {
         this.pauseMenu.setTop(null);
     }
 
+    /**
+     * Restore the level completely.
+     */
     @Override
     public void restore() {
         this.physics.restoreLevel();

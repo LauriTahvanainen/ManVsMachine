@@ -65,6 +65,7 @@ public class DatabaseScoreDao implements ScoreDao {
                 user.addScore("map3", rs.getInt("map3"));
                 user.addScore("map4", rs.getInt("map4"));
                 user.addScore("map5", rs.getInt("map5"));
+                user.addScore("map6", rs.getInt("map6"));
                 ret.add(user);
             }
             return ret;
@@ -86,6 +87,7 @@ public class DatabaseScoreDao implements ScoreDao {
             ret.addScore("map3", rs.getInt("map3"));
             ret.addScore("map4", rs.getInt("map4"));
             ret.addScore("map5", rs.getInt("map5"));
+            ret.addScore("map6", rs.getInt("map6"));
             return ret;
         }
     }

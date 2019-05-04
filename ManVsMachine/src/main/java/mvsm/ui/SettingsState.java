@@ -300,7 +300,7 @@ public class SettingsState extends State {
             if (ret != 0) {
                 handlePasswordChangeRetVal(ret);
             } else {
-                int ret2 = 1;
+                int ret2;
                 try {
                     ret2 = this.userDao.updatePassword(this.stateM.getCurrentUser().getUsername(), this.newPasswordField.getText());
                 } catch (SQLException e) {

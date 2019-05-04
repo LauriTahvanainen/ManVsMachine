@@ -17,8 +17,8 @@ public class SoundPlayer {
 
     private MediaPlayer player;
     private final String PATH = "/audio/";
-    private String[] menuSongs;
-    private String[] playingSongs;
+    private final String[] menuSongs;
+    private final String[] playingSongs;
 
     public SoundPlayer() {
         this.menuSongs = new String[3];
@@ -58,11 +58,8 @@ public class SoundPlayer {
     public void playRandomMenu() {
         Random rnd = new Random();
         loadAudio(this.menuSongs[rnd.nextInt(3)]);
-        this.player.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                playRandomMenu();
-            }
+        this.player.setOnEndOfMedia(() -> {
+            playRandomMenu();
         });
         this.player.play();
     }
@@ -74,11 +71,8 @@ public class SoundPlayer {
     public void playRandomPlaying() {
         Random rnd = new Random();
         loadAudio(this.playingSongs[rnd.nextInt(3)]);
-        this.player.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                playRandomPlaying();
-            }
+        this.player.setOnEndOfMedia(() -> {
+            playRandomPlaying();
         });
         this.player.play();
     }

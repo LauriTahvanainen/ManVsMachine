@@ -56,10 +56,6 @@ public class Sprite {
         return this.form.getTranslateX();
     }
 
-    public Point2D getTranslateCoordinates() {
-        return new Point2D(this.form.getTranslateX(), this.form.getTranslateY());
-    }
-
     /**
      * Move the Sprite's form right by adding 0.5 * movementFactor to it's
      * translateX.

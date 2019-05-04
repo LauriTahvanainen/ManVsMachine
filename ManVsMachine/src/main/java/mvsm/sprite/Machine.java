@@ -11,13 +11,14 @@ import javafx.scene.paint.Color;
 /**
  * A class implementing the features of the machine. Machine has an instance of
  * scanner. The calculated routes are given to the scanner in the for of
- * Vertex-ArrayDeques. It should be noted that in the GridPane, the x- and y-axis are flipped.
+ * Vertex-ArrayDeques. It should be noted that in the GridPane, the x- and
+ * y-axis are flipped.
  *
  * @see Scanner
  */
 public class Machine extends Sprite {
 
-    private Algorithm algorithm;
+    private final Algorithm algorithm;
     private ArrayDeque<Vertex> route;
     private ArrayDeque<Vertex> routeBackUp;
     private Scanner scanner;
@@ -45,7 +46,7 @@ public class Machine extends Sprite {
      */
     public void takeStep() {
         Vertex v = this.route.peekFirst();
-        if (this.getForm().getTranslateY() == v.getRow() && this.getForm().getTranslateX() == v.getColumn()) {
+        if (Math.abs(v.getRow() - this.getTranslateY()) < 0.3 && Math.abs(v.getColumn() - this.getTranslateX()) < 0.3) {
             this.route.pop();
         }
         this.moveAlong(new Point2D(v.getColumn() - this.getForm().getTranslateX(), v.getRow() - this.getForm().getTranslateY()));
@@ -100,7 +101,13 @@ public class Machine extends Sprite {
         this.scanner = new Scanner(this.algorithm.getMapScan());
     }
 
-    public void setTranslate(int coorX, int coorY) {
+    /**
+     * Sets the machine's form's translate coordinates to the given values.
+     *
+     * @param coorX To set the translate-X of this machines form to.
+     * @param coorY To set the translate-Y of this machines form to.
+     */
+    public void setTranslates(int coorX, int coorY) {
         this.getForm().setTranslateX(coorX);
         this.getForm().setTranslateY(coorY);
     }

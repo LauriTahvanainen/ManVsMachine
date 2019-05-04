@@ -16,8 +16,7 @@ public class Connector {
     }
 
     /**
-     * Connects to a database with the path that was given to this object in
-     * it's constructor.
+     * Connects to a database with the path that was given in the constructor.
      *
      * @return A new Connection.
      */

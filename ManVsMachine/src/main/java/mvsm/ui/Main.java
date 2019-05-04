@@ -35,7 +35,7 @@ public class Main extends Application {
     private StateManager stateManager;
     private ActionEventHandler actionEventHandler;
     private Scene scene;
-    private boolean initSuccessful;
+    private boolean initFailed;
 
     @Override
     public void start(Stage stage) throws InterruptedException {
@@ -45,7 +45,7 @@ public class Main extends Application {
         stage.centerOnScreen();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(this.scene);
-        if (initSuccessful) {
+        if (!initFailed) {
             stage.show();
         } else {
             Text error = new Text("Databasepath in the config.properties file was was wrong.\nCheck that the directories in the path actually exist!\n\nClosing the program");
@@ -61,9 +61,24 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Initializes the application. First, tries to load the properties from the
+     * properties file config.properties in the current directory. If
+     * unsuccessful, loads the default properties file, and stores it to the
+     * current directory with the name config.properties. Then tries to
+     * initialize the database tables with the UserDao-object. If the tables are
+     * already there, this does nothing. If the property: databasepath, on the
+     * properties file is of wrong form, the database initialization throws an
+     * exception, which is caught, and the initFailed flag is lifted. After
+     * this, the application will show an error message and exit. If database
+     * initialization is successful, all the States and other objects needed by
+     * the application are Initialized.
+     *
+     * @throws Exception
+     */
     @Override
     public void init() throws Exception {
-        initSuccessful = true;
+        initFailed = false;
         this.scene = new Scene(new Pane(), WIDTH, HEIGHT);
         Properties properties = new Properties();
         try {
@@ -77,7 +92,7 @@ public class Main extends Application {
         try {
             userDao.initDatabase();
         } catch (Exception e) {
-            initSuccessful = false;
+            initFailed = true;
             return;
         }
         DatabaseScoreDao scoreDao = new DatabaseScoreDao(connector);

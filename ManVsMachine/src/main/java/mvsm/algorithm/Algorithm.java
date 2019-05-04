@@ -33,7 +33,11 @@ public abstract class Algorithm {
     protected abstract void buildRoute(int goalX, int goalY);
 
     /**
-     * Get the scanned route as an Vertex ArrayDeque.
+     * Get the scanned route as an Vertex ArrayDeque. The route is built
+     * backwards from the Vertex[][] Array that holds the successor of each node
+     * on the route. It's good to remember that there is an offset in the
+     * coordinates because the translate-coordinate system of the machine does
+     * not have 0:0 at the same spot as the background.
      *
      * @return The the scanned route as an Vertex ArrayDeque.
      */
@@ -47,6 +51,6 @@ public abstract class Algorithm {
      * @param startX X-Coordinate of the starting point of the algorithm.
      */
     public abstract void setUpAlgorithm(int[][] map, int startY, int startX);
-    
+
     public abstract String getName();
 }

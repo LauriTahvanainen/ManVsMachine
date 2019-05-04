@@ -11,18 +11,30 @@ import java.util.HashMap;
  */
 public class HighScoreUser {
 
-    private String name;
-    private HashMap<String, Integer> mapHighScores;
+    private final String name;
+    private final HashMap<String, Integer> mapHighScores;
 
     public HighScoreUser(String name) {
         this.name = name;
         this.mapHighScores = new HashMap<>();
     }
 
+    /**
+     * Get a score on the map given as parameter.
+     *
+     * @param map To get the score on.
+     * @return The score as integer.
+     */
     public int getScore(String map) {
         return this.mapHighScores.get(map);
     }
 
+    /**
+     * Get a score as a string on the map as parameter.
+     *
+     * @param map To get the score on.
+     * @return The score as a String.
+     */
     public String getScoreAsString(String map) {
         return String.valueOf(this.mapHighScores.get(map));
     }

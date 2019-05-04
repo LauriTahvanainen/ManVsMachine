@@ -17,36 +17,14 @@ import mvsm.game.MapRenderer;
 import mvsm.game.Tile;
 import mvsm.sprite.Machine;
 import mvsm.sprite.Sprite;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class GamePhysicsTest {
 
-    private int[][] map = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 4, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1},
-        {1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1},
-        {1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
-        {1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1},
-        {1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1},
-        {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1},
-        {1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1},
-        {1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
-        {1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1},
-        {1, 3, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 5, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    };
+    private int[][] map;
     private GamePhysics testPhysics;
     private MapRenderer renderer;
     private Text timeScore;
@@ -59,25 +37,18 @@ public class GamePhysicsTest {
     private Rectangle machineGoal;
     private Rectangle playerGoal;
     private Algorithm bfs;
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    int[] coords;
 
     @Before
     public void setUp() {
         final JFXPanel fxPanel = new JFXPanel();
         this.renderer = new MapRenderer();
         this.player = new Sprite(Color.RED, 20, 20);
-        this.playerGoal = new Rectangle(40,40,Color.RED);
-        this.machineGoal = new Rectangle(40,40,Color.BLUE);
+        this.playerGoal = new Rectangle(40, 40, Color.RED);
+        this.machineGoal = new Rectangle(40, 40, Color.BLUE);
         this.map = this.renderer.formArrayMap("map3");
         this.background = this.renderer.renderMap(map);
-        int[] coords = this.renderer.getSpriteCoordinates(map);
+        this.coords = this.renderer.getSpriteCoordinates(map);
         this.bfs = new BFS();
         bfs.setUpAlgorithm(map, coords[0], coords[1]);
         this.machine = new Machine(Color.BLUE, 20, 20, bfs);
@@ -92,10 +63,6 @@ public class GamePhysicsTest {
         this.testPhysics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, coords[1], coords[0]);
     }
 
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void physicsWordlSetUpProperly() {
         if (this.testPhysics.getBackground().equals(this.background)) {
@@ -105,7 +72,7 @@ public class GamePhysicsTest {
             return;
         }
         if (this.testPhysics.getMachine().equals(this.machine)) {
-           return; 
+            return;
         }
         if (this.testPhysics.getPlayer().equals(this.player)) {
             return;
@@ -140,26 +107,50 @@ public class GamePhysicsTest {
         this.testPhysics.restoreLevel();
         this.testPhysics.updateGameWorld();
         assertTrue(this.timeScore.getText().equals("Time Score: 2000") && this.lengthScore.getText().equals("Route Length: 0"));
-        assertTrue(this.machine.getForm().getTranslateX() == 560 && this.machine.getForm().getTranslateY() == 320 && this.machine.getRoute().size() ==  86 && this.machine.getScanRoute().size() == 116);        
+        assertTrue(this.machine.getForm().getTranslateX() == 560 && this.machine.getForm().getTranslateY() == 320 && this.machine.getRoute().size() == 87 && this.machine.getScanRoute().size() == 116);
     }
-    
+
     @Test
     public void ifEscPressedReturnMinusTwo() {
         this.testHandler.handle(new KeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.CHAR_UNDEFINED, KeyEvent.CHAR_UNDEFINED, KeyCode.ESCAPE, false, false, false, false));
         assertTrue(this.testPhysics.updateGameWorld() == -2);
     }
-    
+
     @Test
     public void restoreClearsScanFromScreen() {
-        for (int i = 0; i < 20;i++) {
+        for (int i = 0; i < 20; i++) {
             this.testPhysics.updateGameWorld();
         }
         this.testPhysics.restoreLevel();
-        for (Node node:this.background.getChildren()) {
+        for (Node node : this.background.getChildren()) {
             if (Tile.SCAN_TILE.equals(node)) {
                 fail("There should be no scantiles on the map!");
             }
         }
     }
-    
+
+    @Test
+    public void machineFindsToGoal() {
+        while (!this.machine.getRoute().isEmpty()) {
+            this.testPhysics.updateGameWorld();
+        }
+        if (machine.getTranslateX() == (this.coords[2] - 1) * 40 && machine.getTranslateY() == (this.coords[3] - 1) * 40) {
+            return;
+        }
+        fail("Machine does not end up at the goal!");
+    }
+
+    @Test
+    public void scannerScansAndClearsScan() {
+        for (int i = 0; i < 600; i++) {
+            this.testPhysics.updateGameWorld();
+        }
+        assertTrue(this.machine.getScanRoute().isEmpty());
+        for (Node node : this.background.getChildren()) {
+            if (Tile.SCAN_TILE.equals(node)) {
+                fail("There should be no SCAN_TILEs on the map!");
+            }
+        }
+    }
+
 }

@@ -3,7 +3,8 @@ package mvsm.algorithm;
 import java.util.ArrayDeque;
 
 /**
- * Breadth First Search algorithm extending the abstract Algorithm class.
+ * Breadth First Search algorithm extending the abstract Algorithm class. Can
+ * not calculate the shortest path on all maps.
  *
  * @see mvsm.algorithm.Algorithm
  */
@@ -17,6 +18,13 @@ public class BFS extends Algorithm {
     private int startY;
     private int startX;
 
+    /**
+     * Calculate the shortest route to the goal using Breadth First Search
+     * algorithm.
+     *
+     * @param goalX X-coordinate of the goal..
+     * @param goalY Y-coordinate of the goal.
+     */
     @Override
     public void calculateRoute(int goalX, int goalY) {
         while (!this.queue.isEmpty() && !this.visited[goalX][goalY]) {
@@ -41,11 +49,9 @@ public class BFS extends Algorithm {
 
     @Override
     protected void buildRoute(int goalX, int goalY) {
-        //build the route backwards from the goal
-        //because the movement is done with the translate of the sprite, there is a -1 x and y offset in the route, so the
-        //last coordinate in the route is not the coordinate map[map.length - 2][map[0].length - 2], but -3
         this.queue.clear();
         Vertex v = this.routeMap[goalX][goalY];
+        this.queue.add(v.scaleOffset(40, 0, 0));
         this.queue.add(new Vertex(40 * (goalX - 1), 40 * (goalY - 1)));
         while (v.getRow() != startY || v.getColumn() != startX) {
             v = this.routeMap[v.getRow()][v.getColumn()];

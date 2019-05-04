@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mvsm.algorithm.DFS;
+import mvsm.algorithm.Dijkstra;
 
 public class GameSelectionState extends State {
 
@@ -26,7 +27,6 @@ public class GameSelectionState extends State {
     private final StackPane root;
     private final BorderPane algorithmSelect;
     private final BorderPane mapSelect;
-    private String currentAlgorithmName;
     private Algorithm selectedAlgorithm;
     private Text currentAlgoText;
     private final ScrollPane mapScroller;
@@ -38,7 +38,6 @@ public class GameSelectionState extends State {
         this.root = new StackPane();
         this.algorithmSelect = new BorderPane();
         this.mapSelect = new BorderPane();
-        this.currentAlgorithmName = null;
         this.selectedAlgorithm = null;
         initPane();
     }
@@ -93,22 +92,18 @@ public class GameSelectionState extends State {
                     this.algorithmSelect.setVisible(false);
                     this.mapSelect.setVisible(true);
                     this.selectedAlgorithm = new BFS();
-                    this.currentAlgorithmName = "BFS";
                 }
                 if (target.getId().equals("DFS")) {
                     this.currentAlgoText.setText("Algorithm selected: DFS");
                     this.algorithmSelect.setVisible(false);
                     this.mapSelect.setVisible(true);
                     this.selectedAlgorithm = new DFS();
-                    this.currentAlgorithmName = "DFS";
                 }
                 if (target.getId().equals("DIJKSTRA")) {
                     this.currentAlgoText.setText("Algorithm selected: Dijkstra");
-                    this.currentAlgorithmName = "Dijkstra";
-                }
-                if (target.getId().equals("A-STAR")) {
-                    this.currentAlgoText.setText("Algorithm selected: A-Star");
-                    this.currentAlgorithmName = "A-Star";
+                    this.mapSelect.setVisible(true);
+                    this.algorithmSelect.setVisible(false);
+                    this.selectedAlgorithm = new Dijkstra();
                 }
             } else {
                 if (target.getId().equals("map1")) {
@@ -136,10 +131,18 @@ public class GameSelectionState extends State {
                     this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
                     this.sm.getCurrentState().restore(selectedAlgorithm, "map5");
                 }
+                if (target.getId().equals("map6")) {
+                    this.sm.setCurrentState(2);
+                    this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+                    this.sm.getCurrentState().restore(selectedAlgorithm, "map6");
+                }
             }
         }
     }
 
+    /**
+     * Restores the map selection view to show only the algorithm selection.
+     */
     @Override
     public void restore() {
         this.mapSelect.setVisible(false);
@@ -165,23 +168,22 @@ public class GameSelectionState extends State {
 
         //algorithm select buttons
         Button bfs = new Button("BFS");
+        bfs.setFont(Font.font(30));
         bfs.setId("BFS");
         bfs.setPrefSize(100, 100);
         Button dfs = new Button("DFS");
+        dfs.setFont(Font.font(30));
         dfs.setId("DFS");
         dfs.setPrefSize(100, 100);
         Button dijkstra = new Button("Dijkstra");
         dijkstra.setId("DIJKSTRA");
         dijkstra.setPrefSize(100, 100);
-        Button aStar = new Button("A-Star");
-        aStar.setId("A-STAR");
-        aStar.setPrefSize(100, 100);
 
         GridPane algoButtons = new GridPane();
         algoButtons.setAlignment(Pos.CENTER);
         algoButtons.setHgap(20);
         algoButtons.setVgap(40);
-        algoButtons.addRow(0, bfs, dfs, dijkstra, aStar);
+        algoButtons.addRow(0, bfs, dfs, dijkstra);
 
         this.algorithmSelect.setCenter(algoButtons);
 
@@ -196,6 +198,8 @@ public class GameSelectionState extends State {
         map4.setId("map4");
         Button map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         map5.setId("map5");
+        Button map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        map6.setId("map6");
 
         GridPane mapButtons = new GridPane();
         mapButtons.setAlignment(Pos.CENTER);
@@ -203,10 +207,9 @@ public class GameSelectionState extends State {
         mapButtons.setVgap(30);
         mapButtons.addRow(0, map1, map2);
         mapButtons.addRow(1, map3, map4);
-        mapButtons.addRow(2, map5);
+        mapButtons.addRow(2, map5, map6);
         this.mapScroller.setContent(mapButtons);
         this.mapSelect.setCenter(this.mapScroller);
-        
 
         //current algorithm selection text
         HBox mapSelectTop = new HBox();

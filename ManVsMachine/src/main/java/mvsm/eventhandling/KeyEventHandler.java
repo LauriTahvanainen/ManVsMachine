@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
  */
 public class KeyEventHandler implements EventHandler<KeyEvent> {
 
-    private ArrayList<KeyCode> keyCodes;
+    private final ArrayList<KeyCode> keyCodes;
 
     public KeyEventHandler() {
         this.keyCodes = new ArrayList<>();

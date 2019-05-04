@@ -35,7 +35,6 @@ public class HighscoreState extends State {
     private final Button bfs;
     private final Button dfs;
     private final Button dijkstra;
-    private final Button aStar;
     private final Button backToMenu;
     private final ScrollPane mapScroller;
     private final ScrollPane scoreScroller;
@@ -46,6 +45,7 @@ public class HighscoreState extends State {
     private final Button map3;
     private final Button map4;
     private final Button map5;
+    private final Button map6;
     private final Button backToMapSelect;
     private final Text algInfo;
     private final Text mapInfo;
@@ -68,7 +68,6 @@ public class HighscoreState extends State {
         this.scoreScroller = new ScrollPane();
         this.scoreList = new GridPane();
         this.bfs = new Button("BFS");
-        this.aStar = new Button("A-Star");
         this.dfs = new Button("DFS");
         this.dijkstra = new Button("Dijkstra");
         this.backToMenu = new Button("Back to Menu");
@@ -82,6 +81,7 @@ public class HighscoreState extends State {
         this.map3 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         this.map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         this.map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        this.map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         initPane();
     }
 
@@ -111,7 +111,7 @@ public class HighscoreState extends State {
         VBox buttons = new VBox();
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(10);
-        buttons.getChildren().addAll(this.backToMenu, this.bfs, this.dfs, this.dijkstra, this.aStar);
+        buttons.getChildren().addAll(this.backToMenu, this.bfs, this.dfs, this.dijkstra);
         this.selectionPane.setLeft(buttons);
 
         this.selectedAlgoText.setFont(font);
@@ -130,6 +130,7 @@ public class HighscoreState extends State {
         this.map3.setId("map3");
         this.map4.setId("map4");
         this.map5.setId("map5");
+        this.map6.setId("map6");
 
         //scoreview
         VBox buttons2 = new VBox();
@@ -175,20 +176,16 @@ public class HighscoreState extends State {
             this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
         }
         if (t.getTarget().equals(this.bfs)) {
-            showRegularMaps();
+            showMaps();
             setSelectedAlgo("BFS");
         }
         if (t.getTarget().equals(this.dfs)) {
-            showRegularMaps();
+            showMaps();
             setSelectedAlgo("DFS");
         }
         if (t.getTarget().equals(this.dijkstra)) {
-            showAllMaps();
+            showMaps();
             setSelectedAlgo("Dijkstra");
-        }
-        if (t.getTarget().equals(this.aStar)) {
-            showAllMaps();
-            setSelectedAlgo("A-Star");
         }
         if (t.getTarget().equals(this.map1)) {
             try {
@@ -229,6 +226,15 @@ public class HighscoreState extends State {
         if (t.getTarget().equals(this.map5)) {
             try {
                 formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map5"), "map5", this.selectedAlgo);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
+        if (t.getTarget().equals(this.map6)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map6"), "map6", this.selectedAlgo);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -296,7 +302,7 @@ public class HighscoreState extends State {
         }
     }
 
-    private void showRegularMaps() {
+    private void showMaps() {
         GridPane maps = new GridPane();
 
         maps.setAlignment(Pos.CENTER);
@@ -306,21 +312,7 @@ public class HighscoreState extends State {
         maps.getChildren().clear();
         maps.addRow(0, this.map1, this.map2);
         maps.addRow(1, this.map3, this.map4);
-        maps.addRow(2, this.map5);
-        this.mapScroller.setContent(maps);
-    }
-
-    private void showAllMaps() {
-        GridPane maps = new GridPane();
-
-        maps.setAlignment(Pos.CENTER);
-        maps.setHgap(10);
-        maps.setVgap(10);
-
-        maps.getChildren().clear();
-        maps.addRow(0, this.map1, this.map2);
-        maps.addRow(1, this.map3, this.map4);
-        maps.addRow(2, this.map5);
+        maps.addRow(2, this.map5, this.map6);
         this.mapScroller.setContent(maps);
     }
 

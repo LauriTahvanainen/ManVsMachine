@@ -1,7 +1,7 @@
 package eventhandling;
 
-import Helpers.FakeLoginState;
-import Helpers.FakeMenuState;
+import helpers.FakeLoginState;
+import helpers.FakeMenuState;
 import mvsm.eventhandling.ActionEventHandler;
 import java.util.Properties;
 import javafx.event.ActionEvent;

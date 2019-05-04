@@ -1,4 +1,4 @@
-package Helpers;
+package helpers;
 
 import mvsm.algorithm.Algorithm;
 import javafx.event.ActionEvent;

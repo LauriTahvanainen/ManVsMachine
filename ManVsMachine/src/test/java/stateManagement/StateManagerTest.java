@@ -1,7 +1,7 @@
-package StateManagement;
+package stateManagement;
 
-import Helpers.FakeLoginState;
-import Helpers.FakeMenuState;
+import helpers.FakeLoginState;
+import helpers.FakeMenuState;
 import java.util.Properties;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;

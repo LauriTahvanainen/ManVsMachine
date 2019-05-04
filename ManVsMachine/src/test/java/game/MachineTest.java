@@ -179,7 +179,6 @@ public class MachineTest {
             val++;
         }
         this.testMachine.getScanner().moveTo(new Point2D(1, 1));
-        System.out.println(this.testMachine.getScanner().getScannerHead().getTranslateX() + " : " + this.testMachine.getScanner().getScannerHead().getTranslateY());
         if (this.testMachine.getScanner().getScannerHead().getTranslateX() == 1.0 && this.testMachine.getScanner().getScannerHead().getTranslateY() == 1.0) {
             val++;
         }
@@ -207,12 +206,12 @@ public class MachineTest {
         }
         this.testMachine.restoreRoute();
         this.testMachine.getScanner().restoreScanRoute();
-        if (this.testMachine.getRoute().size() == 46 && this.testMachine.getScanRoute().size() == 232) {
+        if (this.testMachine.getRoute().size() == 47 && this.testMachine.getScanRoute().size() == 232) {
             return;
         }
         scannerFindsToGoal();
         machineFindsToGoal();
-        fail("Routes not restored correctly. Route size should be 46, but was : " + this.testMachine.getRoute().size() + " ScanRoute size should be 232, but was: " + this.testMachine.getScanRoute().size());
+        fail("Routes not restored correctly. Route size should be 47, but was : " + this.testMachine.getRoute().size() + " ScanRoute size should be 232, but was: " + this.testMachine.getScanRoute().size());
     }
 
 }

@@ -10,7 +10,8 @@ import mvsm.sprite.Sprite;
 
 /**
  * An utility class for rendering maps. Used by the PlayinState in:
- * @see mvsm.ui.PlayingState#restore() 
+ *
+ * @see mvsm.ui.PlayingState#restore()
  */
 public class MapRenderer {
 
@@ -109,7 +110,7 @@ public class MapRenderer {
         background.add(player.getForm(), coordinates[5], coordinates[4]);
         background.add(playerGoal, coordinates[7], coordinates[6]);
         background.add(machine.getForm(), 1, 1);
-        machine.setTranslate((coordinates[1] - 1) * 40, (coordinates[0] - 1) * 40);
+        machine.setTranslates((coordinates[1] - 1) * 40, (coordinates[0] - 1) * 40);
         background.add(machine.getScanner().getScannerHead(), coordinates[1], coordinates[0]);
         background.add(machineGoal, coordinates[3], coordinates[2]);
     }

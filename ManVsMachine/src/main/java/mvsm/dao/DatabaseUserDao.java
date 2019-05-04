@@ -17,8 +17,9 @@ import javafx.scene.paint.Color;
 public class DatabaseUserDao implements UserDao {
 
     private static final String USERTABLE_INIT = "CREATE TABLE IF NOT EXISTS Username(username VARCHAR(16) PRIMARY KEY, password INTEGER, red INTEGER, green INTEGER, blue INTEGER);";
-    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(Username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0);";
-    private static final String DFS_INIT = "CREATE TABLE IF NOT EXISTS DFS(Username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0);";
+    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS Bfs(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0, map6 INTEGER DEFAULT 0);";
+    private static final String DFS_INIT = "CREATE TABLE IF NOT EXISTS Dfs(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0, map6 INTEGER DEFAULT 0);";
+    private static final String DIJKSTRA_INIT = "CREATE TABLE IF NOT EXISTS Dijkstra(username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0, map6 INTEGER DEFAULT 0);";
     private final Connector connector;
     private final StringChecker checker;
 
@@ -52,14 +53,14 @@ public class DatabaseUserDao implements UserDao {
         try (Connection conn = this.connector.openConnection();
                 PreparedStatement bfs = conn.prepareStatement("UPDATE BFS SET username = ? WHERE username = ?");
                 PreparedStatement dfs = conn.prepareStatement("UPDATE DFS SET username = ? WHERE username = ?");
+                PreparedStatement dijkstra = conn.prepareStatement("UPDATE Dijkstra SET username = ? WHERE username = ?");
                 PreparedStatement username = conn.prepareStatement("UPDATE Username SET username = ? WHERE username = ?")) {
             conn.setAutoCommit(false);
             setStrings(oldUsername, newUsername, username);
             setStrings(oldUsername, newUsername, bfs);
             setStrings(oldUsername, newUsername, dfs);
-            username.executeUpdate();
-            bfs.executeUpdate();
-            dfs.executeUpdate();
+            setStrings(oldUsername, newUsername, dijkstra);
+            executeUpdates(username, bfs, dfs, dijkstra);
             conn.commit();
             conn.setAutoCommit(true);
         } catch (SQLException e) {
@@ -78,6 +79,7 @@ public class DatabaseUserDao implements UserDao {
         stmt.execute(USERTABLE_INIT);
         stmt.execute(BFS_INIT);
         stmt.execute(DFS_INIT);
+        stmt.execute(DIJKSTRA_INIT);
         stmt.close();
         conn.close();
     }
@@ -133,6 +135,13 @@ public class DatabaseUserDao implements UserDao {
     private void setStrings(String oldUserName, String newUserName, PreparedStatement stmt) throws SQLException {
         stmt.setString(1, newUserName);
         stmt.setString(2, oldUserName);
+    }
+    
+    private void executeUpdates(PreparedStatement stmt1, PreparedStatement stmt2, PreparedStatement stmt3, PreparedStatement stmt4) throws SQLException {
+        stmt1.executeUpdate();
+        stmt2.executeUpdate();
+        stmt3.executeUpdate();
+        stmt4.executeUpdate();
     }
 
 }

@@ -32,7 +32,8 @@ public abstract class State {
 
     /**
      * Used to update the State with the repeated calls by the StateManagers
-     * handle method.
+     * handle method. For the States other than the PlayingState, this can be
+     * used for example to play animations.
      *
      * @see mvsm.statemanagement.StateManager#handle(long)
      */

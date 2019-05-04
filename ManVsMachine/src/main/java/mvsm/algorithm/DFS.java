@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -29,6 +29,14 @@ public class DFS extends Algorithm {
     private int goalY;
     private boolean calculated;
 
+    /**
+     * Calculate the route to the goal using the Depth First Search algortihm.
+     * Every new instance of DFS calculates a different kind of route, since the
+     * neighbour nodes are shuffled each time the algorithm is set up.
+     *
+     * @param goalX X-coordinate to the goal.
+     * @param goalY Y-coordinate to the goal.
+     */
     @Override
     public void calculateRoute(int goalX, int goalY) {
         this.goalX = goalX;
@@ -45,6 +53,7 @@ public class DFS extends Algorithm {
     @Override
     protected void buildRoute(int goalX, int goalY) {
         Vertex v = this.routeMap[goalX][goalY];
+        this.route.add(v.scaleOffset(40, 0, 0));
         this.route.add(new Vertex(40 * (goalX - 1), 40 * (goalY - 1)));
         while (v.getRow() != startY || v.getColumn() != startX) {
             v = this.routeMap[v.getRow()][v.getColumn()];

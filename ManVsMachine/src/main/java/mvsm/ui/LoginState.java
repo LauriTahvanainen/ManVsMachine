@@ -28,6 +28,7 @@ import mvsm.dao.StringChecker;
 /**
  * State for login actions. Uses the class StringChecker for checking validity
  * of input strings.
+ *
  * @see mvsm.dao.StringChecker
  */
 public final class LoginState extends State {
@@ -170,9 +171,6 @@ public final class LoginState extends State {
                     this.password.clear();
                     this.errorText1.setText("Wrong password!");
                 } else {
-                    this.username.clear();
-                    this.password.clear();
-                    this.errorText1.setText("");
                     this.gsm.playMenuMusic();
                     this.gsm.setCurrentUser(user);
                     this.gsm.setCurrentState(1);
@@ -216,6 +214,8 @@ public final class LoginState extends State {
         } else {
             errorText2.setText("");
             newUsername.clear();
+            this.newPassword1.clear();
+            this.newPassword2.clear();
             this.root.setCenter(this.signInPane);
         }
 
@@ -223,6 +223,9 @@ public final class LoginState extends State {
 
     @Override
     public void restore() {
+        this.username.clear();
+        this.password.clear();
+        this.errorText1.setText("");
     }
 
     @Override

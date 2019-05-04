@@ -26,7 +26,7 @@ public enum Tile {
         this.width = width;
         this.texture = color;
     }
-    
+
     private Tile(int height, int width, ImagePattern texture) {
         this.height = height;
         this.width = width;

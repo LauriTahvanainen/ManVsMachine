@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
  */
 public class ActionEventHandler implements EventHandler<ActionEvent> {
 
-    private StateManager gameStateManager;
+    private final StateManager gameStateManager;
 
     public ActionEventHandler(StateManager gameStateManager) {
         this.gameStateManager = gameStateManager;

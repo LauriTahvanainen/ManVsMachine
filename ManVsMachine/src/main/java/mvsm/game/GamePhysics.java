@@ -156,7 +156,7 @@ public class GamePhysics {
             this.machine.setMovementFactor(1);
         }
     }
-    
+
     private boolean playerMovementCollision(Node node) {
         if (Tile.SAND.nodeEqualsTile(node)) {
             this.player.setMovementFactor(0.5);
@@ -209,7 +209,7 @@ public class GamePhysics {
      */
     public void restoreLevel() {
         this.player.clearTranslate();
-        this.machine.setTranslate(this.machineRestoreX, this.machineRestoreY);
+        this.machine.setTranslates(this.machineRestoreX, this.machineRestoreY);
         this.machine.restoreRoute();
         this.machine.getScanner().restoreScanRoute();
         this.machine.getScanner().clearTranslate();
