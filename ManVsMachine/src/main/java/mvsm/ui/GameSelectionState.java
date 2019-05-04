@@ -7,6 +7,7 @@ import mvsm.statemanagement.StateManager;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -28,10 +29,12 @@ public class GameSelectionState extends State {
     private String currentAlgorithmName;
     private Algorithm selectedAlgorithm;
     private Text currentAlgoText;
+    private final ScrollPane mapScroller;
     private static final String RESOURCE_PATH = "/pictures/";
 
     public GameSelectionState(StateManager sm) {
         this.sm = sm;
+        this.mapScroller = new ScrollPane();
         this.root = new StackPane();
         this.algorithmSelect = new BorderPane();
         this.mapSelect = new BorderPane();
@@ -123,6 +126,16 @@ public class GameSelectionState extends State {
                     this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
                     this.sm.getCurrentState().restore(selectedAlgorithm, "map3");
                 }
+                if (target.getId().equals("map4")) {
+                    this.sm.setCurrentState(2);
+                    this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+                    this.sm.getCurrentState().restore(selectedAlgorithm, "map4");
+                }
+                if (target.getId().equals("map5")) {
+                    this.sm.setCurrentState(2);
+                    this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+                    this.sm.getCurrentState().restore(selectedAlgorithm, "map5");
+                }
             }
         }
     }
@@ -179,14 +192,21 @@ public class GameSelectionState extends State {
         map2.setId("map2");
         Button map3 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         map3.setId("map3");
+        Button map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        map4.setId("map4");
+        Button map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        map5.setId("map5");
 
         GridPane mapButtons = new GridPane();
         mapButtons.setAlignment(Pos.CENTER);
         mapButtons.setHgap(20);
-        mapButtons.setVgap(40);
+        mapButtons.setVgap(30);
         mapButtons.addRow(0, map1, map2);
-        mapButtons.addRow(1, map3);
-        this.mapSelect.setCenter(mapButtons);
+        mapButtons.addRow(1, map3, map4);
+        mapButtons.addRow(2, map5);
+        this.mapScroller.setContent(mapButtons);
+        this.mapSelect.setCenter(this.mapScroller);
+        
 
         //current algorithm selection text
         HBox mapSelectTop = new HBox();

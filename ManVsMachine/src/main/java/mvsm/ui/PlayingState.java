@@ -199,7 +199,6 @@ public class PlayingState extends State {
             this.gsm.playMusic();
         }
         if (t.getTarget().equals(this.saveHighScore)) {
-            //TODO
             try {
                 this.scoreDao.updateScore(this.algorithmName, this.gsm.getCurrentUser().getUsername(), this.mapName, this.finalScore);
             } catch (SQLException ex) {
@@ -239,13 +238,14 @@ public class PlayingState extends State {
         this.machine.getScanner().setBackground(background);
         this.saveHighScore.setDisable(false);
         this.pauseMenu.setTop(this.gameStatisticsPane);
-        this.root.getChildren().addAll(this.background, this.pauseMenu);
+        this.root.getChildren().addAll(this.background);
         this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, machineCoordinates[1], machineCoordinates[0]);
         this.finalScore = 0;
         this.algorithmName = algo.getName();
         try {
             this.currentScores = this.scoreDao.listUser(this.algorithmName, this.gsm.getCurrentUser().getUsername());
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             return;
         }
         this.gsm.startLoop();

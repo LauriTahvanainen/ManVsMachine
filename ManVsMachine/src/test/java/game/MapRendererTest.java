@@ -20,27 +20,26 @@ import org.junit.Before;
 
 public class MapRendererTest {
 
-    private int[][] map = {
+    private final int[][] map = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 4, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1},
-        {1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1},
-        {1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1},
-        {1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1},
-        {1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1},
-        {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1},
-        {1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1},
-        {1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1},
-        {1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1},
-        {1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1},
-        {1, 3, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 5, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    };
-    private MapRenderer renderer;
+        {1, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 7, 7, 6, 0, 0, 0, 1},
+        {1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+        {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1},
+        {1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0, 1, 0, 7, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1},
+        {1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 4, 1},
+        {1, 5, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+        {1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
+        {1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 6, 6, 6, 1, 0, 0, 1, 1},
+        {1, 1, 0, 0, 1, 6, 6, 6, 1, 0, 0, 0, 1, 7, 7, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1},
+        {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+        {1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3, 1},
+        {1, 2, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1},
+        {1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0, 1, 0, 7, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+        {1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+        {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 1},
+        {1, 0, 0, 0, 6, 7, 7, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},};
+    private final MapRenderer renderer;
     private Scene scene;
 
     @Before
@@ -67,7 +66,7 @@ public class MapRendererTest {
 
     @Test
     public void mapReadFromFileRight() {
-        int[][] ret = this.renderer.formArrayMap("map1");
+        int[][] ret = this.renderer.formArrayMap("map6");
         for (int row = 0; row < ret.length; row++) {
             for (int col = 0; col < ret[0].length; col++) {
                 if (map[row][col] != ret[row][col]) {
@@ -79,7 +78,7 @@ public class MapRendererTest {
 
     @Test
     public void mapRenderedProperly() {
-        int[][] ret = this.renderer.formArrayMap("map1");
+        int[][] ret = this.renderer.formArrayMap("map6");
         GridPane background = this.renderer.renderMap(ret);
         for (int i = 0; i < ret.length; i++) {
             for (int j = 0; j < ret[0].length; j++) {
@@ -141,24 +140,4 @@ public class MapRendererTest {
             fail("The Sprites and goals are not placed in to the background");
         }
     }
-//
-//    @Test
-//    public void spritesAndGoalsPlacedRight() {
-//        int[][] m1 = this.renderer.formArrayMap("map1");
-//        int[][] m3 = this.renderer.formArrayMap("map3");
-//        GridPane backG = this.renderer.renderMap(m1);
-//        this.scene.setRoot(backG);
-//        int[] coords = this.renderer.getSpriteCoordinates(m1);
-//        Sprite player = new Sprite(Color.RED, 20, 20);
-//        Machine machine = new Machine(Color.BLUE, 20, 20, new BFS());
-//        machine.getAlgorithm().setUpAlgorithm(m1, coords[0], coords[1]);
-//        machine.calculateRoute(coords[2], coords[3]);
-//        Rectangle machineGoal = new Rectangle(40, 40, Color.BLUE);
-//        Rectangle playerGoal = new Rectangle(40, 40, Color.RED);
-//        this.renderer.placeSpritesOnMap(coords, backG, player, machine, playerGoal, machineGoal);
-//        if (backG.getChildren().get(37).intersects(backG.getChildren().get(32).getBoundsInParent())) {
-//            return;
-//        }
-//        fail("ERHE");
-//    }
 }

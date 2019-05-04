@@ -13,10 +13,10 @@ import javafx.scene.shape.Polygon;
  */
 public class Sprite {
 
-    private Polygon form;
-    private Color color;
-    private double height;
-    private double width;
+    private final Polygon form;
+    private final Color color;
+    private final double height;
+    private final double width;
     /**
      * Variable that adjusts the movementSpeed of the sprite
      */

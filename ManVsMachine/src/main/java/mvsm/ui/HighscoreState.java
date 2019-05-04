@@ -44,6 +44,8 @@ public class HighscoreState extends State {
     private final Button map1;
     private final Button map2;
     private final Button map3;
+    private final Button map4;
+    private final Button map5;
     private final Button backToMapSelect;
     private final Text algInfo;
     private final Text mapInfo;
@@ -78,6 +80,8 @@ public class HighscoreState extends State {
         this.map1 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map1.png"))));
         this.map2 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map2.png"))));
         this.map3 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        this.map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+        this.map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
         initPane();
     }
 
@@ -124,6 +128,8 @@ public class HighscoreState extends State {
         this.map1.setId("map1");
         this.map2.setId("map2");
         this.map3.setId("map3");
+        this.map4.setId("map4");
+        this.map5.setId("map5");
 
         //scoreview
         VBox buttons2 = new VBox();
@@ -211,6 +217,24 @@ public class HighscoreState extends State {
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);
         }
+        if (t.getTarget().equals(this.map4)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map4"), "map4", this.selectedAlgo);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
+        if (t.getTarget().equals(this.map5)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map5"), "map5", this.selectedAlgo);
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
         if (t.getTarget().equals(this.backToMapSelect)) {
             this.scorePane.setVisible(false);
             this.selectionPane.setDisable(false);
@@ -281,7 +305,8 @@ public class HighscoreState extends State {
 
         maps.getChildren().clear();
         maps.addRow(0, this.map1, this.map2);
-        maps.addRow(1, this.map3);
+        maps.addRow(1, this.map3, this.map4);
+        maps.addRow(2, this.map5);
         this.mapScroller.setContent(maps);
     }
 
@@ -294,7 +319,8 @@ public class HighscoreState extends State {
 
         maps.getChildren().clear();
         maps.addRow(0, this.map1, this.map2);
-        maps.addRow(1, this.map3);
+        maps.addRow(1, this.map3, this.map4);
+        maps.addRow(2, this.map5);
         this.mapScroller.setContent(maps);
     }
 

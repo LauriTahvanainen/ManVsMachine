@@ -17,8 +17,8 @@ import javafx.scene.paint.Color;
 public class DatabaseUserDao implements UserDao {
 
     private static final String USERTABLE_INIT = "CREATE TABLE IF NOT EXISTS Username(username VARCHAR(16) PRIMARY KEY, password INTEGER, red INTEGER, green INTEGER, blue INTEGER);";
-    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(Username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0);";
-    private static final String DFS_INIT = "CREATE TABLE IF NOT EXISTS DFS(Username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0);";
+    private static final String BFS_INIT = "CREATE TABLE IF NOT EXISTS BFS(Username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0);";
+    private static final String DFS_INIT = "CREATE TABLE IF NOT EXISTS DFS(Username VARCHAR(64) PRIMARY KEY, map1 INTEGER DEFAULT 0, map2 INTEGER DEFAULT 0, map3 INTEGER DEFAULT 0, map4 INTEGER DEFAULT 0, map5 INTEGER DEFAULT 0);";
     private final Connector connector;
     private final StringChecker checker;
 

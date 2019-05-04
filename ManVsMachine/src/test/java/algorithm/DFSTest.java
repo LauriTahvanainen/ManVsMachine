@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class DFSTest {
 
-    private int[][] map = {
+    private final int[][] map = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 4, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 2, 1},
         {1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
@@ -32,8 +32,8 @@ public class DFSTest {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
     //coordniates of the row have a -1 offset in the route that the algorithm gives
-    private int lastX = this.map[0].length - 3;
-    private int lastY = this.map.length - 3;
+    private final int lastX = this.map[0].length - 3;
+    private final int lastY = this.map.length - 3;
     private DFS search;
 
     @Before
@@ -115,21 +115,22 @@ public class DFSTest {
         }
         fail("Route length should be random, but now all the routes are the same size");
     }
-    
+
     @Test
     public void noWallsOnRoute() {
         while (!this.search.getRoute().isEmpty()) {
             Vertex v = this.search.getRoute().pop();
-            if (map[v.getRow()/40+1][v.getColumn()/40+1] == 1) {
+            if (map[v.getRow() / 40 + 1][v.getColumn() / 40 + 1] == 1) {
                 fail("There is a wall on the route at coordinates: " + v.getRow() + ":" + v.getColumn());
             }
         }
     }
+
     @Test
     public void noWallsOnScanRoute() {
         while (!this.search.getMapScan().isEmpty()) {
             Vertex v = this.search.getMapScan().pop();
-            if (map[v.getRow()/40+1][v.getColumn()/40+1] == 1) {
+            if (map[v.getRow() / 40 + 1][v.getColumn() / 40 + 1] == 1) {
                 fail("There is a wall on the route at coordinates: " + v.getRow() + ":" + v.getColumn());
             }
         }

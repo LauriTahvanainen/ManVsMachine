@@ -10,7 +10,6 @@ import mvsm.dao.DatabaseUserDao;
 import mvsm.dao.Connector;
 import mvsm.dao.ScoreDao;
 import mvsm.dao.DatabaseScoreDao;
-import mvsm.dao.UserDao;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,7 +34,7 @@ public class DatabaseScoreDaoTest {
     File database;
 
     public DatabaseScoreDaoTest() {
-        
+
     }
 
     @Before

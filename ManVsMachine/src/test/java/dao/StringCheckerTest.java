@@ -1,4 +1,3 @@
-
 package dao;
 
 import mvsm.dao.StringChecker;
@@ -9,33 +8,30 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 public class StringCheckerTest {
-    
-    private StringChecker checker;
+
+    private final StringChecker checker;
 
     public StringCheckerTest() {
         this.checker = new StringChecker();
     }
-    
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
-    
     @Test
     public void checkUsernameRightReturnValues() {
         int ret = checker.checkUserNameUpdate("test", "test");
@@ -48,7 +44,7 @@ public class StringCheckerTest {
         ret += checker.checkUserNameUpdate("test", "Tulppu");
         assertTrue(ret == 33);
     }
-    
+
     @Test
     public void checkPasswordRigthReturnValues() {
         int ret = checker.checkPassword("Testpassword1", "Testpassword1");
