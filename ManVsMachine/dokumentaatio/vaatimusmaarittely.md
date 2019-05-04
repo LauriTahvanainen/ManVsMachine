@@ -1,7 +1,7 @@
 # Vaatimusmäärittely
 
 ## Sovelluksen tarkoitus
-Pelin tarkoituksena on ohjata oma hahmo labyrintin läpi ennen vastustajaa, algoritmia. Algoritmi-vastustaja on valittavissa eri algoritmeista. Peli mahdollistaa pelaajille huipputulosten ylöskirjaamisen, ja tarkastelun.
+Pelin tarkoituksena on ohjata oma hahmo labyrintin läpi ennen vastustajaa, algoritmia. Algoritmi-vastustaja on valittavissa eri algoritmeista. Peli mahdollistaa pelaajille huipputulosten ylös kirjaamisen, ja tarkastelun.
 
 ## Käyttäjät
 Sovelluksen käyttäjärooleja on vain yksi, *normaali käyttäjä*. Ohjelmaan on toteutettu salasanakirjautuminen. Aloitusnäkymässä käyttäjä voi kirjautua olemassa olevalla käyttäjänimellä ja salasanalla, tai siirtyä luomaan uuden käyttäjän.
@@ -20,7 +20,7 @@ Jokaisessa tilassa on sille tilalle ominaiset musiikit.
 ## Perusversion tarjoama toiminnallisuus
 
 ### Ennen kirjautumista
-* Käyttäjän on mahdollista joko kirjautua vanhalla käyttäjänimellä, tai luoda uusi käyttäjänimi jolla kirjautua.
+* Käyttäjän on mahdollista joko kirjautua vanhalla käyttäjänimellä, tai luoda uusi käyttäjänimi, jolla kirjautua.
 * Käyttäjä voi syöttää käyttäjänimensä ja salasanansa lisäyslomakkeeseen uutta käyttäjänimeä luodessa. Nimen on oltava:
 	* Vähintään 4 merkkiä, maksimissaan 16 merkkiä pitkä
 	* Uniikki
@@ -32,7 +32,7 @@ Jokaisessa tilassa on sille tilalle ominaiset musiikit.
 		* Iso kirjain
 		* Pieni kirjain
 		* Numero
-* Järjestelmä ilmoittaa jos nimi saadaan lisättyä, ja jos nimi tai salasana ei täytä vaatimuksia.
+* Järjestelmä ilmoittaa, jos nimi saadaan lisättyä, ja jos nimi tai salasana ei täytä vaatimuksia.
 
 ### Kirjautumisen jälkeen
 * Käyttäjä näkee päävalikon, josta hän voi valita:
@@ -45,10 +45,10 @@ Jokaisessa tilassa on sille tilalle ominaiset musiikit.
 * Itse pelissä on kaksi hahmoa, algoritmin hahmo, ja käyttäjän hahmo. Molempien tavoitteena on päästä ensimmäisenä maaliin.
 * Käyttäjä ohjaa hahmonsa labyrintin läpi nuolinäppäimillä
 * Pisteitä käyttäjä saa kartan voittaessa tasoon kulutetun ajan, sekä kuljetun matkan mukaan.
-* Pelin saa pauselle _esc_ näpääimestä.
+* Pelin saa pauselle _esc_ näppäimestä.
 * Pelin jälkeen käyttäjän on mahdollista joko, tallentaa tuloksensa, aloittaa peli alusta, tai palata päävalikkoon
 * Huipputuloksissa käyttäjä voi tarkastella 20 parhaan pelaajan huipputuloksia erikseen jokaisesta algoritmista, jokaisessa kartassa. Pelaajan oma tulos näytetään alleviivattuna.
-* Asetuksissa pelaajan on mahdollista mm. vaihtaa käyttäjänimensä ja salasanansa, sekä kustomoida pelihahmoaan.
+* Asetuksissa pelaajan on mahdollista mm. vaihtaa käyttäjänimensä ja salasanansa, sekä kustomoida hahmoaan.
 
 ## Jatkokehitysideoita
 
@@ -59,7 +59,7 @@ Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seura
 * Uudet algoritmit
 * Laajempi hahmon kustomointi
 * Pääkäyttäjä
-* Toiminnallisuuksien lisääminen itse peliin, esim algoritmien erikoisvoimat
+* Toiminnallisuuksien lisääminen itse peliin, esimerkiksi algoritmien erikoisvoimat
 * Huipputuloksissa voi valita näytetäänkö pelaajan omat, vai kaikkien tulokset
 * Erilaiset graafiset paketit, joista käyttäjä voi valita mieluisensa
 * Kontrollien kustomointi
