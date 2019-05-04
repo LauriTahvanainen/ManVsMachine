@@ -19,9 +19,9 @@ java -jar ManVsMachine-1.1-SNAPSHOT.jar
 
 ## Kirjautuminen
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/signin.png)
-Sovellus käynnistyy kirjautumisnäkymään, jossa käyttäjä voi joko kirjautua olemassaolevalla käyttäjätunnuksella, tai siirtyä uuden käyttäjätunnuksen luomisen.
+Sovellus käynnistyy kirjautumisnäkymään, jossa käyttäjä voi joko kirjautua olemassa olevalla käyttäjätunnuksella, tai siirtyä uuden käyttäjätunnuksen luomisen.
 
-Kirjautuminen onnistuu, kirjoittamalla olemassaoleva käyttäjänimi ja tilin salasana syötekenttiin ja painamalla _Sign In_.
+Kirjautuminen onnistuu, kirjoittamalla olemassa oleva käyttäjänimi ja tilin salasana syötekenttiin ja painamalla _Sign In_.
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/signinvisible.png)
 Silmän kuvasta salasanan saa näkyviin ja pois näkyvistä.
 
@@ -79,9 +79,9 @@ Käyttäjänimen vaihtaminen tehdään syöttämällä uusi nimi tekstikenttää
 ### Salasanan vaihtaminen
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/changepassword.png)
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/passwordupdated.png)
-Salasanan vaihtaminen tehdään syötämällä uusi salasana ja salasanan vahvistus salasanakenttiin ja painamalla _Change Password_. Salasana päivitetään jos jos on validi.
+Salasanan vaihtaminen tehdään syöttämällä uusi salasana ja salasanan vahvistus salasanakenttiin ja painamalla _Change Password_. Salasana päivitetään, jos se on validi.
 
 ### Hahmon kustomointi
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/changecolor1.png)
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/colorchanged.png)
-Käyttäjän on myös mahdollista vaihtaa pelihahmonsa väriä. Tämä tapahtuu valitsemalla mieluinen väri valintanapista avautuvalla värinvalitisimella, ja painamalla _Change Color_. Järjestelmä ilmoittaa värin vaihtumisesta.
+Käyttäjän on myös mahdollista vaihtaa pelihahmonsa väriä. Tämä tapahtuu valitsemalla mieluinen väri valintanapista avautuvalla värinvalitsimella, ja painamalla _Change Color_. Järjestelmä ilmoittaa värin vaihtumisesta.
