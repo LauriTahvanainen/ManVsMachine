@@ -112,6 +112,6 @@ Musiikin soittamista pyydetään StateManagerilta. Musiikin soittaminen tapahtuu
 Pelin vallitseva rakenne koostuu tiloista, joilla on tietyt ominaisuudet, ja jotka voivat kaikki pyytää StateManagerin palveluja. Tämä on varsin hyvä rakenne siinä mielessä, että uusien ominaisuuksien lisääminen on varsin helppoa. Pelkistettynä lisätään vain uusi tila johon peli voi siirtyä, tai päivitetään vanhan tilan toimintaa.
 
 ## Rakenteen heikkoudet
-Käyttöliittymän toteuttamiseen ei käytetty FXML:ää. Käyttöliittymäkoodi onkin varsin sekavaa, ja sillä tilat ovat nimenomaan käyttöliittymää, vaikeuttaa tämä suuresti uusien
+Käyttöliittymän toteuttamiseen ei käytetty FXML:ää. Käyttöliittymäkoodi onkin varsin sekavaa, ja sillä tilat ovat nimenomaan käyttöliittymää, vaikeuttaa tämä suuresti uusien toiminnallisuuksien luomista.
 
 
