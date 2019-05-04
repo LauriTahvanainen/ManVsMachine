@@ -52,7 +52,6 @@ Jokaisessa tilassa on sille tilalle ominaiset musiikit.
 
 ## Jatkokehitysideoita
 
-Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seuraavilla toiminnallisuuksilla
 * Omien huipputulosten nollaaminen
 * Erilaiset pelimuodot
 * Karttojen satunnaisgenerointi
