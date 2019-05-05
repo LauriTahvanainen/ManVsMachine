@@ -30,7 +30,7 @@ Käyttöliittymää lukuunottamatta pelin testauksen rivikattavuus on 94% ja haa
 ## Järjestelmätestaus
 Järjestelmätestaus on suoritettu manuaalisesti.
 ### Asennus ja konfigurointi
-Sovellus on haettu ja sitä on testattu [käyttöohjeen](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kayttoohje.md) mukaisesti x, x ja Linux-ympäristöissä, siten, että käynnistyshakemistossa on ollut käyttöohjeen mukainen config.properties-tiedosto, sekä niin, että tiedostoa ei ole ollut.
+Sovellus on haettu ja sitä on testattu [käyttöohjeen](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kayttoohje.md) mukaisesti Windows ja Linux-ympäristöissä, siten, että käynnistyshakemistossa on ollut käyttöohjeen mukainen config.properties-tiedosto, sekä niin, että tiedostoa ei ole ollut.
 
 Sovellusta on testattu myös tilanteessa, jossa config-tiedoston sisältö on virheellistä.
 
