@@ -5,7 +5,6 @@ import mvsm.algorithm.Algorithm;
 import java.util.ArrayDeque;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
 /**

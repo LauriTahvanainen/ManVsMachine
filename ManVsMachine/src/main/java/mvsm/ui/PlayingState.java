@@ -49,7 +49,7 @@ public class PlayingState extends State {
     private GridPane background;
     private Rectangle playerGoal;
     private Rectangle machineGoal;
-    private final StateManager gsm;
+    private final StateManager stateManager;
     private int[][] mapArray;
     private final ScoreDao scoreDao;
     private final MapRenderer renderer;
@@ -71,25 +71,26 @@ public class PlayingState extends State {
     private HighScoreUser currentScores;
     private String mapName;
     private String algorithmName;
+    public static final ImagePattern OVEN = new ImagePattern(new Image(PlayingState.class.getResourceAsStream("/textures/oven.png")));
 
     /**
      *
-     * @param gsm For state management and playing music.
+     * @param stateManager For state management and playing music.
      * @param scoreDao For saving high-scores.
      */
-    public PlayingState(StateManager gsm, ScoreDao scoreDao) {
+    public PlayingState(StateManager stateManager, ScoreDao scoreDao) {
         this.root = new StackPane();
         this.background = new GridPane();
         this.gameStatisticsPane = new HBox();
         this.gameStatisticsPane.setSpacing(20);
         this.endGamePane = new BorderPane();
         this.pauseButtonsPane = new BorderPane();
-        this.gsm = gsm;
+        this.stateManager = stateManager;
         this.scoreDao = scoreDao;
         this.renderer = new MapRenderer();
         this.timeScoreBoard = new Text("Time Score: 100");
         this.lengthScoreBoard = new Text("Route Length Score: 0");
-        this.physics = new GamePhysics((KeyEventHandler) this.gsm.getScene().getOnKeyPressed(), timeScoreBoard, lengthScoreBoard);
+        this.physics = new GamePhysics((KeyEventHandler) this.stateManager.getScene().getOnKeyPressed(), timeScoreBoard, lengthScoreBoard);
         this.pauseMenu = new BorderPane();
         this.saveHighScore = new Button("Save score");
         this.backToMainMenu = new Button("Back to menu");
@@ -136,13 +137,13 @@ public class PlayingState extends State {
         this.gameStatisticsPane.setAlignment(Pos.CENTER);
         this.pauseMenu.setCenterShape(true);
         this.pauseMenu.setPrefSize(1200, 720);
-        
+
         this.timeScoreBoard.setFill(Color.CORNSILK);
         this.timeScoreBoard.setStrokeType(StrokeType.CENTERED);
         this.timeScoreBoard.setTextAlignment(TextAlignment.CENTER);
         this.timeScoreBoard.setStrokeLineCap(StrokeLineCap.ROUND);
         this.timeScoreBoard.setFont(Font.font("Nova Flat", 25));
-        
+
         this.lengthScoreBoard.setFill(Color.CORNSILK);
         this.lengthScoreBoard.setStrokeType(StrokeType.CENTERED);
         this.lengthScoreBoard.setTextAlignment(TextAlignment.CENTER);
@@ -150,7 +151,7 @@ public class PlayingState extends State {
         this.lengthScoreBoard.setFont(Font.font("Nova Flat", 25));
 
         //endGame init
-        this.endGamePane.setStyle("-fx-background-color: rgba(220, 220, 250, 0.9); -fx-background-radius: 1;");
+        this.endGamePane.setStyle("-fx-background-color: rgba(142, 143, 143, 0.8); -fx-background-radius: 1;");
         VBox buttons = new VBox();
         buttons.setAlignment(Pos.CENTER);
         this.endGamePane.setCenter(buttons);
@@ -164,7 +165,7 @@ public class PlayingState extends State {
         buttons.getChildren().addAll(this.yourEndScore, this.playAgain, this.saveHighScore, this.backToMainMenu);
 
         //pause init
-        this.pauseButtonsPane.setStyle("-fx-background-color: rgba(220, 220, 250, 0.9); -fx-background-radius: 1;");
+        this.pauseButtonsPane.setStyle("-fx-background-color: rgba(142, 143, 143, 0.8); -fx-background-radius: 1;");
         VBox pauseButtons = new VBox();
         pauseButtons.setAlignment(Pos.CENTER);
         this.pauseButtonsPane.setCenter(pauseButtons);
@@ -182,9 +183,9 @@ public class PlayingState extends State {
         String bText = b.getText();
         if (bText.equals("Back to menu")) {
             this.root.getChildren().clear();
-            gsm.setCurrentState(1);
-            gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
-            gsm.playMenuMusic();
+            stateManager.setCurrentState(1);
+            stateManager.setSceneRoot(stateManager.getCurrentState().getCurrent());
+            stateManager.playMenuMusic();
             this.pauseMenu.getChildren().clear();
         }
         if (bText.equals("Restart game")) {
@@ -198,12 +199,12 @@ public class PlayingState extends State {
         }
         if (t.getTarget().equals(this.continueGame)) {
             this.pauseMenu.setCenter(null);
-            this.gsm.startLoop();
-            this.gsm.playMusic();
+            this.stateManager.startLoop();
+            this.stateManager.playMusic();
         }
         if (t.getTarget().equals(this.saveHighScore)) {
             try {
-                this.scoreDao.updateScore(this.algorithmName, this.gsm.getCurrentUser().getUsername(), this.mapName, this.finalScore);
+                this.scoreDao.updateScore(this.algorithmName, this.stateManager.getCurrentUser().getUsername(), this.mapName, this.finalScore);
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -229,10 +230,10 @@ public class PlayingState extends State {
     @Override
     public void restore(Algorithm algo, String mapName) {
         this.mapName = mapName;
-        this.player = new Sprite(this.gsm.getCurrentUser().getTexture(), 22, 26);
+        this.player = new Sprite(this.stateManager.getCurrentUser().getTexture(), 22, 26);
         this.machine = new Machine(38, 38, algo);
-        this.machineGoal = new Rectangle(40, 40, new ImagePattern(new Image(PlayingState.class.getResourceAsStream("/textures/oven.png"))));
-        this.playerGoal = new Rectangle(40, 40, this.gsm.getCurrentUser().getPortalColor());
+        this.machineGoal = new Rectangle(40, 40, OVEN);
+        this.playerGoal = new Rectangle(40, 40, this.stateManager.getCurrentUser().getPortalColor());
         this.mapArray = this.renderer.formArrayMap(mapName);
         int[] machineCoordinates = this.renderer.getSpriteCoordinates(mapArray);
         algo.setUpAlgorithm(mapArray, machineCoordinates[0], machineCoordinates[1]);
@@ -247,17 +248,17 @@ public class PlayingState extends State {
         this.finalScore = 0;
         this.algorithmName = algo.getName();
         try {
-            this.currentScores = this.scoreDao.listUser(this.algorithmName, this.gsm.getCurrentUser().getUsername());
+            this.currentScores = this.scoreDao.listUser(this.algorithmName, this.stateManager.getCurrentUser().getUsername());
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return;
         }
-        this.gsm.startLoop();
-        this.gsm.playPlayingMusic();
+        this.stateManager.startLoop();
+        this.stateManager.playPlayingMusic();
     }
 
     private void playerWin(int finalScore) {
-        gsm.stopLoop();
+        stateManager.stopLoop();
         this.yourEndScore.setText("Your Final Score: " + finalScore);
         this.finalScore = finalScore;
         if (this.currentScores.getScore(mapName) < this.finalScore) {
@@ -266,12 +267,19 @@ public class PlayingState extends State {
             this.endText.setText("You Won!\nCurrent Highscore: " + this.currentScores.getScore(mapName) + "\n");
             this.saveHighScore.setDisable(true);
         }
+        if (this.finalScore == 6666 && !this.stateManager.getCurrentUser().isDemonOpen()) {
+            this.endText.setText(this.endText.getText().concat("\nNew texture opened: 'Demon'!"));
+            this.stateManager.getCurrentUser().setDemonOpen(true);
+        } else if (this.finalScore == 1683 && !this.stateManager.getCurrentUser().isKnightOpen()) {
+            this.endText.setText(this.endText.getText().concat("New texture opened: 'Knight'!"));
+            this.stateManager.getCurrentUser().setKnightOpen(true);
+        }
         this.pauseMenu.setCenter(this.endGamePane);
         this.pauseMenu.setTop(null);
     }
 
     private void machineWin() {
-        gsm.stopLoop();
+        stateManager.stopLoop();
         this.endText.setText("You Lost!");
         this.yourEndScore.setText("Your final Score: 0");
         this.finalScore = 0;
@@ -288,13 +296,13 @@ public class PlayingState extends State {
         this.physics.restoreLevel();
         this.finalScore = 0;
         this.saveHighScore.setDisable(false);
-        this.gsm.startLoop();
-        this.gsm.playPlayingMusic();
+        this.stateManager.startLoop();
+        this.stateManager.playPlayingMusic();
     }
 
     private void pause() {
-        gsm.stopLoop();
-        this.gsm.pauseMusic();
+        stateManager.stopLoop();
+        this.stateManager.pauseMusic();
         this.pauseMenu.setCenter(this.pauseButtonsPane);
     }
 

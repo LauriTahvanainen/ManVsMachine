@@ -5,7 +5,7 @@ import mvsm.algorithm.BFS;
 import mvsm.algorithm.Vertex;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -212,6 +212,33 @@ public class MachineTest {
         scannerFindsToGoal();
         machineFindsToGoal();
         fail("Routes not restored correctly. Route size should be 47, but was : " + this.testMachine.getRoute().size() + " ScanRoute size should be 232, but was: " + this.testMachine.getScanRoute().size());
+    }
+
+    @Test
+    public void textureChangeTest() {
+        Machine machine = new Machine(30, 30, new BFS());
+        machine.getAlgorithm().setUpAlgorithm(this.map, 1, 1);
+        machine.calculateRoute(16, 28);
+        machine.getRoute().clear();
+        machine.getRoute().add(new Vertex(1, 0));
+        machine.getRoute().add(new Vertex(0, 1));
+        machine.getRoute().add(new Vertex(-1, 0));
+        machine.getRoute().add(new Vertex(0, -2));
+        Paint fill = machine.getForm().getFill();
+        assertTrue(machine.getForm().getFill().equals(fill));
+        machine.takeStep();
+        machine.takeStep();
+        machine.takeStep();
+        assertTrue(!machine.getForm().getFill().equals(fill));
+        machine.takeStep();
+        machine.takeStep();
+        machine.takeStep();
+        machine.takeStep();
+        assertTrue(!machine.getForm().getFill().equals(fill));
+        machine.takeStep();
+        machine.takeStep();
+        machine.takeStep();
+        assertTrue(machine.getForm().getFill().equals(fill));
     }
 
 }

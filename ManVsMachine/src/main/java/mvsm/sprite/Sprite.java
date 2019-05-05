@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
-import mvsm.ui.PlayingState;
 
 /**
  * Base class for all sprites in the game.
@@ -41,7 +40,7 @@ public class Sprite {
 
     /**
      * Constructs a new Sprite with the given parameters and a movementFactor
-     * set to 1.
+     * set to 1. Sets its texture.
      *
      * @param texture To fill the form with.
      * @param height Height of the form.

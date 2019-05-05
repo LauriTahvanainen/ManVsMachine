@@ -34,7 +34,7 @@ public interface ScoreDao {
      * @param map The map of which to search for.
      * @return The score as an Integer, or -1 if there was no data on the given
      * user, or if an exception was thrown.
-     * @throws SQLException
+     * @throws SQLException in case of error.
      */
     int read(String algorithm, String username, String map) throws SQLException;
 
@@ -46,7 +46,7 @@ public interface ScoreDao {
      * @param map The map to update.
      * @param score The new new score to update to.
      * @return True if the update was successful, false if it was not.
-     * @throws SQLException
+     * @throws SQLException in case of error.
      */
     boolean updateScore(String algorithm, String username, String map, int score) throws SQLException;
 
@@ -59,7 +59,7 @@ public interface ScoreDao {
      * @param mapToSortBy The map to sort the results by.
      * @return An ArrayList of HighScoreUser objects, or an empty list if the
      * table was empty.
-     * @throws SQLException
+     * @throws SQLException in case of error.
      * @see mvsm.dao.HighScoreUser
      */
     ArrayList<HighScoreUser> listAllSorted(String algorithm, String mapToSortBy) throws SQLException;
@@ -73,7 +73,7 @@ public interface ScoreDao {
      * @return A new HighScoreUser object containing the high-scores of the
      * user, or null if there was not a row in the table with the specified
      * username. against one algorithm, in all the maps.
-     * @throws SQLException
+     * @throws SQLException In case of error.
      * @see mvsm.dao.HighScoreUser
      */
     HighScoreUser listUser(String algorithm, String username) throws SQLException;

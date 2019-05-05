@@ -19,6 +19,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -80,6 +81,8 @@ public class Main extends Application {
     public void init() throws Exception {
         initFailed = false;
         this.scene = new Scene(new Pane(), WIDTH, HEIGHT);
+        this.scene.setFill(Color.BLACK);
+        this.scene.getStylesheets().add("/stylesheet.css");
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream("config.properties"));

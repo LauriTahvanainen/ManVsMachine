@@ -25,7 +25,7 @@ public class DatabaseUserDaoTest {
     DatabaseUserDao dao;
     ScoreDao scoreDao;
     File database;
-    
+
     @Before
     public void setUp() throws Exception {
         database = testFolder.newFile("testDatabase.db");
@@ -278,5 +278,51 @@ public class DatabaseUserDaoTest {
             return;
         }
         fail("Updating both the password and username does not work properly.");
+    }
+
+    @Test
+    public void defaultTextureIsGuyRed() throws SQLException {
+        this.dao.create("Test", "Test1234");
+        User user = this.dao.read("Test");
+        assertTrue(user.getTexture().equals("guyRed"));
+    }
+ 
+    @Test
+    public void changeTextureTest() throws SQLException {
+        this.dao.create("test", "Test123");
+        assertTrue(this.dao.read("test").getTexture().equals("guyRed"));
+        boolean ret = this.dao.updateTexture("test", "guyBlack");
+        assertTrue(this.dao.read("test").getTexture().equals("guyBlack") && ret);
+    }
+    
+    @Test
+    public void readUserTest() throws SQLException {
+        String pw1 = "test12";
+        String pw2 = "Test12";
+        String pw3 = "test123";
+        String pw4 = "tEst124";
+        this.dao.create("test1", pw1);
+        this.dao.create("test2", pw2);
+        this.dao.create("test3", pw3);
+        this.dao.create("test4", pw4);
+        User user = this.dao.read("test1");
+        assertTrue(user.getPassword() == pw1.hashCode() && user.getTexture().equals("guyRed") && user.getUsername().equals("test1") && user.getPortalColor().equals(Color.RED));
+        user = this.dao.read("test2");
+        assertTrue(user.getPassword() == pw2.hashCode() && user.getTexture().equals("guyRed") && user.getUsername().equals("test2") && user.getPortalColor().equals(Color.RED));
+        user = this.dao.read("test3");
+        assertTrue(user.getPassword() == pw3.hashCode() && user.getTexture().equals("guyRed") && user.getUsername().equals("test3") && user.getPortalColor().equals(Color.RED));
+        user = this.dao.read("test4");
+        assertTrue(user.getPassword() == pw4.hashCode() && user.getTexture().equals("guyRed") && user.getUsername().equals("test4") && user.getPortalColor().equals(Color.RED));
+    }
+    
+    @Test
+    public void easterEggTexturesTest() throws SQLException {
+        this.dao.create("test", "Testi12");
+        User user = this.dao.read("test");
+        assertTrue(!user.isDemonOpen() && !user.isKnightOpen());
+        boolean k = this.dao.setDemonOpen("test");
+        boolean d = this.dao.setKnightOpen("test");
+        user = this.dao.read("test");
+        assertTrue(d && k && user.isDemonOpen() && user.isKnightOpen());
     }
 }

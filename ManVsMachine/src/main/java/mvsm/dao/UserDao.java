@@ -82,4 +82,24 @@ public interface UserDao {
      * @throws SQLException
      */
     boolean updateTexture(String username, String texture) throws SQLException;
+
+    /**
+     * Updates the value of the column knightOpen to true on the user given as
+     * parameter.
+     *
+     * @param username To update to value of.
+     * @return True, if the update was successful, else false.
+     * @throws SQLException
+     */
+    boolean setKnightOpen(String username) throws SQLException;
+
+    /**
+     * Updates the value of the column demonOpen to true on the user given as
+     * parameter.
+     *
+     * @param username To update to value of.
+     * @return True, if the update was successful, else false.
+     * @throws SQLException
+     */
+    boolean setDemonOpen(String username) throws SQLException;
 }

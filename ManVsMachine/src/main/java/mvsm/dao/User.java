@@ -15,12 +15,16 @@ public class User {
     private int password;
     private Color portalColor;
     private String texture;
+    private boolean knightOpen;
+    private boolean demonOpen;
 
-    public User(String username, Color color, int password, String texture) {
+    public User(String username, Color color, int password, String texture, int knightOpen, int demonOpen) {
         this.username = username;
         this.portalColor = color;
         this.password = password;
         this.texture = texture;
+        this.knightOpen = knightOpen == 1;
+        this.demonOpen = demonOpen == 1;
     }
 
     public Color getPortalColor() {
@@ -49,6 +53,22 @@ public class User {
 
     public void setTexture(String texture) {
         this.texture = texture;
+    }
+
+    public boolean isDemonOpen() {
+        return demonOpen;
+    }
+
+    public boolean isKnightOpen() {
+        return knightOpen;
+    }
+
+    public void setDemonOpen(boolean demonOpen) {
+        this.demonOpen = demonOpen;
+    }
+
+    public void setKnightOpen(boolean knightOpen) {
+        this.knightOpen = knightOpen;
     }
 
 }

@@ -16,7 +16,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -47,6 +46,7 @@ public final class LoginState extends State {
     private final StringChecker checker;
     private PasswordField password;
     private TextField passwordVisible;
+    private Button setPwVisible1;
     private static final String RESOURCE_PATH = "/pictures/";
     private final ImageView eyeClosed = new ImageView(new Image(LoginState.class.getResourceAsStream(RESOURCE_PATH + "PwEye.png")));
     private final ImageView eyeOpen = new ImageView(new Image(LoginState.class.getResourceAsStream(RESOURCE_PATH + "PwEyeOpen.png")));
@@ -75,56 +75,61 @@ public final class LoginState extends State {
 
     @Override
     public void initPane() {
+        //graphics
+        root.setStyle("-fx-background-color: black;");
+        signInPane.setStyle("-fx-background-color: black;");
+
         //sign in view
         this.signInPane.setAlignment(Pos.CENTER);
         Button quit = new Button("Quit");
-        Button setPwVisible1 = new Button(null, eyeOpen);
-        setPwVisible1.setBackground(Background.EMPTY);
+        quit.setPrefWidth(450);
+        setPwVisible1 = new Button(null, eyeOpen);
         GridPane.setHalignment(setPwVisible1, HPos.CENTER);
         GridPane.setValignment(setPwVisible1, VPos.CENTER);
         Button signIn = new Button("Sign In");
+        signIn.setPrefWidth(450);
         Button createNewAccount = new Button("Create New Account");
-        createNewAccount.setPrefWidth(210);
+        createNewAccount.setPrefWidth(450);
         createNewAccount.setTextAlignment(TextAlignment.CENTER);
         Text usernameText = new Text("Username");
         Text passwordText = new Text("Password");
         this.errorText1 = new Text();
+        this.errorText1.getStyleClass().add("text-id");
         this.username = new TextField();
         this.password = new PasswordField();
         this.passwordVisible = new TextField();
-        username.setMaxWidth(210);
         username.setPromptText("Username");
-        password.setMaxWidth(210);
         password.setPromptText("Password");
-        this.passwordVisible.setMaxWidth(210);
         this.passwordVisible.setVisible(false);
         this.passwordVisible.setPromptText("Password");
+        this.signInPane.setVgap(5);
         this.signInPane.add(errorText1, 1, 0);
         this.signInPane.addRow(1, usernameText, username);
         this.signInPane.addRow(2, passwordText, password, setPwVisible1);
         this.signInPane.add(this.passwordVisible, 1, 2);
-        this.signInPane.addRow(3, signIn, createNewAccount, quit);
+        this.signInPane.addRow(3, new Text(""), signIn);
+        this.signInPane.addRow(4, new Text(""), createNewAccount);
+        this.signInPane.addRow(5, new Text(""), quit);
         this.signInPane.setHgap(5);
 
         //create account view
         createAccountPane.setAlignment(Pos.CENTER);
+        createAccountPane.setSpacing(5);
         Button returnB = new Button("Back to Sign In");
-        returnB.setPrefWidth(210);
+        returnB.setPrefWidth(450);
         returnB.setTextAlignment(TextAlignment.CENTER);
         this.newUsername = new TextField();
         this.newPassword1 = new PasswordField();
         this.newPassword2 = new PasswordField();
-        newUsername.setMaxWidth(210);
         newUsername.setPromptText("New Username");
-        newPassword1.setMaxWidth(210);
         newPassword1.setPromptText("New Password");
-        newPassword2.setMaxWidth(210);
         newPassword2.setPromptText("Confirm New Password");
         Button createAccount = new Button("Create Account");
-        createAccount.setPrefWidth(210);
+        createAccount.setPrefWidth(450);
         createAccount.setTextAlignment(TextAlignment.CENTER);
         this.errorText2 = new Text();
-        this.createAccountPane.getChildren().addAll(newUsername, newPassword1, newPassword2, createAccount, returnB, errorText2);
+        this.errorText2.getStyleClass().add("text-id");
+        this.createAccountPane.getChildren().addAll(errorText2, newUsername, newPassword1, newPassword2, createAccount, returnB);
     }
 
     @Override
@@ -165,7 +170,7 @@ public final class LoginState extends State {
                 if (user == null) {
                     this.username.clear();
                     this.password.clear();
-                    this.errorText1.setText("The username doesn't exist!");
+                    this.errorText1.setText("The username does not exist!");
                 } else if (this.password.getText().hashCode() != user.getPassword()) {
                     this.username.clear();
                     this.password.clear();
@@ -223,6 +228,10 @@ public final class LoginState extends State {
 
     @Override
     public void restore() {
+        this.passwordVisible.setText("");
+        this.passwordVisible.setVisible(false);
+        this.password.setDisable(false);
+        this.setPwVisible1.setGraphic(this.eyeOpen);
         this.username.clear();
         this.password.clear();
         this.errorText1.setText("");

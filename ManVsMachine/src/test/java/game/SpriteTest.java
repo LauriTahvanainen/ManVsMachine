@@ -3,9 +3,12 @@ package game;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import mvsm.sprite.Sprite;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import org.junit.Before;
@@ -140,6 +143,20 @@ public class SpriteTest {
             t = false;
         }
         assertTrue(t);
+    }
+
+    @Test
+    public void textureChangeTest() {
+        Sprite sprite = new Sprite("guyRed", 30, 30);
+        Paint fill = sprite.getForm().getFill();
+        assertTrue(sprite.getForm().getFill().equals(fill));
+        sprite.moveUp();
+        sprite.moveRight();
+        assertTrue(!sprite.getForm().getFill().equals(fill));
+        sprite.moveDown();
+        assertTrue(!sprite.getForm().getFill().equals(fill));
+        sprite.moveLeft();
+        assertTrue(sprite.getForm().getFill().equals(fill));
     }
 
 }

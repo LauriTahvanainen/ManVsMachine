@@ -12,9 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.sql.SQLException;
+import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.ImagePattern;
 
 /**
  * State representing the menu.
@@ -26,6 +31,7 @@ public final class MenuState extends State {
     private final UserDao userDao;
     private final ScoreDao scoreDao;
     private Text currentUserText;
+    private static final String PATH = "/pictures/";
 
     /**
      *
@@ -61,20 +67,22 @@ public final class MenuState extends State {
     public void initPane() {
         VBox menuNodePane = new VBox();
         menuNodePane.setAlignment(Pos.CENTER);
+        menuNodePane.setSpacing(5);
         this.menu.setCenter(menuNodePane);
+        this.menu.setBackground(new Background(new BackgroundFill(new ImagePattern(new Image(MenuState.class.getResourceAsStream(PATH + "mvsmTitle.png"))), new CornerRadii(1), Insets.EMPTY)));
         Button play = new Button("Play");
-        play.setPrefWidth(100);
         Button settings = new Button("Settings");
-        settings.setPrefWidth(100);
         Button highScores = new Button("Highscores");
-        highScores.setPrefWidth(100);
         Button signOut = new Button("Sign Out");
-        signOut.setPrefWidth(100);
         Button quit = new Button("Quit");
-        quit.setPrefWidth(100);
+        play.setPrefWidth(300);
+        settings.setPrefWidth(300);
+        highScores.setPrefWidth(300);
+        signOut.setPrefWidth(300);
+        quit.setPrefWidth(300);
         this.currentUserText = new Text();
-        this.currentUserText.setTranslateY(200);
-        this.currentUserText.setFont(Font.font("verdana", 20));
+        this.currentUserText.getStyleClass().add("menu-text");
+        this.currentUserText.setTranslateY(100);
         menuNodePane.getChildren().addAll(play, highScores, settings, signOut, quit, currentUserText);
     }
 
@@ -97,9 +105,34 @@ public final class MenuState extends State {
             gsm.playLoginMusic();
             gsm.setCurrentState(0);
             gsm.getCurrentState().restore();
+            if (this.gsm.getCurrentUser().isDemonOpen()) {
+                try {
+                    this.userDao.setDemonOpen(this.gsm.getCurrentUser().getUsername());
+                } catch (SQLException ex) {
+                }
+            }
+            if (this.gsm.getCurrentUser().isKnightOpen()) {
+                try {
+                    this.userDao.setKnightOpen(this.gsm.getCurrentUser().getUsername());
+                } catch (SQLException ex) {
+                }
+            }
             gsm.setCurrentUser(null);
             gsm.setSceneRoot(gsm.getCurrentState().getCurrent());
+
         } else {
+            if (this.gsm.getCurrentUser().isDemonOpen()) {
+                try {
+                    this.userDao.setDemonOpen(this.gsm.getCurrentUser().getUsername());
+                } catch (SQLException ex) {
+                }
+            }
+            if (this.gsm.getCurrentUser().isKnightOpen()) {
+                try {
+                    this.userDao.setKnightOpen(this.gsm.getCurrentUser().getUsername());
+                } catch (SQLException ex) {
+                }
+            }
             Platform.exit();
         }
     }
@@ -110,7 +143,7 @@ public final class MenuState extends State {
      */
     @Override
     public void restore() {
-        this.currentUserText.setText("Current user: " + this.gsm.getCurrentUser().getUsername());
+        this.currentUserText.setText("Current User: " + this.gsm.getCurrentUser().getUsername());
         try {
             this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "BFS");
             this.scoreDao.createDefault(this.gsm.getCurrentUser().getUsername(), "DFS");

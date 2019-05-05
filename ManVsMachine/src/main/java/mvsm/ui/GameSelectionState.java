@@ -5,6 +5,7 @@ import mvsm.algorithm.Algorithm;
 import mvsm.statemanagement.State;
 import mvsm.statemanagement.StateManager;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -15,8 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import mvsm.algorithm.DFS;
 import mvsm.algorithm.Dijkstra;
@@ -64,14 +63,16 @@ public class GameSelectionState extends State {
 
     @Override
     public void initPane() {
+        this.root.setStyle("-fx-background-color: black;");
         this.algorithmSelect.setPrefSize(1200, 720);
+        this.algorithmSelect.setPadding(new Insets(60, 5, 5, 5));
         this.mapSelect.setPrefSize(1200, 720);
+        this.mapSelect.setPadding(new Insets(60, 107, 5, 107));
         this.root.getChildren().addAll(this.algorithmSelect, this.mapSelect);
         this.mapSelect.setVisible(false);
 
         this.currentAlgoText = new Text();
-        Font font = new Font("Didact Gothic", 40);
-        this.currentAlgoText.setFont(font);
+        this.currentAlgoText.getStyleClass().add("text-id");
     }
 
     @Override
@@ -154,35 +155,37 @@ public class GameSelectionState extends State {
         this.algorithmSelect.setVisible(true);
 
         //algorithmSelect navigation buttons
-        VBox buttons = new VBox();
+        HBox buttons = new HBox();
         buttons.setAlignment(Pos.CENTER);
+        buttons.setSpacing(5);
         Button backToMenu = new Button("Back to Menu");
         backToMenu.setId("Menu");
         buttons.getChildren().add(backToMenu);
-        this.algorithmSelect.setLeft(buttons);
+        this.algorithmSelect.setTop(buttons);
 
-        //mapSelect navigation buttons
-        VBox buttons2 = new VBox();
-        buttons2.setAlignment(Pos.CENTER);
+        //mapSelect navigation buttons and current algorithm text.
+        HBox mapSelectTop = new HBox();
+        mapSelectTop.setAlignment(Pos.CENTER);
+        mapSelectTop.setSpacing(5);
         Button backToMenu2 = new Button("Back to Menu");
         backToMenu2.setId("Menu");
+        backToMenu2.getStyleClass().add("mapSelect-button2");
         Button backToAlgoSelect = new Button("Back to Algorithm Selection");
         backToAlgoSelect.setId("Back2Algo");
-        buttons2.getChildren().addAll(backToMenu2, backToAlgoSelect);
-        this.mapSelect.setLeft(buttons2);
+        backToAlgoSelect.getStyleClass().add("mapSelect-button");
+        mapSelectTop.getChildren().addAll(this.currentAlgoText, backToMenu2, backToAlgoSelect);
+        this.mapSelect.setTop(mapSelectTop);
 
         //algorithm select buttons
         Button bfs = new Button("BFS");
-        bfs.setFont(Font.font(30));
         bfs.setId("BFS");
-        bfs.setPrefSize(100, 100);
+        bfs.setPrefSize(300, 300);
         Button dfs = new Button("DFS");
-        dfs.setFont(Font.font(30));
         dfs.setId("DFS");
-        dfs.setPrefSize(100, 100);
+        dfs.setPrefSize(300, 300);
         Button dijkstra = new Button("Dijkstra");
         dijkstra.setId("DIJKSTRA");
-        dijkstra.setPrefSize(100, 100);
+        dijkstra.setPrefSize(300, 300);
 
         GridPane algoButtons = new GridPane();
         algoButtons.setAlignment(Pos.CENTER);
@@ -208,19 +211,11 @@ public class GameSelectionState extends State {
 
         GridPane mapButtons = new GridPane();
         mapButtons.setAlignment(Pos.CENTER);
-        mapButtons.setHgap(20);
-        mapButtons.setVgap(30);
         mapButtons.addRow(0, map1, map2);
         mapButtons.addRow(1, map3, map4);
         mapButtons.addRow(2, map5, map6);
         this.mapScroller.setContent(mapButtons);
         this.mapSelect.setCenter(this.mapScroller);
-
-        //current algorithm selection text
-        HBox mapSelectTop = new HBox();
-        mapSelectTop.setAlignment(Pos.CENTER);
-        mapSelectTop.getChildren().add(this.currentAlgoText);
-        this.mapSelect.setTop(mapSelectTop);
     }
 
     @Override

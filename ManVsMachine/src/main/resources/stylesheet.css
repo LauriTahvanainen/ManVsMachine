@@ -1,0 +1,110 @@
+
+.button {
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-border-width: 2;
+    -fx-font-family:'FreeMono';
+    -fx-background-radius: 7;
+    -fx-border-color: #8f775c;
+    -fx-background-color: #8e8f8f;
+    -fx-font-size: 30px;
+}
+
+.text-field {
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-font-family:'FreeMono';
+    -fx-default-button:true;
+    -fx-background-radius: 7;
+    -fx-border-color: #8f775c;
+    -fx-background-color: white;
+    -fx-font-size: 30px;
+    -fx-pref-width: 450;
+    -fx-max-width: 450;
+}
+.button:hover {
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 7;
+    -fx-border-color: #8f775c;
+    -fx-background-color: #8f775c;
+}
+.button:pressed {
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 7;
+    -fx-border-color: #8f775c;
+    -fx-background-color:#b13203;
+}
+.button:focused {
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 7;
+    -fx-border-color: #8f775c;
+    -fx-background-color: #8f775c;
+}
+
+.text {
+    -fx-fill:#fef3ee;
+    -fx-text-alignment:center;
+    -fx-text-smoothing-type:lcd;
+    -fx-text-size: 25px;
+    -fx-font-family:'FreeMono';
+}
+
+.text-id {
+    -fx-fill:#eb6431;
+    -fx-text-alignment:center;
+    -fx-text-font-family: 'FreeMono';
+    -fx-font-smoothing-type:lcd;
+    -fx-font-size: 25px;
+}
+.blacktext-id {
+    -fx-fill: black;
+    -fx-text-alignment:center;
+    -fx-text-font-family: 'FreeMono';
+    -fx-font-smoothing-type:lcd;
+    -fx-font-size: 25px;
+}
+
+.menu-text {
+    -fx-fill:#eb6431;
+    -fx-font-size: 45px;
+}
+
+
+.highscore-button {
+    -fx-font-size: 24px;
+    -fx-max-width:212;
+    -fx-pref-width:212;
+}
+
+.custChar-button {
+    -fx-font-size: 25px;
+    -fx-max-width:390;
+    -fx-pref-width:390;
+}
+
+.mapSelect-button {
+    -fx-font-size: 23px;
+    -fx-max-width:550;
+    -fx-pref-width:550;
+}
+.mapSelect-button2 {
+    -fx-font-size: 24px;
+    -fx-max-width:340;
+    -fx-pref-width:340;
+}
+
+.scroll-bar {
+    -fx-background-color: #8e8f8f;
+}
+
+.scroll-pane {
+    -fx-background: black;
+    -fx-background-color: black;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #eb6431;
+}

@@ -8,6 +8,7 @@ import mvsm.statemanagement.StateManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -106,15 +107,20 @@ public class HighscoreState extends State {
 
         //selector
         this.root.getChildren().addAll(this.selectionPane, this.scorePane);
+        this.selectionPane.setPadding(new Insets(20, 0, 0, 20));
 
         //Buttons and selectionview
         VBox buttons = new VBox();
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(10);
+        this.backToMenu.getStyleClass().add("highscore-button");
+        this.bfs.getStyleClass().add("highscore-button");
+        this.dfs.getStyleClass().add("highscore-button");
+        this.dijkstra.getStyleClass().add("highscore-button");
         buttons.getChildren().addAll(this.backToMenu, this.bfs, this.dfs, this.dijkstra);
         this.selectionPane.setLeft(buttons);
 
-        this.selectedAlgoText.setFont(font);
+        this.selectedAlgoText.getStyleClass().add("text-id");
         HBox selectedPane = new HBox();
         selectedPane.setAlignment(Pos.CENTER);
         selectedPane.getChildren().add(this.selectedAlgoText);
@@ -122,6 +128,7 @@ public class HighscoreState extends State {
 
         //Mapscrolling view
         this.selectionPane.setCenter(this.mapScroller);
+        this.selectionPane.setStyle("-fx-background-color: black;");
         this.mapScroller.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         //map select view
@@ -146,8 +153,8 @@ public class HighscoreState extends State {
         this.scorePane.setMaxSize(1120, 640);
         this.scorePane.setCenter(this.scoreScroller);
         this.scorePane.setTop(info);
-        this.scorePane.setStyle("-fx-background-color: rgba(220, 220, 250, 0.95); -fx-background-radius: 1;");
-        this.scoreScroller.setStyle("-fx-background: rgba(220, 220, 250, 0.1); -fx-background-radius: 1; -fx-background-color: transparent;");
+        this.scorePane.setStyle("-fx-background-color: rgba(142, 143, 143, 0.95); -fx-background-radius: 1;");
+        this.scoreScroller.setStyle("-fx-background: rgba(142, 143, 143, 0.1); -fx-background-radius: 1; -fx-background-color: transparent;");
         this.scoreScroller.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         this.scorePane.setVisible(false);
         //list
@@ -249,6 +256,7 @@ public class HighscoreState extends State {
 
     @Override
     public void restore() {
+        this.mapScroller.setVisible(false);
         this.mapScroller.setContent(null);
         this.selectedAlgo = "-";
         this.selectedAlgoText.setText("Selected: -");
@@ -264,15 +272,15 @@ public class HighscoreState extends State {
         this.scoreList.getChildren().clear();
         this.algInfo.setText(algo);
         this.mapInfo.setText("Map " + map.charAt(3));
-        Font font = new Font("Didact Gothic", 60);
+        Font font = new Font("FreeMono", 60);
         Text username = new Text("Username");
         Text score = new Text("Score");
         username.setFont(font);
         score.setFont(font);
         this.scoreList.add(username, 1, 0);
         this.scoreList.add(score, 2, 0);
-        Font font2 = new Font("Didact Gothic", 40);
-        Font font3 = new Font("Didact Gothic", 30);
+        Font font2 = new Font("FreeMono", 40);
+        Font font3 = new Font("FreeMono", 30);
         Text curUser = new Text(currentUser.getName());
         Text curUserScore = new Text(currentUser.getScoreAsString(map));
         curUser.setFont(font2);
@@ -304,16 +312,13 @@ public class HighscoreState extends State {
 
     private void showMaps() {
         GridPane maps = new GridPane();
-
         maps.setAlignment(Pos.CENTER);
-        maps.setHgap(10);
-        maps.setVgap(10);
-
         maps.getChildren().clear();
         maps.addRow(0, this.map1, this.map2);
         maps.addRow(1, this.map3, this.map4);
         maps.addRow(2, this.map5, this.map6);
         this.mapScroller.setContent(maps);
+        this.mapScroller.setVisible(true);
     }
 
     private void setSelectedAlgo(String algo) {
