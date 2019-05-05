@@ -48,7 +48,7 @@ Jokaisessa tilassa on sille tilalle ominaiset musiikit.
 * Pelin saa pauselle _esc_ näppäimestä.
 * Pelin jälkeen käyttäjän on mahdollista joko, tallentaa tuloksensa, aloittaa peli alusta, tai palata päävalikkoon
 * Huipputuloksissa käyttäjä voi tarkastella 20 parhaan pelaajan huipputuloksia erikseen jokaisesta algoritmista, jokaisessa kartassa. Pelaajan oma tulos näytetään alleviivattuna.
-* Asetuksissa pelaajan on mahdollista mm. vaihtaa käyttäjänimensä ja salasanansa, sekä kustomoida hahmoaan.
+* Asetuksissa pelaajan on mahdollista mm. vaihtaa käyttäjänimensä ja salasanansa, hahmonsa tekstuuri, sekä valita portaalinsa väri.
 
 ## Jatkokehitysideoita
 
