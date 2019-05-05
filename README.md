@@ -20,6 +20,8 @@ Pelin tavoitteena on ohjata oma hahmo labyrintin läpi portaalille ennen vastust
 
 [Viikko 6: V1.1](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/viikko6)
 
+[Loppupalautus](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/loppupalautus)
+
 ## Komentorivitoiminnot
 
 ### Testaus
