@@ -30,5 +30,5 @@
 |  2.5. |  7   | Musiikkien toteuttaminen. Uusi algoritmivastustaja DFS. |
 |  3.5. |  12  | Dokumentointia ja testaamista. Pelin tekstuurien uusiminen. Koneen hidastumisen eri terrainilla toteuttaminen. |
 |  4.5. |  12   | Loppupalautuksen viimeistelyä, Dijkstran algoritmin toteutus pleiin. Tekstuurien luominen koneelle ja pelaajalle, sekä pelaajan tekstuurinvalinnan toteuttaminen. |
-|  5.5. |  10  | Tekstuurien parantamista, palautuksen viimeistely. |
-| yht   |  175 |  | 
+|  5.5. |  12  | Tekstuurien parantamista, palautuksen viimeistely, lisää karttoja. |
+| yht   |  177 |  | 

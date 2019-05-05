@@ -142,6 +142,26 @@ public class GameSelectionState extends State {
                     this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
                     this.sm.getCurrentState().restore(selectedAlgorithm, "map6");
                 }
+                if (target.getId().equals("map7")) {
+                    this.sm.setCurrentState(2);
+                    this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+                    this.sm.getCurrentState().restore(selectedAlgorithm, "map7");
+                }
+                if (target.getId().equals("map8")) {
+                    this.sm.setCurrentState(2);
+                    this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+                    this.sm.getCurrentState().restore(selectedAlgorithm, "map8");
+                }
+                if (target.getId().equals("map9")) {
+                    this.sm.setCurrentState(2);
+                    this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+                    this.sm.getCurrentState().restore(selectedAlgorithm, "map9");
+                }
+                if (target.getId().equals("map10")) {
+                    this.sm.setCurrentState(2);
+                    this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+                    this.sm.getCurrentState().restore(selectedAlgorithm, "map10");
+                }
             }
         }
     }
@@ -208,12 +228,22 @@ public class GameSelectionState extends State {
         map5.setId("map5");
         Button map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map6.png"))));
         map6.setId("map6");
+        Button map7 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map7.png"))));
+        map7.setId("map7");
+        Button map8 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map8.png"))));
+        map8.setId("map8");
+        Button map9 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map9.png"))));
+        map9.setId("map9");
+        Button map10 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map10.png"))));
+        map10.setId("map10");
 
         GridPane mapButtons = new GridPane();
         mapButtons.setAlignment(Pos.CENTER);
         mapButtons.addRow(0, map1, map2);
         mapButtons.addRow(1, map3, map4);
         mapButtons.addRow(2, map5, map6);
+        mapButtons.addRow(3, map7, map8);
+        mapButtons.addRow(4, map9, map10);
         this.mapScroller.setContent(mapButtons);
         this.mapSelect.setCenter(this.mapScroller);
     }

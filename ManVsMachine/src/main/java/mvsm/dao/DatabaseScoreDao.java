@@ -64,12 +64,19 @@ public class DatabaseScoreDao implements ScoreDao {
             ArrayList<HighScoreUser> ret = new ArrayList<>();
             while (rs.next()) {
                 HighScoreUser user = new HighScoreUser(rs.getString("username"));
-                user.addScore("map1", rs.getInt("map1"));
-                user.addScore("map2", rs.getInt("map2"));
-                user.addScore("map3", rs.getInt("map3"));
-                user.addScore("map4", rs.getInt("map4"));
-                user.addScore("map5", rs.getInt("map5"));
-                user.addScore("map6", rs.getInt("map6"));
+                for (int i = 1; i < 11; i++) {
+                    user.addScore("map" + i, rs.getInt("map" + i));
+                }
+//                user.addScore("map1", rs.getInt("map1"));
+//                user.addScore("map2", rs.getInt("map2"));
+//                user.addScore("map3", rs.getInt("map3"));
+//                user.addScore("map4", rs.getInt("map4"));
+//                user.addScore("map5", rs.getInt("map5"));
+//                user.addScore("map6", rs.getInt("map6"));
+//                user.addScore("map7", rs.getInt("map7"));
+//                user.addScore("map8", rs.getInt("map8"));
+//                user.addScore("map9", rs.getInt("map9"));
+//                user.addScore("map10", rs.getInt("map10"));
                 ret.add(user);
             }
             return ret;
@@ -86,12 +93,19 @@ public class DatabaseScoreDao implements ScoreDao {
                 return null;
             }
             HighScoreUser ret = new HighScoreUser(username);
-            ret.addScore("map1", rs.getInt("map1"));
-            ret.addScore("map2", rs.getInt("map2"));
-            ret.addScore("map3", rs.getInt("map3"));
-            ret.addScore("map4", rs.getInt("map4"));
-            ret.addScore("map5", rs.getInt("map5"));
-            ret.addScore("map6", rs.getInt("map6"));
+            for (int i = 1; i < 11; i++) {
+                ret.addScore("map" + i, rs.getInt("map" + i));
+            }
+//            ret.addScore("map1", rs.getInt("map1"));
+//            ret.addScore("map2", rs.getInt("map2"));
+//            ret.addScore("map3", rs.getInt("map3"));
+//            ret.addScore("map4", rs.getInt("map4"));
+//            ret.addScore("map5", rs.getInt("map5"));
+//            ret.addScore("map6", rs.getInt("map6"));
+//            ret.addScore("map7", rs.getInt("map7"));
+//            ret.addScore("map8", rs.getInt("map8"));
+//            ret.addScore("map9", rs.getInt("map9"));
+//            ret.addScore("map10", rs.getInt("map10"));
             return ret;
         }
     }

@@ -47,6 +47,10 @@ public class HighscoreState extends State {
     private Button map4;
     private Button map5;
     private Button map6;
+    private Button map7;
+    private Button map8;
+    private Button map9;
+    private Button map10;
     private final Button backToMapSelect;
     private final Text algInfo;
     private final Text mapInfo;
@@ -235,6 +239,42 @@ public class HighscoreState extends State {
             this.scorePane.setVisible(true);
             this.selectionPane.setDisable(true);
         }
+        if (t.getTarget().equals(this.map7)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map7"), "map7", this.selectedAlgo);
+            } catch (SQLException ex) {
+                return;
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
+        if (t.getTarget().equals(this.map8)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map8"), "map8", this.selectedAlgo);
+            } catch (SQLException ex) {
+                return;
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
+        if (t.getTarget().equals(this.map9)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map9"), "map9", this.selectedAlgo);
+            } catch (SQLException ex) {
+                return;
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
+        if (t.getTarget().equals(this.map10)) {
+            try {
+                formScoreList(this.scoreDao.listAllSorted(this.selectedAlgo, "map10"), "map10", this.selectedAlgo);
+            } catch (SQLException ex) {
+                return;
+            }
+            this.scorePane.setVisible(true);
+            this.selectionPane.setDisable(true);
+        }
         if (t.getTarget().equals(this.backToMapSelect)) {
             this.scorePane.setVisible(false);
             this.selectionPane.setDisable(false);
@@ -258,7 +298,11 @@ public class HighscoreState extends State {
         HighScoreUser currentUser = this.scoreDao.listUser(algo, this.sm.getCurrentUser().getUsername());
         this.scoreList.getChildren().clear();
         this.algInfo.setText(algo);
-        this.mapInfo.setText("Map " + map.charAt(3));
+        if (!map.equals("map10")) {
+            this.mapInfo.setText("Map " + map.charAt(3));
+        } else {
+            this.mapInfo.setText("Map " + map.charAt(3) + map.charAt(4));
+        }
         Font font = new Font("FreeMono", 60);
         Text username = new Text("Username");
         Text score = new Text("Score");
@@ -309,6 +353,10 @@ public class HighscoreState extends State {
             this.map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map4.png"))));
             this.map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map5.png"))));
             this.map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map6.png"))));
+            this.map7 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map7.png"))));
+            this.map8 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map8.png"))));
+            this.map9 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map9.png"))));
+            this.map10 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map10.png"))));
 
             this.map1.setId("map1");
             this.map2.setId("map2");
@@ -316,10 +364,16 @@ public class HighscoreState extends State {
             this.map4.setId("map4");
             this.map5.setId("map5");
             this.map6.setId("map6");
+            this.map7.setId("map7");
+            this.map8.setId("map8");
+            this.map9.setId("map9");
+            this.map10.setId("map10");
 
             maps.addRow(0, this.map1, this.map2);
             maps.addRow(1, this.map3, this.map4);
             maps.addRow(2, this.map5, this.map6);
+            maps.addRow(3, this.map7, this.map8);
+            maps.addRow(4, this.map9, this.map10);
             this.mapScroller.setContent(maps);
             this.mapScroller.setVisible(true);
         }
