@@ -125,7 +125,7 @@ public class GamePhysics {
 
     private boolean wallCollisionCheck() {
         for (Node node : this.background.getChildren()) {
-            if (node.equals(this.machine.getForm()) || node.equals(this.machineGoal) || node.equals(this.playerGoal) || Tile.SCAN_TILE.nodeEqualsTile(node)) {
+            if (node.equals(this.machine.getForm()) || node.equals(this.machineGoal) || node.equals(this.playerGoal) || Tile.SCAN_TILE.nodeEqualsTile(node) || node.equals(this.machine.getScanner().getScannerHead())) {
                 continue;
             }
             if (this.machine.checkCollision(node)) {
