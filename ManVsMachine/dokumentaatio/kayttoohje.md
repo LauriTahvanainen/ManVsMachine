@@ -59,7 +59,7 @@ Pelin päätyttyä pelaajalle aukeaa valikko, jossa hän voi: aloittaa pelin alu
 
 ## Pisteytys
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/playing.png)
-Lopullinen tason pisteyty koostuu kahdesta osasta: aikapisteistä(Time Score), ja pituuspisteistä(Route Length). Pelaaja saa siis sitä enemmän pisteitä, mitä pidemmän reitin hän kulkee ja mitä lyhyemmässä ajassa. Jos kone voittaa, on pelaajan tulos 0 pistettä.
+Lopullinen tason pisteytys koostuu kahdesta osasta: aikapisteistä(Time Score), ja pituuspisteistä(Route Length). Pelaaja saa siis sitä enemmän pisteitä, mitä pidemmän reitin hän kulkee ja mitä lyhyemmässä ajassa. Jos kone voittaa, on pelaajan tulos 0 pistettä.
 
 ## Huipputulosten tarkastelu
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/highscoremenu.png)
@@ -69,7 +69,7 @@ Huipputulosten tarkastelu näkymässä pelaaja voi valita algoritmin, ja tarkast
 
 ## Asetukset
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/settingsmenu.png)
-Asetuksissa käyttäjä voi vaihtaa käyttäjänimensä, salasanansa, sekä hahmonsa värin.
+Asetuksissa käyttäjä voi vaihtaa käyttäjänimensä, salasanansa, pelaajan tekstuurinsa, sekä portaalinsa värin.
 
 ### Käyttäjänimen vaihtaminen
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/updateusername.png)
@@ -81,7 +81,16 @@ Käyttäjänimen vaihtaminen tehdään syöttämällä uusi nimi tekstikenttää
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/passwordupdated.png)
 Salasanan vaihtaminen tehdään syöttämällä uusi salasana ja salasanan vahvistus salasanakenttiin ja painamalla _Change Password_. Salasana päivitetään, jos se on validi.
 
-### Hahmon kustomointi
+### Kustomointi
+![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/charcustview.png)
+Painamalla settings-valikossa nappia _Customize Character_, pelaaja voi siirtyä kustomointivalikkoon.
+#### Portaalin värin vaihtaminen
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/changecolor1.png)
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/colorchanged.png)
-Käyttäjän on myös mahdollista vaihtaa pelihahmonsa väriä. Tämä tapahtuu valitsemalla mieluinen väri valintanapista avautuvalla värinvalitsimella, ja painamalla _Change Color_. Järjestelmä ilmoittaa värin vaihtumisesta.
+Valitsemalla _Change Portal Color_ voi siirtyä vaihtamaan maaliportaalin väriä. Tämä tapahtuu valitsemalla mieluinen väri valintanapista avautuvalla värinvalitsimella, ja painamalla _Change Color_. Järjestelmä ilmoittaa värin vaihtumisesta.
+
+#### Pelaajan tekstuurin vaihtaminen
+![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/changetexture.png)
+![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/textureupdated.png)
+Valitsemalla _Change Sprite Texture_ voi siirtyä valikkoon, jossa voi vaihtaa pelaajan hahmon tekstuuria. Ylhäällä näytetään pelaajan nykyinen tekstuuri. Vaihtaminen tapahtuu painamalla haluttua tekstuuria. Järjestelmä ilmoittaa tekstuurin vaihtamisesta
+
