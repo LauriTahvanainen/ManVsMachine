@@ -96,7 +96,7 @@ public class DatabaseScoreDaoTest {
     @Test
     public void readInvalidParametersTest() throws SQLException {
         int score = this.scoreDao.read("BFS", "Test11", "map1");
-        score += this.scoreDao.read("BFS", "Test2", "map7");
+        score += this.scoreDao.read("BFS", "Test2", "map111");
         if (score == -2) {
             return;
         }
