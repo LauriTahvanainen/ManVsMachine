@@ -1,6 +1,9 @@
 # Ohjelmistotekniikka, harjoitustyö
 ## [ManVsMachine-peli](https://github.com/LauriTahvanainen/ot-harjoitustyo/tree/master/ManVsMachine) 
-Pelin tarkoituksena on ohjata oma hahmo labyrintin läpi ennen vastustajaa, algoritmia. Algoritmi-vastustaja on valittavissa eri algoritmeista. Peli mahdollistaa pelaajille huipputulosten ylöskirjaamisen, ja tarkastelun.
+Peli sijoittuu vaihtoehtoiseen todellisuuteen, jossa yli-innokkaat robotit yrittävät pakkosyöttää pelaajan kuoliaaksi maksalaatikolla. Ainoa mahdollisuus pakenemiseen vaikuttaisi olevan mystinen portaali, joka palauttaa pelaajan tähän täysin samaan todellisuuteen. Ehditkö portaalille ennen kuin robotti uunittaa maksalaatikkonsa?
+
+Pelin tavoitteena on ohjata oma hahmo labyrintin läpi portaalille ennen vastustajaa, algoritmia. Algoritmi-vastustaja on valittavissa eri algoritmeista. Peli mahdollistaa pelaajille huipputulosten ylöskirjaamisen, ja tarkastelun.
+
 ### Dokumentaatio
 [Vaatimusmäärittely](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/vaatimusmaarittely.md)
 
@@ -65,9 +68,18 @@ Tiedoston [checkstyle.xml](https://github.com/LauriTahvanainen/ot-harjoitustyo/b
 
 Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
 
-
-Osa musiikeista miksattu: 
+### Materials
+Parts of music mixed from: 
 [Machine Takeover by TeknoAXE](https://www.youtube.com/watch?v=pyYZQOy082o)
 
-[Lisenssi](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/TeknoAxeLicence.pdf)
+[Licence](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/TeknoAxeLicence.pdf)
 
+Textures
+##### Seinät
+[Wall cover 5](https://opengameart.org/content/wall-cover-5) by Georges "TRaK" Grondin, under the [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) licence. 
+
+##### Uuni
+[Oven](https://opengameart.org/content/oven) by [Santoniche](https://opengameart.org/users/santoniche), under the [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) Some parts of the oven were cut to fit the other textures.
+
+##### Muut tekstuurit
+Other textures under the public domain, mainly from [opengameart.org](https://opengameart.org/). Sprite textures by [Umz](https://opengameart.org/users/umz).
