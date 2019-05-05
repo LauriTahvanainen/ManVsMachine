@@ -6,7 +6,10 @@ import mvsm.dao.User;
 import mvsm.statemanagement.State;
 import mvsm.statemanagement.StateManager;
 import java.sql.SQLException;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -22,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 import mvsm.dao.StringChecker;
 
 /**
@@ -94,6 +98,18 @@ public final class LoginState extends State {
         Text usernameText = new Text("Username");
         Text passwordText = new Text("Password");
         this.errorText1 = new Text();
+        //timer for the errortext
+        this.errorText1.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!errorText1.getText().equals("")) {
+                    PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                    delay.setOnFinished(event -> errorText1.setText(""));
+                    delay.play();
+                }
+            }
+
+        });
         this.errorText1.getStyleClass().add("text-id");
         this.username = new TextField();
         this.password = new PasswordField();
@@ -128,6 +144,18 @@ public final class LoginState extends State {
         createAccount.setPrefWidth(450);
         createAccount.setTextAlignment(TextAlignment.CENTER);
         this.errorText2 = new Text();
+        //Timer for the errorText;
+        this.errorText2.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!errorText2.getText().equals("")) {
+                    PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                    delay.setOnFinished(event -> errorText2.setText(""));
+                    delay.play();
+                }
+            }
+
+        });
         this.errorText2.getStyleClass().add("text-id");
         this.createAccountPane.getChildren().addAll(errorText2, newUsername, newPassword1, newPassword2, createAccount, returnB);
     }

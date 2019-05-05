@@ -491,10 +491,15 @@ public class SettingsState extends State {
         chef.setId("chef");
         chef.setMaxSize(78, 84);
         chef.setPrefSize(78, 84);
+        Button soldier = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/soldierLeft.png"))));
+        soldier.setId("soldier");
+        soldier.setMaxSize(78, 84);
+        soldier.setPrefSize(78, 84);
 
         this.texturePane.addRow(0, guyRed, guyBlack, guyWhite);
         this.texturePane.addRow(1, guyBlue, guyYellow, guyBrown);
         this.texturePane.addRow(2, guyGreen, guyPink, chef);
+        this.texturePane.addRow(3, soldier);
 
         if (this.stateM.getCurrentUser().isDemonOpen()) {
             Button demon = new Button(null, new ImageView(new Image(SettingsState.class.getResourceAsStream("/textures/demonLeft.png"))));
