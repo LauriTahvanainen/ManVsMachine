@@ -107,19 +107,19 @@ public class GamePhysics {
     private void updatePlayerPosition() {
         if (this.handler.getKeyCodes().contains(KeyCode.UP)) {
             this.player.moveUp();
-            this.lengthScore += 0.5;
+            this.lengthScore += 0.5 * this.player.getMovementFactor();
         }
         if (this.handler.getKeyCodes().contains(KeyCode.DOWN)) {
             this.player.moveDown();
-            this.lengthScore += 0.5;
+            this.lengthScore += 0.5 * this.player.getMovementFactor();
         }
         if (this.handler.getKeyCodes().contains(KeyCode.LEFT)) {
             this.player.moveLeft();
-            this.lengthScore += 0.5;
+            this.lengthScore += 0.5 * this.player.getMovementFactor();
         }
         if (this.handler.getKeyCodes().contains(KeyCode.RIGHT)) {
             this.player.moveRight();
-            this.lengthScore += 0.5;
+            this.lengthScore += 0.5 * this.player.getMovementFactor();
         }
     }
 

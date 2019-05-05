@@ -156,4 +156,8 @@ public class Sprite {
         this.form.setTranslateY(0);
     }
 
+    public double getMovementFactor() {
+        return movementFactor;
+    }
+
 }
