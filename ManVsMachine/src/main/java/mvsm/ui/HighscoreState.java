@@ -41,12 +41,12 @@ public class HighscoreState extends State {
     private final ScrollPane scoreScroller;
     private final StateManager sm;
     private final GridPane scoreList;
-    private final Button map1;
-    private final Button map2;
-    private final Button map3;
-    private final Button map4;
-    private final Button map5;
-    private final Button map6;
+    private Button map1;
+    private Button map2;
+    private Button map3;
+    private Button map4;
+    private Button map5;
+    private Button map6;
     private final Button backToMapSelect;
     private final Text algInfo;
     private final Text mapInfo;
@@ -77,12 +77,6 @@ public class HighscoreState extends State {
         this.mapInfo = new Text();
         this.selectedAlgo = "-";
         this.selectedAlgoText = new Text("Selected: " + selectedAlgo);
-        this.map1 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map1.png"))));
-        this.map2 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map2.png"))));
-        this.map3 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
-        this.map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map4.png"))));
-        this.map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map5.png"))));
-        this.map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map6.png"))));
         initPane();
     }
 
@@ -131,14 +125,6 @@ public class HighscoreState extends State {
         this.selectionPane.setStyle("-fx-background-color: black;");
         this.mapScroller.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        //map select view
-        this.map1.setId("map1");
-        this.map2.setId("map2");
-        this.map3.setId("map3");
-        this.map4.setId("map4");
-        this.map5.setId("map5");
-        this.map6.setId("map6");
-
         //scoreview
         VBox buttons2 = new VBox();
         HBox info = new HBox();
@@ -181,6 +167,7 @@ public class HighscoreState extends State {
         if (t.getTarget().equals(this.backToMenu)) {
             this.sm.setCurrentState(1);
             this.sm.setSceneRoot(this.sm.getCurrentState().getCurrent());
+            clearMaps();
         }
         if (t.getTarget().equals(this.bfs)) {
             showMaps();
@@ -311,19 +298,45 @@ public class HighscoreState extends State {
     }
 
     private void showMaps() {
-        GridPane maps = new GridPane();
-        maps.setAlignment(Pos.CENTER);
-        maps.getChildren().clear();
-        maps.addRow(0, this.map1, this.map2);
-        maps.addRow(1, this.map3, this.map4);
-        maps.addRow(2, this.map5, this.map6);
-        this.mapScroller.setContent(maps);
-        this.mapScroller.setVisible(true);
+        if (map1 == null) {
+            GridPane maps = new GridPane();
+            maps.setAlignment(Pos.CENTER);
+            maps.getChildren().clear();
+
+            this.map1 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map1.png"))));
+            this.map2 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map2.png"))));
+            this.map3 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map3.png"))));
+            this.map4 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map4.png"))));
+            this.map5 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map5.png"))));
+            this.map6 = new Button(null, new ImageView(new Image(HighscoreState.class.getResourceAsStream(RESOURCE_PATH + "map6.png"))));
+
+            this.map1.setId("map1");
+            this.map2.setId("map2");
+            this.map3.setId("map3");
+            this.map4.setId("map4");
+            this.map5.setId("map5");
+            this.map6.setId("map6");
+
+            maps.addRow(0, this.map1, this.map2);
+            maps.addRow(1, this.map3, this.map4);
+            maps.addRow(2, this.map5, this.map6);
+            this.mapScroller.setContent(maps);
+            this.mapScroller.setVisible(true);
+        }
     }
 
     private void setSelectedAlgo(String algo) {
         this.selectedAlgo = algo;
         this.selectedAlgoText.setText("Selected: " + algo);
+    }
+
+    private void clearMaps() {
+        this.map1 = null;
+        this.map2 = null;
+        this.map3 = null;
+        this.map4 = null;
+        this.map5 = null;
+        this.map6 = null;
     }
 
 }
