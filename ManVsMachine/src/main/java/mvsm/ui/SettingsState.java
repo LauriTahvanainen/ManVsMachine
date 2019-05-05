@@ -182,6 +182,7 @@ public class SettingsState extends State {
     public final void initPane() {
         this.root.getChildren().addAll(this.settingsPane, this.changeUsernamePane, this.custCharPane, this.changePasswordPane);
         this.root.setAlignment(Pos.CENTER);
+        this.root.setStyle("-fx-background-color: black;");
 
         //settings view
         this.settingsPane.setAlignment(Pos.CENTER);
@@ -199,6 +200,7 @@ public class SettingsState extends State {
         this.changeUsernamePane.setMaxSize(1120, 640);
         this.changeUsernamePane.setStyle("-fx-background-color: rgba(142, 143, 143, 0.8); -fx-background-radius: 1;");
         this.newUserNameInput.setPrefWidth(450);
+        this.newUserNameInput.setPromptText("New Username");
         this.cancel1.setPrefWidth(450);
         this.changeUsername2.setPrefWidth(450);
         this.changeUsernamePane.getChildren().addAll(this.errorText, this.newUserNameInput, this.changeUsername2, this.cancel1);
