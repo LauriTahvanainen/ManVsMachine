@@ -64,7 +64,7 @@ Lopullinen tason pisteyty koostuu kahdesta osasta: aikapisteistä(Time Score), j
 ## Huipputulosten tarkastelu
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/highscoremenu.png)
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/highscoremapselect.png)
-![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/highscoremap1bfs.png)
+![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/highscoremap1dijkstra.png)
 Huipputulosten tarkastelu näkymässä pelaaja voi valita algoritmin, ja tarkastella sitten sitä algoritmia vastaan tehtyjä tuloksia jokaisessa sen algoritmin sallimassa kartassa. Kartan valinta aukeaa lähes samaan tapaan kuin peliä aloittaessa. Kartan valittua näytetään pelaajalle hänen oma tuloksensa ylimpänä ja alleviivattuna, sekä 20 parasta tulosta. Tuloksia voi näkyä vain käyttäjiltä, jotka ovat kirjautuneet vähintään kerran peliin. Käyttäjän oma tulos on myös alleviivattu näiden 20 tuloksen joukossa, jos se kuuluu niihin.
 
 ## Asetukset
