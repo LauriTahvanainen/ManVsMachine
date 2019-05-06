@@ -16,7 +16,7 @@ Ohjelma käynnistetään komennolla
 ```
 java -jar ManVsMachine-V2.1.jar
 ```
-Huom. Windows alustalla peli pyörii liian hitaasti tällä hetkellä! Jos haluat pelata peliä Windowsilla turboasetuksilla(nopeutettuna) lisää käynnistettäessä _jar_ parametri jälkeen parametri _Djavafx.animation.fullspeed=true_(omalla vastuulla).
+Huom. Windows alustalla peli pyörii liian hitaasti tällä hetkellä! Jos haluat pelata peliä Windowsilla turboasetuksilla(nopeutettuna) lisää käynnistettäessä _jar_ parametri jälkeen parametri (omalla vastuulla) _Djavafx.animation.fullspeed=true_.
 
 ## Kirjautuminen
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/signin.png)
