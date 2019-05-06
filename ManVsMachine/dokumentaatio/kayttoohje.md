@@ -1,5 +1,5 @@
 # Käyttöohje
-Lataa tiedosto [ManVsMachine-1.1-SNAPSHOT.jar](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/viikko6)
+Lataa tiedosto [ManVsMachine-2.1.jar](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/v2.1)
 
 ## Konfigurointi
 Ohjelma etsii käynnistyshakemistosta konfiguraatiotiedostoa config.properties, joka määrittelee tietokannan sijainnin ja nimen. Sijainnin on oltava muodossa:
@@ -14,8 +14,9 @@ Jos konfiguraatiotiedostoa ei ole, luo ohjelma tämän tiedoston default-tiedost
 ## Ohjelman käynnistäminen
 Ohjelma käynnistetään komennolla
 ```
-java -jar ManVsMachine-1.1-SNAPSHOT.jar
+java -jar ManVsMachine-V2.1.jar
 ```
+Huom. Windows alustalla peli pyörii liian hitaasti tällä hetkellä! Jos haluat pelata peliä Windowsilla turboasetuksilla(nopeutettuna) lisää käynnistettäessä _jar_ parametri jälkeen parametri _Djavafx.animation.fullspeed=true_(omalla vastuulla).
 
 ## Kirjautuminen
 ![](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/signin.png)
