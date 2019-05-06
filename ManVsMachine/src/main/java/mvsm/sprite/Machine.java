@@ -21,7 +21,6 @@ public class Machine extends Sprite {
     private static final ImagePattern FILL2 = new ImagePattern(new Image(Machine.class.getResourceAsStream("/textures/cooking_mechLeft.png")));
     private final Algorithm algorithm;
     private ArrayDeque<Vertex> route;
-    private ArrayDeque<Vertex> routeBackUp;
     private Scanner scanner;
 
     /**
@@ -84,13 +83,6 @@ public class Machine extends Sprite {
     }
 
     /**
-     * Restores the calculated route from the routeBackUp.
-     */
-    public void restoreRoute() {
-        this.route = this.routeBackUp.clone();
-    }
-
-    /**
      * Calls the calculateRoute(int goalX, int goalY) of the algorithm. Then
      * gets the calculated route from the algorithm and saves a backup of it.
      * Finally, creates a scanner with the calculated scan route as parameter.
@@ -105,8 +97,16 @@ public class Machine extends Sprite {
     public void calculateRoute(int goalX, int goalY) {
         this.algorithm.calculateRoute(goalX, goalY);
         this.route = this.algorithm.getRoute();
-        this.routeBackUp = this.route.clone();
         this.scanner = new Scanner(this.algorithm.getMapScan());
+    }
+
+    /**
+     * Recalculates the route to the goal.
+     */
+    public void reCalculate() {
+        algorithm.reCalculate();
+        this.route = this.algorithm.getRoute();
+        this.scanner.restoreScanRoute(this.algorithm.getMapScan());
     }
 
     /**
@@ -119,4 +119,5 @@ public class Machine extends Sprite {
         this.getForm().setTranslateX(coorX);
         this.getForm().setTranslateY(coorY);
     }
+
 }

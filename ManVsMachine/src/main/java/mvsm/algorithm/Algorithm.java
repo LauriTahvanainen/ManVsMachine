@@ -53,4 +53,9 @@ public abstract class Algorithm {
     public abstract void setUpAlgorithm(int[][] map, int startY, int startX);
 
     public abstract String getName();
+
+    /**
+     * reCalculate the route from the start, to the goal.
+     */
+    public abstract void reCalculate();
 }

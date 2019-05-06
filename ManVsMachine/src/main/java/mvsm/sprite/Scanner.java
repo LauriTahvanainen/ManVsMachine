@@ -19,12 +19,10 @@ public class Scanner {
 
     private final Rectangle scannerHead;
     private ArrayDeque<Vertex> scanRoute;
-    private final ArrayDeque<Vertex> scanRouteBackUp;
     private GridPane backGround;
 
     /**
-     * Creates a new instance of a Scanner with a route to scan along, a backed
-     * up scan route, and an invisible form.
+     * Creates a new instance of a Scanner with a route to scan along and an invisible form.
      *
      * @param scanRoute The route to scan along.
      */
@@ -32,7 +30,6 @@ public class Scanner {
         this.scannerHead = new Rectangle(10, 10);
         this.scannerHead.setFill(Color.rgb(255, 2, 255, 0));
         this.scanRoute = scanRoute;
-        this.scanRouteBackUp = this.scanRoute.clone();
         GridPane.setHalignment(scannerHead, HPos.CENTER);
     }
 
@@ -90,10 +87,11 @@ public class Scanner {
     }
 
     /**
-     * Restore scanRoute from backup.
+     * Restore scanRoute from a new route calculation;
+     * @param scanRoute The new scan route.
      */
-    public void restoreScanRoute() {
-        this.scanRoute = this.scanRouteBackUp.clone();
+    public void restoreScanRoute(ArrayDeque<Vertex> scanRoute) {
+        this.scanRoute = scanRoute;
     }
 
     /**

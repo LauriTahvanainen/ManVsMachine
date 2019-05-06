@@ -197,15 +197,14 @@ public class MachineTest {
     }
 
     @Test
-    public void restoreRoutesTest() {
+    public void reCalculateTest() {
         while (!this.testMachine.getScanRoute().isEmpty()) {
             this.testMachine.scanNext();
         }
         while (!this.testMachine.getRoute().isEmpty()) {
             this.testMachine.takeStep();
         }
-        this.testMachine.restoreRoute();
-        this.testMachine.getScanner().restoreScanRoute();
+        this.testMachine.reCalculate();
         if (this.testMachine.getRoute().size() == 47 && this.testMachine.getScanRoute().size() == 232) {
             return;
         }

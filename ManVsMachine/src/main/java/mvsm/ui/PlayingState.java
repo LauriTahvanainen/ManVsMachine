@@ -71,6 +71,7 @@ public class PlayingState extends State {
     private HighScoreUser currentScores;
     private String mapName;
     private String algorithmName;
+    private int[] coordinates;
     public static final ImagePattern OVEN = new ImagePattern(new Image(PlayingState.class.getResourceAsStream("/textures/oven.png")));
 
     /**
@@ -151,9 +152,13 @@ public class PlayingState extends State {
         this.lengthScoreBoard.setFont(Font.font("Nova Flat", 25));
 
         //endGame init
+        this.playAgain.setPrefWidth(300);
+        this.backToMainMenu.setPrefWidth(300);
+        this.saveHighScore.setPrefWidth(300);
         this.endGamePane.setStyle("-fx-background-color: rgba(142, 143, 143, 0.8); -fx-background-radius: 1;");
         VBox buttons = new VBox();
         buttons.setAlignment(Pos.CENTER);
+        buttons.setSpacing(5);
         this.endGamePane.setCenter(buttons);
         this.endGamePane.setPadding(new Insets(100));
         this.endGamePane.setTop(this.endText);
@@ -165,11 +170,17 @@ public class PlayingState extends State {
         buttons.getChildren().addAll(this.yourEndScore, this.playAgain, this.saveHighScore, this.backToMainMenu);
 
         //pause init
+        this.continueGame.setPrefWidth(300);
+        this.restart.setPrefWidth(300);
+        Button backToMainMenu2 = new Button("Back to menu");
+        backToMainMenu2.setPrefWidth(300);
+        this.continueGame.setPrefWidth(300);
         this.pauseButtonsPane.setStyle("-fx-background-color: rgba(142, 143, 143, 0.8); -fx-background-radius: 1;");
         VBox pauseButtons = new VBox();
         pauseButtons.setAlignment(Pos.CENTER);
+        pauseButtons.setSpacing(5);
         this.pauseButtonsPane.setCenter(pauseButtons);
-        pauseButtons.getChildren().addAll(this.continueGame, this.restart, new Button("Back to menu"));
+        pauseButtons.getChildren().addAll(this.continueGame, this.restart, backToMainMenu2);
     }
 
     @Override
@@ -235,16 +246,16 @@ public class PlayingState extends State {
         this.machineGoal = new Rectangle(40, 40, OVEN);
         this.playerGoal = new Rectangle(40, 40, this.stateManager.getCurrentUser().getPortalColor());
         this.mapArray = this.renderer.formArrayMap(mapName);
-        int[] machineCoordinates = this.renderer.getSpriteCoordinates(mapArray);
-        algo.setUpAlgorithm(mapArray, machineCoordinates[0], machineCoordinates[1]);
-        this.machine.calculateRoute(machineCoordinates[2], machineCoordinates[3]);
+        coordinates = this.renderer.getSpriteCoordinates(mapArray);
+        algo.setUpAlgorithm(mapArray, coordinates[0], coordinates[1]);
+        this.machine.calculateRoute(coordinates[2], coordinates[3]);
         this.background = renderer.renderMap(mapArray);
-        this.renderer.placeSpritesOnMap(machineCoordinates, background, player, machine, playerGoal, machineGoal);
+        this.renderer.placeSpritesOnMap(coordinates, background, player, machine, playerGoal, machineGoal);
         this.machine.getScanner().setBackground(background);
         this.saveHighScore.setDisable(false);
         this.pauseMenu.setTop(this.gameStatisticsPane);
         this.root.getChildren().addAll(this.background, this.pauseMenu);
-        this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, machineCoordinates[1], machineCoordinates[0]);
+        this.physics.setUpPhysicsWorld(background, player, machine, playerGoal, machineGoal, coordinates[1], coordinates[0]);
         this.finalScore = 0;
         this.algorithmName = algo.getName();
         try {

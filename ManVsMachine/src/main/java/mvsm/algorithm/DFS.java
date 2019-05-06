@@ -133,4 +133,11 @@ public class DFS extends Algorithm {
         return "DFS";
     }
 
+    @Override
+    public void reCalculate() {
+        this.calculated = false;
+        setUpAlgorithm(map, startY, startX);
+        calculateRoute(goalX, goalY);
+    }
+
 }

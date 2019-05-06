@@ -422,7 +422,7 @@ public class SettingsState extends State {
         if (ret == 1) {
             this.stateM.getCurrentUser().setUsername(username);
             this.errorText.setText("Username updated!");
-        } else if (ret == 0) {
+        } else if (ret == -1) {
             this.errorText.setText("Given username has already been taken!");
         } else if (ret == 2) {
             this.errorText.setText("The new username is the same as the old one! Username not updated!");

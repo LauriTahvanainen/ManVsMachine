@@ -210,8 +210,7 @@ public class GamePhysics {
     public void restoreLevel() {
         this.player.clearTranslate();
         this.machine.setTranslates(this.machineRestoreX, this.machineRestoreY);
-        this.machine.restoreRoute();
-        this.machine.getScanner().restoreScanRoute();
+        this.machine.reCalculate();
         this.machine.getScanner().clearTranslate();
         restoreScore();
         clearScan();

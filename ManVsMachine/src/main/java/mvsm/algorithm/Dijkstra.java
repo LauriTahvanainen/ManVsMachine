@@ -21,6 +21,9 @@ public class Dijkstra extends Algorithm {
     private PriorityQueue<DistanceNode> heap;
     private int startX;
     private int startY;
+    private int goalX;
+    private int goalY;
+    private int[][] map;
 
     /**
      * Calculate the shortest route to the goal with the use of Dijkstras
@@ -31,6 +34,8 @@ public class Dijkstra extends Algorithm {
      */
     @Override
     public void calculateRoute(int goalX, int goalY) {
+        this.goalX = goalX;
+        this.goalY = goalY;
         while (!heap.isEmpty()) {
             DistanceNode next = heap.poll();
             Vertex nextVer = next.getVertex();
@@ -73,6 +78,7 @@ public class Dijkstra extends Algorithm {
 
     @Override
     public void setUpAlgorithm(int[][] map, int startY, int startX) {
+        this.map = map;
         this.startY = startY;
         this.startX = startX;
         visited = new boolean[map.length][map[0].length];
@@ -141,6 +147,12 @@ public class Dijkstra extends Algorithm {
         } else {
             this.neighbours[row][col].add(new Edge(new Vertex(row + rowOffset, col + colOffset), 1));
         }
+    }
+
+    @Override
+    public void reCalculate() {
+        setUpAlgorithm(map, startY, startX);
+        calculateRoute(goalX, goalY);
     }
 
 }

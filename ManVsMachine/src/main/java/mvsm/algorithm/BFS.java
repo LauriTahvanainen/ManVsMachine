@@ -17,6 +17,8 @@ public class BFS extends Algorithm {
     private Vertex[][] routeMap;
     private int startY;
     private int startX;
+    private int goalX;
+    private int goalY;
 
     /**
      * Calculate the shortest route to the goal using Breadth First Search
@@ -27,6 +29,8 @@ public class BFS extends Algorithm {
      */
     @Override
     public void calculateRoute(int goalX, int goalY) {
+        this.goalX = goalX;
+        this.goalY = goalY;
         while (!this.queue.isEmpty() && !this.visited[goalX][goalY]) {
             Vertex v = this.queue.poll();
             checkTile(v, 1, 0);
@@ -84,6 +88,12 @@ public class BFS extends Algorithm {
     @Override
     public String getName() {
         return "BFS";
+    }
+
+    @Override
+    public void reCalculate() {
+        setUpAlgorithm(map, startY, startX);
+        calculateRoute(goalX, goalY);
     }
 
 }
