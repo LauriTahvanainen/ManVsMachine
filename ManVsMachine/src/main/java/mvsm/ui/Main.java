@@ -50,7 +50,7 @@ public class Main extends Application {
             stage.show();
         } else {
             Text error = new Text("Databasepath in the config.properties file was was wrong.\nCheck that the directories in the path actually exist!\n\nClosing the program");
-            error.setFont(Font.font(30));
+            error.getStyleClass().add("text-id");
             VBox pane = new VBox();
             pane.setAlignment(Pos.CENTER);
             pane.getChildren().add(error);
