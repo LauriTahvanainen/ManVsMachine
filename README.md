@@ -4,7 +4,7 @@ Peli sijoittuu vaihtoehtoiseen todellisuuteen, jossa yli-innokkaat robotit yritt
 
 Pelin tavoitteena on ohjata oma hahmo labyrintin läpi portaalille ennen vastustajaa, algoritmia. Algoritmi-vastustaja on valittavissa eri algoritmeista. Peli mahdollistaa pelaajille huipputulosten ylöskirjaamisen, ja tarkastelun. Ei toimi Windows alustalla tällä hetkellä.
 
-A small 2D game where you try to solve a maze before an algortihm. Does not work on Windows at the moment.
+A small 2D game where you try to solve a maze before an algorithm. Does not work on Windows at the moment.
 
 ### Dokumentaatio
 [Vaatimusmäärittely](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/vaatimusmaarittely.md)
