@@ -79,11 +79,11 @@ Parts of music mixed from:
 [Licence](https://github.com/LauriTahvanainen/ot-harjoitustyo/blob/master/ManVsMachine/dokumentaatio/kuvat/TeknoAxeLicence.pdf)
 
 Textures
-##### Seinät
+##### Walls
 [Wall cover 5](https://opengameart.org/content/wall-cover-5) by Georges "TRaK" Grondin, under the [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) licence. 
 
-##### Uuni
+##### Oven
 [Oven](https://opengameart.org/content/oven) by [Santoniche](https://opengameart.org/users/santoniche), under the [(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) Some parts of the oven were cut to fit the other textures.
 
-##### Muut tekstuurit
+##### Other textures
 Other textures under the public domain, mainly from [opengameart.org](https://opengameart.org/). Sprite textures by [Umz](https://opengameart.org/users/umz).
