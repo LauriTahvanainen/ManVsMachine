@@ -24,6 +24,8 @@ A small 2D game where you try to solve a maze before an algorithm. Does not work
 
 [Loppupalautus](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/loppupalautus)
 
+[V2.1 (Latest Release)](https://github.com/LauriTahvanainen/ot-harjoitustyo/releases/tag/v2.1)
+
 ## Komentorivitoiminnot
 
 ### Testaus
